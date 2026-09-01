@@ -36,12 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Header Scroll Effect
     const header = document.getElementById('header');
+    let lastScrollY = window.scrollY;
+
     window.addEventListener('scroll', () => {
+        // Dynamic hiding/showing
+        if (window.scrollY > lastScrollY && window.scrollY > 150) {
+            header.classList.add('header-hidden');
+        } else {
+            header.classList.remove('header-hidden');
+        }
+
         if (window.scrollY > 50) {
             header.classList.add('scrolled');
         } else {
             header.classList.remove('scrolled');
         }
+
+        lastScrollY = window.scrollY;
 
         // Active section indicator
         let current = '';

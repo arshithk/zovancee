@@ -14,11 +14,12 @@
 
     /* Layout */
     --max-width: 1280px;
-    --nav-height: 100px;
-    --section-pad: 100px 24px;
+    --nav-height: 90px;
+    --section-pad: 70px 24px;
 
     /* Typography */
-    --font-main: 'Inter', sans-serif;
+    --font-main: 'Outfit', sans-serif;
+    --font-heading: 'Space Grotesk', sans-serif;
 
     /* Effects */
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -44,7 +45,7 @@ body {
     font-family: var(--font-main);
     color: var(--clr-text);
     background-color: var(--clr-white);
-    line-height: 1.6;
+    line-height: 1.7;
     overflow-x: hidden;
 }
 
@@ -74,12 +75,14 @@ h6 {
     line-height: 1.2;
     margin-bottom: 1rem;
     font-weight: 700;
+    font-family: var(--font-heading);
+    letter-spacing: -0.03em;
 }
 
 .section-title {
     font-size: clamp(2rem, 4vw, 3rem);
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .text-center {
@@ -169,7 +172,11 @@ section {
     height: var(--nav-height);
     background-color: var(--clr-white);
     z-index: 1000;
-    transition: var(--transition);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
+}
+
+.header.header-hidden {
+    transform: translateY(-100%);
 }
 
 .header.scrolled {
@@ -236,8 +243,9 @@ section {
    HERO SECTION
    ========================================================================= */
 .hero {
-    padding-top: calc(var(--nav-height) + 60px);
-    min-height: 100vh;
+    padding-top: calc(var(--nav-height) + 40px);
+    padding-bottom: 40px;
+    min-height: 85vh;
     display: flex;
     align-items: center;
 }
@@ -250,10 +258,12 @@ section {
 }
 
 .hero-content h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
     margin-bottom: 24px;
-    color: var(--clr-dark-blue);
     font-weight: 800;
+    color: var(--clr-dark-blue);
+    line-height: 1.1;
+    letter-spacing: -0.04em;
 }
 
 .hero-content p {
@@ -312,7 +322,7 @@ section {
         left: -100%;
         width: 100%;
         height: calc(100vh - var(--nav-height));
-        background-color: var(--clr-white);
+        background-color: var(--clr-dark-blue);
         flex-direction: column;
         align-items: center;
         justify-content: center;
@@ -339,7 +349,7 @@ section {
    ABOUT US SECTION
    ========================================================================= */
 .about {
-    padding-top: 100px;
+    padding-top: 70px;
 }
 
 .about h2 {
@@ -572,7 +582,7 @@ section {
    FOOTER
    ========================================================================= */
 .footer {
-    padding: 80px 24px 24px;
+    padding: 60px 24px 24px;
 }
 
 .footer-grid {
