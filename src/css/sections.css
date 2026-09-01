@@ -4,9 +4,9 @@ section {
 }
 
 .section-header {
-    text-align: center;
+    text-align: left;
     max-width: 800px;
-    margin: 0 auto var(--spacing-lg);
+    margin: 0 0 var(--spacing-lg) 0;
 }
 
 .zoho-divider {
@@ -14,7 +14,15 @@ section {
     width: 80px;
     background: linear-gradient(to right, var(--color-zoho-red), var(--color-zoho-yellow), var(--color-zoho-green), var(--color-accent));
     border-radius: 4px;
-    margin: 1.5rem auto;
+    margin: 1.5rem 0;
+}
+
+.zoho-gradient-text {
+    background: linear-gradient(to right, var(--color-zoho-red), var(--color-zoho-yellow), var(--color-zoho-green), var(--color-zoho-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
 }
 
 /* Bento Grid System for Services / Features */
