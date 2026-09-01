@@ -83,3 +83,189 @@
         animation: none;
     }
 }
+
+/* Ecosystem Orbit Chart */
+.ecosystem-chart {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
+    overflow: visible;
+}
+
+.eco-ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+}
+
+.eco-ring::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1.5px dashed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.ring-1 {
+    width: 35%;
+    height: 35%;
+    animation: spin-cw 20s linear infinite;
+}
+
+.ring-1::before {
+    border-color: var(--color-zoho-teal);
+}
+
+.ring-1 .eco-node {
+    animation: spin-ccw 20s linear infinite;
+}
+
+.node-finance {
+    color: var(--color-zoho-teal);
+}
+
+.node-automation {
+    color: var(--color-zoho-teal);
+}
+
+.ring-2 {
+    width: 55%;
+    height: 55%;
+    animation: spin-ccw 30s linear infinite;
+}
+
+.ring-2::before {
+    border-color: var(--color-zoho-yellow);
+}
+
+.ring-2 .eco-node {
+    animation: spin-cw 30s linear infinite;
+}
+
+.node-projects {
+    color: var(--color-zoho-yellow);
+}
+
+.ring-3 {
+    width: 75%;
+    height: 75%;
+    animation: spin-cw 40s linear infinite;
+}
+
+.ring-3::before {
+    border-color: var(--color-zoho-red);
+}
+
+.ring-3 .eco-node {
+    animation: spin-ccw 40s linear infinite;
+}
+
+.node-crm {
+    color: var(--color-zoho-red);
+}
+
+.node-analytics {
+    color: var(--color-zoho-red);
+}
+
+.ring-4 {
+    width: 95%;
+    height: 95%;
+    animation: spin-ccw 55s linear infinite;
+}
+
+.ring-4::before {
+    border-color: var(--color-zoho-green);
+}
+
+.ring-4 .eco-node {
+    animation: spin-cw 55s linear infinite;
+}
+
+.node-sales {
+    color: var(--color-zoho-green);
+}
+
+.node-payroll {
+    color: var(--color-zoho-green);
+}
+
+.node-zoho-one {
+    color: var(--color-zoho-yellow);
+}
+
+.eco-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--color-primary);
+    color: var(--color-white);
+    padding: 1rem 2.5rem;
+    border-radius: 2.5rem;
+    font-weight: 700;
+    font-size: 1.5rem;
+    box-shadow: 0 15px 35px rgba(10, 31, 68, 0.4);
+    z-index: 10;
+    white-space: nowrap;
+    animation: floating-center 4s ease-in-out infinite;
+}
+
+.eco-node {
+    position: absolute;
+    font-weight: 700;
+    font-size: 1.15rem;
+    transform: translate(-50%, -50%);
+    background: var(--color-white);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.eco-node:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    transition: transform 0.2s ease;
+    cursor: default;
+}
+
+/* Animation Keyframes */
+@keyframes spin-cw {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes spin-ccw {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(-360deg);
+    }
+}
+
+@keyframes floating-center {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%);
+        box-shadow: 0 15px 35px rgba(10, 31, 68, 0.4);
+    }
+
+    50% {
+        transform: translate(-50%, -60%);
+        box-shadow: 0 30px 45px rgba(10, 31, 68, 0.2);
+    }
+}
