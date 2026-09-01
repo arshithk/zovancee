@@ -1,0 +1,181 @@
+/* Section Layouts */
+section {
+    padding-block: var(--spacing-md);
+}
+
+.section-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto var(--spacing-lg);
+}
+
+.zoho-divider {
+    height: 4px;
+    width: 80px;
+    background: linear-gradient(to right, var(--color-zoho-red), var(--color-zoho-yellow), var(--color-zoho-green), var(--color-accent));
+    border-radius: 4px;
+    margin: 1.5rem auto;
+}
+
+/* Bento Grid System for Services / Features */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.bento-item {
+    background-color: var(--color-white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.bento-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.bento-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-background-light);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-accent);
+    font-size: 1.5rem;
+}
+
+/* Alternating Feature Sections */
+.feature-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .feature-split {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.feature-image img {
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Trust Strip / Partners */
+.trust-strip {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding-block: var(--spacing-lg);
+    text-align: center;
+}
+
+.trust-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-md);
+    opacity: 0.8;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: var(--color-white);
+    text-align: center;
+    border-radius: var(--border-radius-xl);
+    margin-block: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-md);
+}
+
+.cta-section .btn-secondary {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+}
+
+/* Contact Form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius-md);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all var(--transition-fast);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
+
+/* Custom Zoho Accents */
+.zoho-border-top {
+    border-top: 4px solid;
+    border-image: linear-gradient(to right, var(--color-zoho-red), var(--color-zoho-yellow), var(--color-zoho-green), var(--color-accent)) 1;
+}
+
+.text-zoho-gradient {
+    background: linear-gradient(135deg, var(--color-zoho-red), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Bento Hover Accents */
+.bento-item {
+    border: 1px solid transparent;
+}
+
+.bento-item.zoho-hover-red:hover {
+    box-shadow: 0 10px 30px rgba(245, 101, 101, 0.15);
+    border-color: rgba(245, 101, 101, 0.4);
+}
+
+.bento-item.zoho-hover-green:hover {
+    box-shadow: 0 10px 30px rgba(72, 187, 120, 0.15);
+    border-color: rgba(72, 187, 120, 0.4);
+}
+
+.bento-item.zoho-hover-blue:hover {
+    box-shadow: 0 10px 30px rgba(0, 102, 255, 0.15);
+    border-color: rgba(0, 102, 255, 0.4);
+}
+
+.bento-item.zoho-hover-yellow:hover {
+    box-shadow: 0 10px 30px rgba(236, 201, 75, 0.15);
+    border-color: rgba(236, 201, 75, 0.4);
+}
+
+.bento-item.zoho-hover-purple:hover {
+    box-shadow: 0 10px 30px rgba(159, 122, 234, 0.15);
+    border-color: rgba(159, 122, 234, 0.4);
+}

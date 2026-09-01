@@ -1,0 +1,15 @@
+{
+  "name": "zovance-website",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint:js": "eslint \"src/**/*.js\""
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "stylelint": "^15.0.0",
+    "eslint": "^8.0.0"
+  }
+}
