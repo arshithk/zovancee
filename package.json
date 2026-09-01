@@ -7,8 +7,10 @@
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:js": "eslint \"src/**/*.js\""
   },
+  "dependencies": {
+    "vite": "^5.0.0"
+  },
   "devDependencies": {
-    "vite": "^5.0.0",
     "stylelint": "^15.0.0",
     "eslint": "^8.0.0"
   }
