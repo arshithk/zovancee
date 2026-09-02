@@ -94,51 +94,69 @@
             <div class="zoho-divider" style="margin: 1.5rem 0;"></div>
         </div>
 
-        <!-- Step 2: Centered Content -->
-        <div class="reveal reveal-delay-1"
-            style="text-align: center; max-width: 750px; margin: 3rem auto; position: relative;">
-            <span
-                style="position: absolute; top: -3rem; left: -2rem; font-size: 10rem; color: rgba(0, 102, 255, 0.05); font-family: Georgia, serif; font-weight: bold; line-height: 1; pointer-events: none;">"</span>
-            <p class="body-large"
-                style="color: var(--color-primary); line-height: 1.8; font-size: 1.35rem; font-weight: 500; position: relative; z-index: 1;">
-                We specialize in transforming complex business pipelines into streamlined workflows using the full suite
-                of Zoho applications. Our team of certified architects design high-end tech ecosystems that scale
-                dynamically with your ambitions.
-            </p>
-        </div>
+        <!-- Redesigned Creative Split -->
+        <style>
+            @media(min-width: 992px) {
+                .about-split {
+                    grid-template-columns: 1fr 1fr !important;
+                }
+            }
+        </style>
+        <div class="about-split reveal reveal-delay-1"
+            style="display: grid; grid-template-columns: 1fr; gap: 4rem; align-items: center; margin-top: 3rem; padding-bottom: 3rem;">
 
-        <!-- Step 3: Gallery Wall -->
-        <div class="reveal reveal-delay-2"
-            style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 800px; margin: 4rem auto; align-items: start; padding-bottom: 2rem;">
-
-            <div style="display: grid; gap: 2rem;">
-                <!-- Top Left: Portrait -->
-                <div style="border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow-md); border: 8px solid var(--color-white); aspect-ratio: 4/5; width: 100%; transition: transform 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/src/assets/zovance-about-real.png" alt="Architecture"
-                        style="width: 100%; height: 100%; object-fit: cover;" />
-                </div>
-                <!-- Bottom Left: Landscape -->
-                <div style="border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow-md); border: 8px solid var(--color-white); aspect-ratio: 16/9; width: 100%; transition: transform 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/src/assets/zovance-dashboard-mockup.png" alt="Team"
-                        style="width: 100%; height: 100%; object-fit: cover;" />
+            <!-- Left: Expanded Text Box -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <p class="body-large"
+                    style="color: var(--color-primary); font-size: 1.25rem; font-weight: 500; font-family: Georgia, serif; font-style: italic; border-left: 4px solid var(--color-accent); padding-left: 1.5rem; margin: 0;">
+                    "We specialize in transforming complex business pipelines into streamlined workflows using the full
+                    suite of Zoho applications."
+                </p>
+                <p style="color: var(--text-muted); line-height: 1.7; margin: 0;">
+                    Our team of certified architects design high-end tech ecosystems that scale dynamically with your
+                    ambitions. We go beyond basic implementation—we analyze your core operational bottlenecks and
+                    engineer precise, automated solutions that fuel long-term organic growth.
+                </p>
+                <div
+                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                    <div style="background: var(--color-white); padding: 1.25rem; border-radius: 1rem; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s ease;"
+                        onmouseover="this.style.transform='translateY(-5px)'"
+                        onmouseout="this.style.transform='translateY(0)'">
+                        <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.05rem;">Strategic
+                            Analysis</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0; line-height: 1.5;">Mapping
+                            your existing processes to uncover hidden inefficiencies.</p>
+                    </div>
+                    <div style="background: var(--color-white); padding: 1.25rem; border-radius: 1rem; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s ease;"
+                        onmouseover="this.style.transform='translateY(-5px)'"
+                        onmouseout="this.style.transform='translateY(0)'">
+                        <h4 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.05rem;">Custom
+                            Deployment</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0; line-height: 1.5;">Building
+                            bespoke Zoho architectures explicitly tailored to your team.</p>
+                    </div>
                 </div>
             </div>
 
-            <div style="display: grid; gap: 2rem; transform: translateY(15%);">
-                <!-- Top Right: Landscape -->
-                <div style="border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow-md); border: 8px solid var(--color-white); aspect-ratio: 16/9; width: 100%; transition: transform 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/src/assets/zovance-who-we-are.png" alt="Dashboard"
-                        style="width: 100%; height: 100%; object-fit: cover;" />
+            <!-- Right: 2 Images Creative Stack -->
+            <div style="position: relative; max-width: 500px; margin: 0 auto; width: 100%;">
+
+                <!-- Main Background Image -->
+                <div style="border-radius: 1.5rem; overflow: hidden; box-shadow: var(--shadow-xl); border: 8px solid var(--color-white); aspect-ratio: 4/5; width: 80%; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                    onmouseover="this.style.transform='translateY(-10px)'"
+                    onmouseout="this.style.transform='translateY(0)'">
+                    <img src="/src/assets/zovance-about-real.png" alt="Architecture"
+                        style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                 </div>
-                <!-- Bottom Right: Portrait -->
-                <div style="border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow-md); border: 8px solid var(--color-white); aspect-ratio: 4/5; width: 100%; transition: transform 0.3s ease;"
-                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                    <img src="/src/assets/zovance-about-graphic.png" alt="Graphic"
-                        style="width: 100%; height: 100%; object-fit: cover;" />
+
+                <!-- Overlapping secondary foreground image -->
+                <div style="border-radius: 1rem; overflow: hidden; box-shadow: 0 25px 50px rgba(0,102,255,0.15); border: 8px solid var(--color-white); aspect-ratio: 16/9; width: 70%; position: absolute; bottom: -5%; right: -5%; z-index: 2; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                    onmouseover="this.style.transform='translateY(-15px) scale(1.05)'"
+                    onmouseout="this.style.transform='translateY(0) scale(1)'">
+                    <img src="/src/assets/zovance-dashboard-mockup.png" alt="Dashboard"
+                        style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                 </div>
+
             </div>
 
         </div>
