@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node node_modules/vite/bin/vite.js build",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:js": "eslint \"src/**/*.js\""
   },
