@@ -30,8 +30,8 @@
                 <li><a href="#about-us" class="nav-link">About Us</a></li>
                 <li><a href="#who-we-are" class="nav-link">Who We Are</a></li>
                 <li><a href="#what-we-do" class="nav-link">What We Do</a></li>
-                <li><a href="#partners" class="nav-link">Our Partners</a></li>
                 <li><a href="#why-choose-us" class="nav-link">Why Choose Us</a></li>
+                <li><a href="#leadership" class="nav-link">Directors</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="navbar-cta">
@@ -87,7 +87,6 @@
     </section>
     <!-- ABOUT US SECTION -->
     <section id="about-us" class="container" style="padding-block: var(--spacing-xl);">
-
         <!-- Step 1: Left Aligned Heading -->
         <div class="reveal" style="text-align: left; max-width: 600px;">
             <div class="eyebrow">About Us</div>
@@ -108,15 +107,41 @@
             </p>
         </div>
 
-        <!-- Step 3: Right Aligned Image -->
-        <div class="reveal reveal-delay-2" style="display: flex; justify-content: flex-end; margin-top: 2rem;">
-            <div
-                style="max-width: 550px; width: 100%; border-radius: 1.5rem; overflow: hidden; box-shadow: var(--shadow-xl); border: 1px solid rgba(0,0,0,0.05);">
-                <img src="/src/assets/zovance-about-real.png" alt="Zovance Architecture"
-                    style="width: 100%; display: block; height: auto;" />
-            </div>
-        </div>
+        <!-- Step 3: Gallery Wall -->
+        <div class="reveal reveal-delay-2"
+            style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 800px; margin: 4rem auto; align-items: start; padding-bottom: 2rem;">
 
+            <div style="display: grid; gap: 2rem;">
+                <!-- Top Left: Portrait -->
+                <div style="border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow-md); border: 8px solid var(--color-white); aspect-ratio: 4/5; width: 100%; transition: transform 0.3s ease;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="/src/assets/zovance-about-real.png" alt="Architecture"
+                        style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <!-- Bottom Left: Landscape -->
+                <div style="border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow-md); border: 8px solid var(--color-white); aspect-ratio: 16/9; width: 100%; transition: transform 0.3s ease;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="/src/assets/zovance-dashboard-mockup.png" alt="Team"
+                        style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+            </div>
+
+            <div style="display: grid; gap: 2rem; transform: translateY(15%);">
+                <!-- Top Right: Landscape -->
+                <div style="border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow-md); border: 8px solid var(--color-white); aspect-ratio: 16/9; width: 100%; transition: transform 0.3s ease;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="/src/assets/zovance-who-we-are.png" alt="Dashboard"
+                        style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+                <!-- Bottom Right: Portrait -->
+                <div style="border-radius: 1rem; overflow: hidden; box-shadow: var(--shadow-md); border: 8px solid var(--color-white); aspect-ratio: 4/5; width: 100%; transition: transform 0.3s ease;"
+                    onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                    <img src="/src/assets/zovance-about-graphic.png" alt="Graphic"
+                        style="width: 100%; height: 100%; object-fit: cover;" />
+                </div>
+            </div>
+
+        </div>
     </section>
 
     <!-- WHO WE ARE SECTION -->
@@ -151,18 +176,12 @@
                 </div>
             </div>
 
-            <div class="reveal reveal-delay-1" style="padding-block: 2rem; z-index: 2;">
+            <div class="section-header reveal reveal-delay-1"
+                style="z-index: 2; padding-top: 2rem; margin-bottom: 2rem;">
                 <div class="eyebrow">Who We Are</div>
-                <h2
-                    style="color: var(--color-primary); font-size: clamp(2.5rem, 4vw, 3.5rem); line-height: 1.1; margin-bottom: 1.5rem;">
-                    Your Dedicated<br><span style="color: var(--color-accent); position: relative;">Cloud Architects
-                        <svg viewBox="0 0 200 20"
-                            style="position:absolute; bottom:-10px; left:0; width:100%; opacity:0.3;">
-                            <path d="M0,10 Q100,20 200,5" fill="none" stroke="var(--color-accent)" stroke-width="6"
-                                stroke-linecap="round" />
-                        </svg>
-                    </span></h2>
-                <p class="body-large" style="margin-bottom: 2rem; color: var(--text-muted);">We don't just implement
+                <h2 class="zoho-gradient-text" style="margin-bottom: 0;">Your Dedicated Cloud Architects</h2>
+                <div class="zoho-divider" style="margin: 1.5rem 0;"></div>
+                <p class="body-large" style="color: var(--text-muted);">We don't just implement
                     software; we engineer business scalability. By bridging the gap between complicated automation logic
                     and beautiful, functional UI, we give you the tools to excel.</p>
 
@@ -196,106 +215,294 @@
     <section id="what-we-do" class="container" style="padding-block: var(--spacing-md);">
         <div class="section-header reveal">
             <div class="eyebrow">What We Do</div>
-            <h2 style="color: var(--color-primary)">Our Enterprise Solutions</h2>
+            <h2 class="zoho-gradient-text">Our Enterprise Solutions</h2>
             <div class="zoho-divider"></div>
             <p class="body-large" style="margin-top: 1rem;">We deploy and integrate the most powerful applications
                 within the Zoho Ecosystem.</p>
         </div>
-        <div class="bento-grid">
-            <div class="bento-item reveal zoho-hover-purple" style="padding-top: 0;">
-                <img src="/src/assets/zoho-crm.png" alt="Zoho CRM"
-                    style="width: 100%; border-radius: 1rem 1rem 0 0; margin-bottom: 1rem; margin-left: -1.5rem; margin-top: -1.5rem; max-width: calc(100% + 3rem);">
-                <h3 style="color: var(--color-primary)">Zoho CRM</h3>
-                <p style="color: var(--text-muted)">Unlock the true potential of customer relationship management with
-                    customized fields, optimized sales cycles, and automated sequences.</p>
+        <div class="bento-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+
+            <div class="bento-item reveal zoho-hover-purple"
+                style="padding: 1.5rem; display: flex; flex-direction: column; background: #ffffff; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.35rem;">Zoho CRM</h3>
+                <p style="color: var(--text-muted); line-height: 1.5; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    Unlock the true potential of customer
+                    relationship management with customized fields, optimized sales cycles, and automated sequences.</p>
+                <div
+                    style="width: 100%; height: 150px; margin-top: auto; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                    <img src="/src/assets/zoho-crm.png" alt="Zoho CRM"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
             </div>
-            <div class="bento-item reveal reveal-delay-1 zoho-hover-green" style="padding-top: 0;">
-                <img src="/src/assets/zoho-books.png" alt="Zoho Books & Finance"
-                    style="width: 100%; border-radius: 1rem 1rem 0 0; margin-bottom: 1rem; margin-left: -1.5rem; margin-top: -1.5rem; max-width: calc(100% + 3rem);">
-                <h3 style="color: var(--color-primary)">Zoho Books & Finance</h3>
-                <p style="color: var(--text-muted)">Seamlessly integrate Zoho Books and Zoho Invoice to maintain
-                    flawless financial records, automate invoicing, and accelerate payments.</p>
+
+            <div class="bento-item reveal reveal-delay-1 zoho-hover-green"
+                style="padding: 1.5rem; display: flex; flex-direction: column; background: linear-gradient(135deg, #0b192c, #132742); border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                <h3 style="color: #ffffff; margin-bottom: 0.5rem; font-size: 1.35rem;">Zoho Books & Finance</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.5; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    Seamlessly integrate
+                    Zoho Books and
+                    Zoho Invoice to maintain flawless financial records, automate invoicing, and accelerate payments.
+                </p>
+                <div
+                    style="width: 100%; height: 150px; margin-top: auto; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                    <img src="/src/assets/zoho-books.png" alt="Zoho Books & Finance"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
             </div>
-            <div class="bento-item reveal reveal-delay-2 zoho-hover-purple" style="padding-top: 0;">
-                <img src="/src/assets/zoho-creator.png" alt="Zoho Creator"
-                    style="width: 100%; border-radius: 1rem 1rem 0 0; margin-bottom: 1rem; margin-left: -1.5rem; margin-top: -1.5rem; max-width: calc(100% + 3rem);">
-                <h3 style="color: var(--color-primary)">Zoho Creator</h3>
-                <p style="color: var(--text-muted)">When out-of-the-box doesn't work, we build bespoke, native
-                    applications tailored exactly to your unique operations.</p>
+
+            <div class="bento-item reveal reveal-delay-2 zoho-hover-purple"
+                style="padding: 1.5rem; display: flex; flex-direction: column; background: #ffffff; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.35rem;">Zoho Creator</h3>
+                <p style="color: var(--text-muted); line-height: 1.5; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    When out-of-the-box doesn't work, we
+                    build bespoke, native applications tailored exactly to your unique operations.</p>
+                <div
+                    style="width: 100%; height: 150px; margin-top: auto; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                    <img src="/src/assets/zoho-creator.png" alt="Zoho Creator"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
             </div>
-            <div class="bento-item reveal zoho-hover-red" style="padding-top: 0;">
-                <img src="/src/assets/zoho-analytics.png" alt="Zoho Analytics"
-                    style="width: 100%; border-radius: 1rem 1rem 0 0; margin-bottom: 1rem; margin-left: -1.5rem; margin-top: -1.5rem; max-width: calc(100% + 3rem);">
-                <h3 style="color: var(--color-primary)">Zoho Analytics</h3>
-                <p style="color: var(--text-muted)">Unify data from multiple sources into a single pane of glass.
-                    Actionable insights and beautiful visualizations.</p>
+
+            <div class="bento-item reveal zoho-hover-red"
+                style="padding: 1.5rem; display: flex; flex-direction: column; background: linear-gradient(135deg, #0b192c, #132742); border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                <h3 style="color: #ffffff; margin-bottom: 0.5rem; font-size: 1.35rem;">Zoho Analytics</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.5; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    Unify data from multiple sources into
+                    a single pane of glass. Actionable insights and beautiful visualizations.</p>
+                <div
+                    style="width: 100%; height: 150px; margin-top: auto; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                    <img src="/src/assets/zoho-analytics.png" alt="Zoho Analytics"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
             </div>
-            <div class="bento-item reveal reveal-delay-1 zoho-hover-yellow" style="padding-top: 0;">
-                <img src="/src/assets/zoho-people.png" alt="Zoho People"
-                    style="width: 100%; border-radius: 1rem 1rem 0 0; margin-bottom: 1rem; margin-left: -1.5rem; margin-top: -1.5rem; max-width: calc(100% + 3rem);">
-                <h3 style="color: var(--color-primary)">Zoho People</h3>
-                <p style="color: var(--text-muted)">Streamline your entire HR management process, attendance tracking,
-                    and performance evaluations in one centralized hub.</p>
+
+            <div class="bento-item reveal reveal-delay-1 zoho-hover-yellow"
+                style="padding: 1.5rem; display: flex; flex-direction: column; background: #ffffff; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+                <h3 style="color: var(--color-primary); margin-bottom: 0.5rem; font-size: 1.35rem;">Zoho People</h3>
+                <p style="color: var(--text-muted); line-height: 1.5; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    Streamline your entire HR management
+                    process, attendance tracking, and performance evaluations in one centralized hub.</p>
+                <div
+                    style="width: 100%; height: 150px; margin-top: auto; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+                    <img src="/src/assets/zoho-people.png" alt="Zoho People"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
             </div>
-            <div class="bento-item reveal reveal-delay-2 zoho-hover-blue" style="padding-top: 0;">
-                <img src="/src/assets/zoho-projects.png" alt="Zoho Projects"
-                    style="width: 100%; border-radius: 1rem 1rem 0 0; margin-bottom: 1rem; margin-left: -1.5rem; margin-top: -1.5rem; max-width: calc(100% + 3rem);">
-                <h3 style="color: var(--color-primary)">Zoho Projects</h3>
-                <p style="color: var(--text-muted)">Keep your teams meticulously aligned. Agile task management, time
-                    tracking, and powerful resource allocation.</p>
+
+            <div class="bento-item reveal reveal-delay-2 zoho-hover-blue"
+                style="padding: 1.5rem; display: flex; flex-direction: column; background: linear-gradient(135deg, #0b192c, #132742); border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                <h3 style="color: #ffffff; margin-bottom: 0.5rem; font-size: 1.35rem;">Zoho Projects</h3>
+                <p style="color: rgba(255,255,255,0.8); line-height: 1.5; font-size: 0.95rem; margin-bottom: 1.5rem;">
+                    Keep your teams meticulously aligned.
+                    Agile task management, time tracking, and powerful resource allocation.</p>
+                <div
+                    style="width: 100%; height: 150px; margin-top: auto; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.2);">
+                    <img src="/src/assets/zoho-projects.png" alt="Zoho Projects"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
             </div>
-            <div class="bento-item reveal zoho-hover-teal" style="padding-top: 0;">
-                <img src="/src/assets/zoho-one.png" alt="Zoho One"
-                    style="width: 100%; border-radius: 1rem 1rem 0 0; margin-bottom: 1rem; margin-left: -1.5rem; margin-top: -1.5rem; max-width: calc(100% + 3rem);">
-                <h3 style="color: var(--color-primary)">Zoho One</h3>
-                <p style="color: var(--text-muted)">Replace your patchwork of cloud applications with a single, unified
-                    ecosystem. 40+ integrated apps that operate seamlessly together.</p>
+
+            <div class="bento-item reveal zoho-hover-teal"
+                style="padding: 2rem; display: flex; flex-direction: column; grid-column: minmax(auto, span 3); background: #ffffff; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03); align-items: center; text-align: center;">
+                <h3 style="color: var(--color-primary); margin-bottom: 0.75rem; font-size: 1.75rem;">Zoho One</h3>
+                <p
+                    style="color: var(--text-muted); line-height: 1.5; font-size: 1rem; margin-bottom: 2rem; max-width: 800px;">
+                    Replace your
+                    patchwork of cloud applications with a single, unified ecosystem. 40+ integrated apps that operate
+                    seamlessly together.</p>
+                <div
+                    style="width: 100%; max-width: 750px; height: 220px; background: rgba(0,0,0,0.02); border-radius: 1rem; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; box-shadow: inset 0 0 30px rgba(0,0,0,0.05);">
+                    <img src="/src/assets/zoho-one.png" alt="Zoho One"
+                        style="width: 100%; height: auto; object-fit: cover; border-radius: 0.5rem; transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                        onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
             </div>
+
         </div>
     </section>
 
     <!-- WHY CHOOSE US SECTION -->
     <section id="why-choose-us" style="background: var(--color-background-light); padding-block: var(--spacing-md);">
         <div class="container section-header reveal">
-            <h2 style="color: var(--color-primary)">Why Partner With Zovance?</h2>
+            <h2 class="zoho-gradient-text">Why Choose Zovance?</h2>
             <div class="zoho-divider"></div>
             <p class="body-large" style="margin-top: 1rem; color: var(--text-muted);">We are the ultimate strategic
                 layer between your business requirements and Zoho's powerful technology architecture.</p>
         </div>
-        <div class="container feature-split" style="align-items: stretch;">
-            <!-- Dark Blue Card -->
-            <div class="bento-item reveal"
-                style="background: var(--color-primary); color: var(--color-white); border-radius: 1.5rem; padding: 3rem 2.5rem; text-align: left;">
-                <h3
-                    style="color: var(--color-white); font-size: 1.75rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
-                    Understanding Your Needs First <span>🎯</span>
-                </h3>
-                <p style="color: rgba(255,255,255,0.85); font-size: 1.125rem; line-height: 1.6; margin: 0;">We start by
-                    analyzing your deep business bottlenecks and daily operations before talking technology. It's about
-                    business solutions, not just software.</p>
+        <div class="container"
+            style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; position: relative;">
+
+            <!-- Card 1 (Wide): Understanding Needs First -->
+            <div class="bento-item reveal zoho-hover-blue"
+                style="grid-column: span 2; background: linear-gradient(135deg, #0b192c, #132742); border-radius: 1.5rem; padding: 3rem; text-align: left; position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+                <div
+                    style="position: absolute; top: -20%; right: -10%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(0,102,255,0.2) 0%, transparent 70%); border-radius: 50%;">
+                </div>
+
+                <h2
+                    style="font-size: 5rem; color: rgba(255,255,255,0.05); position: absolute; bottom: -1rem; right: 2rem; margin: 0; font-weight: 800; line-height: 1;">
+                    01</h2>
+
+                <div
+                    style="background: rgba(255,255,255,0.1); width: 4rem; height: 4rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 2rem; backdrop-filter: blur(10px);">
+                    🎯
+                </div>
+                <h3 style="color: #ffffff; font-size: 2rem; margin-bottom: 1rem; max-width: 90%;">Understanding Needs
+                    First</h3>
+                <p
+                    style="color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.6; margin: 0; max-width: 85%;">
+                    We start by analyzing your deep business bottlenecks and daily operations before talking technology.
+                    It's about business solutions, not just software.</p>
             </div>
-            <!-- Outlined Card -->
-            <div class="bento-item reveal reveal-delay-1"
-                style="background: var(--color-white); color: var(--color-primary); border: 2px solid var(--color-accent); border-radius: 1.5rem; padding: 3rem 2.5rem; text-align: left; box-shadow: 0 10px 40px rgba(0,102,255,0.05);">
-                <h3 style="color: var(--color-accent); font-size: 1.75rem; margin-bottom: 1.5rem;">
-                    Selecting the Right Zoho Apps
-                </h3>
-                <p style="color: var(--text-dark); font-size: 1.125rem; line-height: 1.6; margin: 0;">With dozens of
-                    tools available in the Zoho suite, we help you carefully choose only what will drive actual,
-                    measurable results.</p>
+
+            <!-- Card 2 (Tall): Continuous Growth -->
+            <div class="bento-item reveal reveal-delay-2 zoho-hover-purple"
+                style="grid-column: span 1; grid-row: span 2; background: linear-gradient(180deg, #14b8a6, #06b6d4) ; border-radius: 1.5rem; padding: 3rem; display: flex; flex-direction: column; text-align: left; position: relative; overflow: hidden; border: none; box-shadow: 0 15px 40px rgba(6, 182, 212, 0.3);">
+
+                <div
+                    style="background: rgba(255,255,255,0.2); width: 4rem; height: 4rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 2rem; backdrop-filter: blur(10px);">
+                    🚀
+                </div>
+
+                <h3 style="color: #ffffff; font-size: 2rem; margin-bottom: 1rem;">Continuous Growth</h3>
+                <p style="color: rgba(255,255,255,0.9); font-size: 1.1rem; line-height: 1.6; margin: 0;">Our partnership
+                    doesn't end at deployment. We offer ongoing optimization to ensure your Zoho suite evolves alongside
+                    your business.</p>
+
+                <div
+                    style="margin-top: auto; padding-top: 2rem; width: 100%; display: flex; justify-content: flex-end;">
+                    <h2
+                        style="font-size: 8rem; color: rgba(255,255,255,0.2); margin: 0; font-weight: 800; line-height: 0.8; transform: translateX(1rem);">
+                        04</h2>
+                </div>
             </div>
+
+            <!-- Card 3 & 4 Container for remaining slots (Span 1 each) -->
+            <!-- Card 3 (Square): Selecting Apps -->
+            <div class="bento-item reveal reveal-delay-1 zoho-hover-red"
+                style="grid-column: span 1; background: #ffffff; border-radius: 1.5rem; padding: 2.5rem; text-align: left; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+
+                <div
+                    style="background: rgba(245,101,101,0.1); width: 3.5rem; height: 3.5rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin-bottom: 1.5rem;">
+                    ⚙️
+                </div>
+                <h3 style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 1rem;">Selecting the Right
+                    Apps</h3>
+                <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin: 0;">With dozens of tools
+                    available in the Zoho suite, we help you carefully choose only what will drive actual, measurable
+                    results.</p>
+
+                <h2
+                    style="font-size: 4rem; color: rgba(0,0,0,0.03); position: absolute; top: 1rem; right: 1rem; margin: 0; font-weight: 800; line-height: 1;">
+                    02</h2>
+            </div>
+
+            <!-- Card 4 (Square): Bespoke Integration -->
+            <div class="bento-item reveal reveal-delay-1 zoho-hover-green"
+                style="grid-column: span 1; background: #ffffff; border-radius: 1.5rem; padding: 2.5rem; text-align: left; position: relative; overflow: hidden; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+
+                <div
+                    style="background: rgba(72,187,120,0.1); width: 3.5rem; height: 3.5rem; border-radius: 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; margin-bottom: 1.5rem;">
+                    🧩
+                </div>
+                <h3 style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 1rem;">Bespoke Integration
+                </h3>
+                <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6; margin: 0;">We don't settle for
+                    out-of-the-box setups. We architect an interconnected ecosystem where your applications talk
+                    seamlessly.</p>
+
+                <h2
+                    style="font-size: 4rem; color: rgba(0,0,0,0.03); position: absolute; top: 1rem; right: 1rem; margin: 0; font-weight: 800; line-height: 1;">
+                    03</h2>
+            </div>
+
         </div>
     </section>
 
-    <!-- Trust Strip -->
-    <section class="trust-strip" id="partners">
-        <div class="container reveal">
-            <div class="eyebrow" style="color:var(--color-background-light)">Trusted By Industry Leaders</div>
-            <div class="trust-logos">
-                <h2>Company A</h2>
-                <h2>Company B</h2>
-                <h2>Company C</h2>
-                <h2>Company D</h2>
+    <!-- LEADERSHIP SECTION -->
+    <section id="leadership" style="background: var(--color-background-light); padding-block: var(--spacing-lg);">
+        <div class="container section-header reveal">
+            <div class="eyebrow">Leadership</div>
+            <h2 class="zoho-gradient-text">Meet Our Directors</h2>
+            <div class="zoho-divider"></div>
+            <p class="body-large" style="margin-top: 1rem; color: var(--text-muted);">The visionaries driving Zovance's
+                technical excellence and business strategy.</p>
+        </div>
+
+        <div class="container"
+            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2.5rem; margin-top: 3rem;">
+            <!-- Director 1 -->
+            <div class="reveal bento-item"
+                style="background: var(--color-white); border-radius: 1.5rem; padding: 2.5rem 2rem; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.08)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.03)'">
+                <div
+                    style="width: 130px; height: 130px; border-radius: 50%; background: linear-gradient(135deg, rgba(0,102,255,0.1), rgba(0,102,255,0.02)); margin: 0 auto 1.5rem auto; box-shadow: 0 10px 25px rgba(0,0,0,0.05), inset 0 0 15px rgba(255,255,255,0.5); border: 2px solid #ffffff; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <!-- TODO: Add Director 1 Image here -->
+                    <img src="/src/assets/director-1.jpg" alt="Director 1"
+                        style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+                    <span style="position: absolute; font-size: 2rem; color: rgba(0,102,255,0.2);">📷</span>
+                </div>
+                <h3 style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.25rem;">[ Director 1 Name ]
+                </h3>
+                <p
+                    style="color: var(--color-zoho-blue); font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Managing Director</p>
+                <div style="width: 2rem; height: 2px; background: rgba(0,0,0,0.1); margin: 0 auto 1rem auto;"></div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0;">Driving strategic
+                    operations and leading global expansion initiatives to establish Zovance as a top-tier Zoho partner.
+                </p>
+            </div>
+
+            <!-- Director 2 -->
+            <div class="reveal reveal-delay-1 bento-item"
+                style="background: var(--color-white); border-radius: 1.5rem; padding: 2.5rem 2rem; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.08)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.03)'">
+                <div
+                    style="width: 130px; height: 130px; border-radius: 50%; background: linear-gradient(135deg, rgba(236,72,153,0.1), rgba(236,72,153,0.02)); margin: 0 auto 1.5rem auto; box-shadow: 0 10px 25px rgba(0,0,0,0.05), inset 0 0 15px rgba(255,255,255,0.5); border: 2px solid #ffffff; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <!-- TODO: Add Director 2 Image here -->
+                    <img src="/src/assets/director-2.jpg" alt="Director 2"
+                        style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+                    <span style="position: absolute; font-size: 2rem; color: rgba(236,72,153,0.2);">📷</span>
+                </div>
+                <h3 style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.25rem;">[ Director 2 Name ]
+                </h3>
+                <p
+                    style="color: var(--color-zoho-red); font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Director</p>
+                <div style="width: 2rem; height: 2px; background: rgba(0,0,0,0.1); margin: 0 auto 1rem auto;">
+                </div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0;">Architecting
+                    scalable technology solutions and fostering innovation across all client integration pipelines.</p>
+            </div>
+
+            <!-- Director 3 -->
+            <div class="reveal reveal-delay-2 bento-item"
+                style="background: var(--color-white); border-radius: 1.5rem; padding: 2.5rem 2rem; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.03); text-align: center; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);"
+                onmouseover="this.style.transform='translateY(-10px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.08)'"
+                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 10px 30px rgba(0,0,0,0.03)'">
+                <div
+                    style="width: 130px; height: 130px; border-radius: 50%; background: linear-gradient(135deg, rgba(236,201,75,0.1), rgba(236,201,75,0.02)); margin: 0 auto 1.5rem auto; box-shadow: 0 10px 25px rgba(0,0,0,0.05), inset 0 0 15px rgba(255,255,255,0.5); border: 2px solid #ffffff; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                    <!-- TODO: Add Director 3 Image here -->
+                    <img src="/src/assets/director-3.jpg" alt="Director 3"
+                        style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'">
+                    <span style="position: absolute; font-size: 2rem; color: rgba(236,201,75,0.2);">📷</span>
+                </div>
+                <h3 style="color: var(--color-primary); font-size: 1.5rem; margin-bottom: 0.25rem;">[ Director 3 Name ]
+                </h3>
+                <p
+                    style="color: var(--color-zoho-yellow); font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                    Director</p>
+                <div style="width: 2rem; height: 2px; background: rgba(0,0,0,0.1); margin: 0 auto 1rem auto;"></div>
+                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5; margin: 0;">Cultivating strong
+                    client relationships and developing tailored implementation strategies for ultimate success.</p>
             </div>
         </div>
     </section>
@@ -305,7 +512,8 @@
             style="background: var(--color-white); color: var(--color-primary); box-shadow: var(--shadow-xl); border: 1px solid rgba(0,0,0,0.05); text-align: left; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--spacing-lg);">
             <div>
                 <div class="eyebrow">Get in Touch</div>
-                <h2 style="margin-bottom: var(--spacing-sm);">Ready to transform your business?</h2>
+                <h2 class="zoho-gradient-text" style="margin-bottom: var(--spacing-sm);">Ready to transform your
+                    business?</h2>
                 <p class="body-large" style="color: var(--text-muted); margin-bottom: 2rem;">Book a free consultation
                     with our senior Zoho architects.</p>
 

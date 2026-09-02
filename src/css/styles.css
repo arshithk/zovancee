@@ -15,12 +15,12 @@
   --text-dark: #1E293B;
   --text-muted: #64748B;
 
-  /* Zoho Colors - Kept controlled */
-  --color-zoho-red: #F56565;
-  --color-zoho-green: #48BB78;
-  --color-zoho-yellow: #ECC94B;
-  --color-zoho-purple: #9F7AEA;
-  --color-zoho-teal: #38B2AC;
+  /* Zoho Colors - Darkened and deep saturated */
+  --color-zoho-red: #D41E28;
+  --color-zoho-green: #009A47;
+  --color-zoho-yellow: #D97706;
+  --color-zoho-purple: #7C3AED;
+  --color-zoho-teal: #0F766E;
 
   /* Typography System */
   --font-family-sans: 'Inter', system-ui, -apple-system, sans-serif;
