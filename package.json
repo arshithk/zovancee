@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "vite",
-    "build": "npx vite build",
+    "build": "vite build",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:js": "eslint \"src/**/*.js\""
   },
@@ -13,5 +13,10 @@
   "devDependencies": {
     "stylelint": "^15.0.0",
     "eslint": "^8.0.0"
+  },
+  "config": {
+    "allowScripts": {
+      "esbuild": true
+    }
   }
 }
