@@ -5,9 +5,14 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    transition: all var(--transition-base);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color var(--transition-base), padding var(--transition-base), box-shadow var(--transition-base);
     padding: var(--spacing-sm) 0;
     background-color: transparent;
+    transform: translateY(0);
+}
+
+.navbar.hidden {
+    transform: translateY(-100%);
 }
 
 .navbar.scrolled {

@@ -5,13 +5,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.navbar-nav');
 
-    // Scroll behavior
+    // Scroll direction behavior
+    let lastScroll = 0;
+
     const handleScroll = () => {
-        if (window.scrollY > 50) {
+        const currentScroll = window.scrollY;
+
+        // Background logic
+        if (currentScroll > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
+
+        // Hide/Show logic based on direction
+        if (currentScroll > lastScroll && currentScroll > 200) {
+            // Scrolling down & past threshold
+            navbar.classList.add('hidden');
+        } else {
+            // Scrolling up
+            navbar.classList.remove('hidden');
+        }
+
+        lastScroll = currentScroll;
     };
 
     // Mobile menu toggle

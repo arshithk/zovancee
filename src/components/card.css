@@ -9,8 +9,8 @@
 }
 
 .card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-5px) scale(1.01);
 }
 
 .card-premium {
@@ -22,8 +22,8 @@
 }
 
 .card-premium:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-4px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+    transform: translateY(-8px) scale(1.02);
 }
 
 .card-primary {

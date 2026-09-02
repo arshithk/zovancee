@@ -42,8 +42,8 @@ section {
 }
 
 .bento-item:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-8px) scale(1.015);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
 }
 
 .bento-icon {
@@ -132,17 +132,25 @@ section {
 .form-group textarea {
     padding: 0.75rem 1rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: var(--color-white);
     border-radius: var(--border-radius-md);
     font-family: inherit;
     font-size: 1rem;
-    transition: all var(--transition-fast);
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: rgba(0, 102, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 102, 255, 0.15), 0 0 0 3px rgba(0, 102, 255, 0.15);
+    transform: translateY(-2px);
 }
 
 /* Custom Zoho Accents */

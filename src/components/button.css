@@ -41,8 +41,8 @@
 }
 
 .btn-primary:hover {
-    box-shadow: 0 10px 25px rgba(10, 31, 68, 0.4);
-    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(10, 31, 68, 0.4);
+    transform: translateY(-4px) scale(1.02);
 }
 
 .btn-secondary {
@@ -56,8 +56,8 @@
 .btn-secondary:hover {
     background-color: var(--color-accent);
     color: var(--color-white);
-    box-shadow: 0 8px 25px rgba(0, 102, 255, 0.3);
-    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 102, 255, 0.35);
+    transform: translateY(-4px) scale(1.02);
 }
 
 .btn-accent {
@@ -67,8 +67,8 @@
 }
 
 .btn-accent:hover {
-    box-shadow: 0 10px 25px rgba(0, 102, 255, 0.5);
-    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 102, 255, 0.55);
+    transform: translateY(-4px) scale(1.02);
 }
 
 .btn:disabled {
