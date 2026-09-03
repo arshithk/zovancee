@@ -161,6 +161,42 @@
         </div>
     </section>
 
+    <!-- BRAND VIDEO SECTION -->
+    <section id="brand-video" class="reveal"
+        style="position: relative; width: 100%; height: 50vh; min-height: 400px; max-height: 550px; overflow: hidden; background: #000; display: flex; align-items: center; justify-content: center; margin-block: var(--spacing-md); border-radius: var(--border-radius-xl); box-shadow: var(--shadow-xl);">
+
+        <!-- Animated Background representing a tech environment -->
+        <div
+            style="position: absolute; inset: 0; background: linear-gradient(135deg, #0b192c, #070e1a, #0b192c, #0d1f35); background-size: 400% 400%; animation: gradientLoop 10s ease infinite;">
+        </div>
+
+        <!-- Optional particles/lines overlay for tech feel -->
+        <div
+            style="position: absolute; inset: 0; opacity: 0.1; background-image: radial-gradient(circle at center, #38bdf8 1px, transparent 1px); background-size: 30px 30px;">
+        </div>
+
+        <!-- Cinematic Overlay Element representing 10s loop -->
+        <div
+            style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%;">
+
+            <img src="/src/assets/zovance-logo.png" alt="Zovance Logo"
+                style="height: 100px; margin-bottom: 1.5rem; filter: brightness(0) invert(1) drop-shadow(0 0 20px rgba(56, 189, 248, 0.5)); animation: brandLogoSequence 10s infinite cubic-bezier(0.25, 1, 0.5, 1);" />
+
+            <h2
+                style="color: #fff; font-size: 3.5rem; font-weight: 300; letter-spacing: -1px; margin: 0; text-align: center; line-height: 1.1; animation: brandTextSequence 10s infinite cubic-bezier(0.25, 1, 0.5, 1);">
+                Making Work <span
+                    style="font-weight: 800; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Effortless</span>
+            </h2>
+            <p
+                style="color: rgba(255,255,255,0.7); font-size: 1.15rem; font-weight: 300; margin-top: 1rem; letter-spacing: 2px; text-transform: uppercase; animation: brandTextFade 10s infinite; opacity: 0;">
+                Automate • Simplify • Grow</p>
+        </div>
+
+        <!-- 10-Second Progress Bar -->
+        <div
+            style="position: absolute; bottom: 0; left: 0; height: 4px; background: linear-gradient(to right, #38bdf8, #818cf8); border-radius: 0 4px 4px 0; animation: videoProgress 10s linear infinite;">
+        </div>
+    </section>
     <!-- WHO WE ARE SECTION -->
     <section id="who-we-are"
         style="background: var(--color-background-light); padding-block: var(--spacing-md); overflow: hidden; position: relative;">
@@ -371,8 +407,9 @@
 
         </div>
     </section>
-
     </section>
+
+
 
     <!-- CLIENT FEEDBACK SECTION -->
     <section id="feedback"
