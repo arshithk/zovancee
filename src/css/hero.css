@@ -45,6 +45,15 @@
     align-items: center;
 }
 
+@media (max-width: 767px) {
+    .hero-right {
+        margin-bottom: 2rem;
+        transform: scale(0.65);
+        transform-origin: center top;
+        /* Significantly scale down to avoid WhatsApp overlap */
+    }
+}
+
 .hero-right img {
     width: 100%;
     height: auto;

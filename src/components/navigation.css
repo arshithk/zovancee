@@ -110,19 +110,21 @@
 /* Mobile responsive menu */
 @media (max-width: 991px) {
     .navbar-nav {
-        display: none;
+        display: none !important;
         flex-direction: column;
         background-color: var(--color-white);
         position: absolute;
         top: 100%;
         left: 0;
-        width: 100%;
-        padding: var(--spacing-sm);
-        box-shadow: var(--shadow-md);
+        width: 100vw;
+        padding: var(--spacing-md);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+        margin-left: calc(-50vw + 50%);
     }
 
     .navbar-nav.active {
-        display: flex;
+        display: flex !important;
     }
 
     .nav-link {

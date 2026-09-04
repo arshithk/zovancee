@@ -166,34 +166,167 @@ section {
     background-clip: text;
 }
 
-/* Bento Hover Accents */
-.bento-item {
-    border: 1px solid transparent;
+/* ========================================================================= */
+/* PREMIUM CREATIVE BENTO GRID */
+/* ========================================================================= */
+.premium-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
 }
 
-.bento-item.zoho-hover-red:hover {
-    box-shadow: 0 10px 30px rgba(245, 101, 101, 0.15);
-    border-color: rgba(245, 101, 101, 0.4);
+@media (max-width: 991px) {
+    .premium-bento-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
 }
 
-.bento-item.zoho-hover-green:hover {
-    box-shadow: 0 10px 30px rgba(72, 187, 120, 0.15);
-    border-color: rgba(72, 187, 120, 0.4);
+.premium-bento-card {
+    position: relative;
+    border-radius: 2rem;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0));
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
 }
 
-.bento-item.zoho-hover-blue:hover {
-    box-shadow: 0 10px 30px rgba(0, 102, 255, 0.15);
-    border-color: rgba(0, 102, 255, 0.4);
+.premium-bento-card:hover {
+    transform: translateY(-8px);
+    z-index: 10;
 }
 
-.bento-item.zoho-hover-yellow:hover {
-    box-shadow: 0 10px 30px rgba(236, 201, 75, 0.15);
-    border-color: rgba(236, 201, 75, 0.4);
+/* Animated Glowing Border */
+.premium-bento-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
 }
 
-.bento-item.zoho-hover-purple:hover {
-    box-shadow: 0 10px 30px rgba(159, 122, 234, 0.15);
-    border-color: rgba(159, 122, 234, 0.4);
+.premium-bento-card:hover::before {
+    opacity: 1;
+}
+
+.bento-inner {
+    background: #ffffff;
+    border-radius: calc(2rem - 2px);
+    padding: 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.5s ease;
+}
+
+.dark-bento .bento-inner {
+    background: linear-gradient(145deg, #0b192c, #132742);
+}
+
+/* Specific Brand Color Glowing Hover Effects */
+.zoho-hover-yellow:hover::before {
+    background: linear-gradient(135deg, #eab308, transparent);
+}
+
+.zoho-hover-yellow:hover .bento-inner {
+    box-shadow: 0 20px 40px -10px rgba(234, 179, 8, 0.2);
+}
+
+.zoho-hover-green:hover::before {
+    background: linear-gradient(135deg, #22c55e, transparent);
+}
+
+.zoho-hover-green:hover .bento-inner {
+    box-shadow: 0 20px 40px -10px rgba(34, 197, 94, 0.2);
+}
+
+.zoho-hover-blue:hover::before {
+    background: linear-gradient(135deg, #06b6d4, transparent);
+}
+
+.zoho-hover-blue:hover .bento-inner {
+    box-shadow: 0 20px 40px -10px rgba(6, 182, 212, 0.2);
+}
+
+.zoho-hover-red:hover::before {
+    background: linear-gradient(135deg, #ef4444, transparent);
+}
+
+.zoho-hover-red:hover .bento-inner {
+    box-shadow: 0 20px 40px -10px rgba(239, 68, 68, 0.2);
+}
+
+/* Internal Image Staging Area */
+.bento-stage {
+    margin-top: auto;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 1rem;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.dark-bento .bento-stage {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.02);
+}
+
+.bento-img {
+    height: 85%;
+    object-fit: contain;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.6s ease;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.premium-bento-card:hover .bento-img {
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
+}
+
+/* Zoho One Wide Card Overlay styling */
+.premium-bento-wide {
+    grid-column: 1 / -1;
+}
+
+.premium-bento-wide .stage-wide {
+    width: 60%;
+    height: 250px;
+}
+
+@media (max-width: 991px) {
+    .premium-bento-wide .bento-inner {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    .premium-bento-wide .stage-wide {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .bento-inner {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 /* Cinematic Brand Video Section */
