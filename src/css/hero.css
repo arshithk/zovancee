@@ -279,3 +279,122 @@
         box-shadow: 0 30px 45px rgba(10, 31, 68, 0.2);
     }
 }
+
+/* Hero Brand Kinetic Lockup - Boxless, Natural Flow */
+.hero-with-brand {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    gap: 0.9rem;
+}
+
+.hero-brand-kinetic {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    margin-left: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    font-size: clamp(34px, 4vw, 50px);
+    line-height: 1;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Symbol Anchor - Stands proudly before the text like the usual logo */
+.kinetic-symbol-anchor {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.79em;
+    height: 1em;
+    margin-right: 0.2em; /* Gap matching the authentic logo */
+    z-index: 6;
+    transform-style: preserve-3d;
+    will-change: transform;
+    animation: symbolSwoopAndStand 2.6s cubic-bezier(0.35, 0.05, 0.25, 1) infinite;
+}
+
+.kinetic-symbol-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+}
+
+/* Wordmark Image - Matches authentic logo proportions */
+.kinetic-wordmark-img {
+    height: 1em;
+    width: auto;
+    display: block;
+    position: relative;
+    z-index: 4;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.06));
+    transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover dynamics */
+.hero-brand-kinetic:hover .kinetic-symbol-anchor {
+    animation-duration: 1.4s;
+}
+
+.hero-brand-kinetic:hover .kinetic-wordmark-img {
+    filter: drop-shadow(0 4px 14px rgba(0, 85, 226, 0.25));
+}
+
+@keyframes symbolSwoopAndStand {
+    0.0% { transform: translate3d(0em, 0.0000em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    5.0% { transform: translate3d(0em, 0.0088em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    10.0% { transform: translate3d(0em, 0.0120em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    15.0% { transform: translate3d(0em, 0.0074em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    20.0% { transform: translate3d(0em, -0.0020em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    25.0% { transform: translate3d(0em, -0.0100em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    30.0% { transform: translate3d(0em, -0.0116em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    35.0% { transform: translate3d(0em, -0.0057em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    38.0% { transform: translate3d(0em, -0.0000em, 0px) scale(1) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    41.0% { transform: translate3d(-0.06em, 0.02em, 5px) scale(1.04) rotate(-3deg); z-index: 10; opacity: 1; filter: drop-shadow(0 4px 10px rgba(0, 85, 226, 0.35)); }
+    44.0% { transform: translate3d(0.000em, 0.000em, 0.0px) scale(1.00) rotate(0.0deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    46.4% { transform: translate3d(0.102em, 0.117em, 9.3px) scale(1.07) rotate(3.4deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    48.8% { transform: translate3d(0.396em, 0.223em, 17.6px) scale(1.13) rotate(6.5deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    51.2% { transform: translate3d(0.855em, 0.307em, 24.3px) scale(1.18) rotate(8.9deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    53.6% { transform: translate3d(1.434em, 0.361em, 28.5px) scale(1.21) rotate(10.5deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    56.0% { transform: translate3d(2.075em, 0.380em, 30.0px) scale(1.22) rotate(11.0deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    58.4% { transform: translate3d(2.716em, 0.361em, 28.5px) scale(1.21) rotate(10.5deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    60.8% { transform: translate3d(3.295em, 0.307em, 24.3px) scale(1.18) rotate(8.9deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    63.2% { transform: translate3d(3.754em, 0.223em, 17.6px) scale(1.13) rotate(6.5deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    65.6% { transform: translate3d(4.048em, 0.117em, 9.3px) scale(1.07) rotate(3.4deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    68.0% { transform: translate3d(4.150em, 0.000em, 0.0px) scale(1.00) rotate(0.0deg); z-index: 12; opacity: 1; filter: drop-shadow(0 0.22em 0.45em rgba(0, 85, 226, 0.42)); }
+    70.0% { transform: translate3d(4.150em, -0.000em, -0.0px) scale(1.00) rotate(-0.0deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    72.2% { transform: translate3d(3.992em, -0.134em, -9.6px) scale(0.92) rotate(-3.4deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    74.5% { transform: translate3d(3.542em, -0.247em, -17.7px) scale(0.86) rotate(-6.4deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    76.8% { transform: translate3d(2.869em, -0.323em, -23.1px) scale(0.81) rotate(-8.3deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    79.0% { transform: translate3d(2.075em, -0.350em, -25.0px) scale(0.80) rotate(-9.0deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    81.2% { transform: translate3d(1.281em, -0.323em, -23.1px) scale(0.81) rotate(-8.3deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    83.5% { transform: translate3d(0.608em, -0.247em, -17.7px) scale(0.86) rotate(-6.4deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    85.8% { transform: translate3d(0.158em, -0.134em, -9.6px) scale(0.92) rotate(-3.4deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    88.0% { transform: translate3d(0.000em, -0.000em, -0.0px) scale(1.00) rotate(-0.0deg); z-index: 2; opacity: 0.90; filter: drop-shadow(0 0.06em 0.15em rgba(0, 0, 0, 0.18)); }
+    91.0% { transform: translate3d(0.04em, -0.02em, 5px) scale(1.06) rotate(1deg); z-index: 6; opacity: 1; filter: drop-shadow(0 3px 8px rgba(0, 85, 226, 0.3)); }
+    94.5% { transform: translate3d(0em, 0em, 0px) scale(1.02) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 6px rgba(0, 85, 226, 0.25)); }
+    97.5% { transform: translate3d(0em, 0em, 0px) scale(1.00) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+    100.0% { transform: translate3d(0em, 0em, 0px) scale(1.00) rotate(0deg); z-index: 6; opacity: 1; filter: drop-shadow(0 2px 5px rgba(0, 85, 226, 0.22)); }
+}
+
+@media (max-width: 768px) {
+    .hero-with-brand {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+    .hero-brand-kinetic {
+        margin-left: 0;
+        margin-top: 0.25rem;
+        font-size: clamp(26px, 6vw, 36px);
+    }
+}
