@@ -11,8 +11,8 @@
     "vite": "^5.0.0"
   },
   "devDependencies": {
-    "stylelint": "^15.0.0",
-    "eslint": "^8.0.0"
+    "eslint": "^8.0.0",
+    "stylelint": "^15.0.0"
   },
   "config": {
     "allowScripts": {
