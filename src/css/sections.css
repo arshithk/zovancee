@@ -344,8 +344,142 @@ section {
     }
 }
 
-@keyframes brandLogoSequence {
+/* Cinematic Video Brand Lockup - Sequential Symbol & Wordmark Reveal */
+.video-brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(65px, 8vw, 95px);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 5;
+    animation: videoBrandLockupFloat 10s infinite ease-in-out;
+}
 
+.video-brand-symbol-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-shrink: 0;
+    z-index: 2;
+    animation: videoSymbolSequence 10s infinite cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.video-brand-symbol {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 4px 16px rgba(0, 85, 226, 0.35));
+}
+
+.video-brand-wordmark-wrap {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 1;
+    animation: videoWordmarkSequence 10s infinite cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.video-brand-wordmark {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    display: block;
+    margin-left: clamp(12px, 1.6vw, 20px);
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.25));
+}
+
+@keyframes videoSymbolSequence {
+    0%,
+    4% {
+        opacity: 0;
+        transform: scale(0.65) translateY(15px);
+        filter: blur(8px) drop-shadow(0 0 0 transparent);
+    }
+
+    11% {
+        opacity: 1;
+        transform: scale(1.12) translateY(0);
+        filter: blur(0px) drop-shadow(0 0 25px rgba(56, 189, 248, 0.8));
+    }
+
+    15% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px) drop-shadow(0 0 14px rgba(43, 156, 248, 0.5));
+    }
+
+    22%,
+    86% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px) drop-shadow(0 4px 16px rgba(0, 85, 226, 0.35));
+    }
+
+    92%,
+    100% {
+        opacity: 0;
+        transform: scale(1.04) translateY(-10px);
+        filter: blur(6px);
+    }
+}
+
+@keyframes videoWordmarkSequence {
+    0%,
+    14% {
+        max-width: 0;
+        opacity: 0;
+        transform: translateX(-20px);
+        filter: blur(10px);
+    }
+
+    18% {
+        opacity: 0.7;
+        filter: blur(4px);
+    }
+
+    25%,
+    86% {
+        max-width: 320px;
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0px);
+    }
+
+    92%,
+    100% {
+        max-width: 320px;
+        opacity: 0;
+        transform: scale(1.02) translateY(-10px);
+        filter: blur(5px);
+    }
+}
+
+@keyframes videoBrandLockupFloat {
+    0%,
+    25% {
+        transform: translateY(0);
+    }
+
+    55% {
+        transform: translateY(-5px);
+    }
+
+    86% {
+        transform: translateY(0);
+    }
+
+    92%,
+    100% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes brandLogoSequence {
     0%,
     5% {
         opacity: 0;
@@ -369,16 +503,15 @@ section {
 }
 
 @keyframes brandTextSequence {
-
     0%,
-    10% {
+    20% {
         opacity: 0;
-        transform: scale(0.98) translateY(20px);
-        filter: blur(5px);
+        transform: scale(0.96) translateY(20px);
+        filter: blur(6px);
     }
 
-    18%,
-    85% {
+    28%,
+    86% {
         opacity: 1;
         transform: scale(1) translateY(0);
         filter: blur(0px);
@@ -393,23 +526,22 @@ section {
 }
 
 @keyframes brandTextFade {
-
     0%,
-    15% {
+    28% {
         opacity: 0;
-        transform: translateY(10px);
+        transform: translateY(12px);
     }
 
-    22%,
-    85% {
+    35%,
+    86% {
         opacity: 1;
         transform: translateY(0);
     }
 
-    90%,
+    91%,
     100% {
         opacity: 0;
-        transform: translateY(-5px);
+        transform: translateY(-6px);
     }
 }
 
