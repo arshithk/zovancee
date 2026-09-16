@@ -1,7 +1,7 @@
-# Robots.txt for https://zovance.com
+# Robots.txt for https://zovancetech.com
 User-agent: *
 Allow: /
 
 # Disallow nothing on public marketing site
 # Sitemaps
-Sitemap: https://zovance.com/sitemap.xml
+Sitemap: https://zovancetech.com/sitemap.xml
