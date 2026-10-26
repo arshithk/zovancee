@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zovance — Professional Corporate Reel Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --card-border: rgba(56, 189, 248, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #0066ff;
+            --accent-cyan: #38bdf8;
+            --accent-amber: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 102, 255, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 60%);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            max-width: 900px;
+            margin-bottom: 36px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 9999px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent-cyan);
+            margin-bottom: 16px;
+        }
+
+        .badge span.dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #ef4444 0%, #f59e0b 25%, #10b981 50%, #0066ff 75%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* MAIN CONTAINER */
+        .workspace {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            max-width: 1400px;
+            width: 100%;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* IPHONE SIMULATOR */
+        .phone-container {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .iphone-frame {
+            position: relative;
+            width: 380px;
+            height: 760px;
+            background: #090d16;
+            border-radius: 54px;
+            padding: 12px;
+            box-shadow: 
+                0 0 0 4px #1e293b,
+                0 0 0 6px #0f172a,
+                0 30px 90px rgba(0, 0, 0, 0.9),
+                0 0 80px rgba(0, 102, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+        }
+
+        .dynamic-island {
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 28px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .lens {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #0d1527;
+            border: 1.5px solid #1e293b;
+        }
+
+        .sensor {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #111b2e;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 44px;
+            overflow: hidden;
+            background: #020617;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* INTERACTIVE CONTROLS DOCK */
+        .phone-actions {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 380px;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 13px 16px;
+            border-radius: 14px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0066ff 0%, #38bdf8 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 102, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.8);
+            color: #f1f5f9;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(51, 65, 85, 0.9);
+            transform: translateY(-2px);
+        }
+
+        /* SIDE PANEL DETAILS */
+        .details-panel {
+            flex: 1;
+            min-width: 340px;
+            max-width: 820px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 26px;
+            backdrop-filter: blur(16px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 18px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* TIMELINE NAVIGATION */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 12px;
+        }
+
+        .timeline-btn {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 14px 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+
+        .timeline-btn:hover, .timeline-btn.active {
+            border-color: var(--accent-cyan);
+            background: rgba(56, 189, 248, 0.14);
+            transform: translateY(-2px);
+        }
+
+        .timeline-time {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 4px;
+        }
+
+        .timeline-name {
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* PREVIEW FRAMES GALLERY */
+        .frames-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        @media (max-width: 680px) {
+            .frames-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .frame-card {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #020617;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .frame-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.35);
+        }
+
+        .frame-card img {
+            width: 100%;
+            aspect-ratio: 9/16;
+            object-fit: cover;
+            display: block;
+        }
+
+        .frame-card-info {
+            padding: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .frame-scene-tag {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .frame-scene-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            margin-top: 2px;
+            color: #ffffff;
+        }
+
+        /* SPECS TABLE */
+        .specs-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .spec-item {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .spec-key {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .spec-val {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge">
+            <span class="dot"></span> Official Zovance Corporate Reel
+        </div>
+        <h1>
+            Professional Corporate <span class="gradient-text">Promotional Reel</span>
+        </h1>
+        <p class="subtitle">
+            Engineered exclusively with the official Zovance website video reveal, non-AI corporate photography,
+            connected enterprise dashboards, Deluge API triggers, and energetic technology soundtrack.
+        </p>
+    </header>
+
+    <div class="workspace">
+        
+        <!-- IPHONE SIMULATOR -->
+        <div class="phone-container">
+            <div class="iphone-frame">
+                <div class="dynamic-island">
+                    <div class="lens"></div>
+                    <div class="sensor"></div>
+                </div>
+                <div class="video-wrapper">
+                    <video id="reelVideo" autoplay loop muted playsinline controls poster="preview-frames/frame-scene1-intro.png">
+                        <source src="zovance-corporate-reel.mp4" type="video/mp4">
+                        <source src="zovance-corporate-reel.webm" type="video/webm">
+                        Your browser does not support HTML5 video.
+                    </video>
+                </div>
+            </div>
+
+            <div class="phone-actions">
+                <div class="action-row">
+                    <a href="zovance-corporate-reel.mp4" download="zovance-corporate-reel.mp4" class="btn btn-primary">
+                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Download High-End MP4 (H.264 • 8.8 MB)
+                    </a>
+                </div>
+                <div class="action-row">
+                    <a href="zovance-corporate-reel.webm" download="zovance-corporate-reel.webm" class="btn btn-secondary">
+                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                        </svg>
+                        Download WebM
+                    </a>
+                    <a href="reel-generator.html" target="_blank" class="btn btn-secondary">
+                        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                        </svg>
+                        Live Canvas
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILS & INTERACTION PANEL -->
+        <div class="details-panel">
+            
+            <!-- SLIDE JUMP CONTROLS -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        🎬 6-Scene Interactive Storyboard
+                    </div>
+                    <span style="font-size: 13px; color: var(--accent-cyan); font-weight: 600;">Click to jump video</span>
+                </div>
+                <div class="timeline-grid">
+                    <button class="timeline-btn" onclick="jumpTo(0.0)">
+                        <div class="timeline-time">00:00 - 00:05.0</div>
+                        <div class="timeline-name">🚀 Scene 1 – Brand Intro</div>
+                        <div class="timeline-desc">Official Zovance Website Video Reveal & Digital Transformation</div>
+                    </button>
+                    <button class="timeline-btn" onclick="jumpTo(5.0)">
+                        <div class="timeline-time">00:05.0 - 00:10.5</div>
+                        <div class="timeline-name">⚠️ Scene 2 – Challenges</div>
+                        <div class="timeline-desc">Spreadsheet Errors (#REF!), Manual Entry & Disconnected Apps</div>
+                    </button>
+                    <button class="timeline-btn" onclick="jumpTo(10.5)">
+                        <div class="timeline-time">00:10.5 - 00:18.5</div>
+                        <div class="timeline-name">🛠️ Scene 3 – Solutions</div>
+                        <div class="timeline-desc">6 Core Services (Zoho, Automation, AI, Web, Mobile, Custom)</div>
+                    </button>
+                    <button class="timeline-btn" onclick="jumpTo(18.5)">
+                        <div class="timeline-time">00:18.5 - 00:26.5</div>
+                        <div class="timeline-name">⚡ Scene 4 – Transformation</div>
+                        <div class="timeline-desc">Automate, Connect, Productivity, Scale & Deluge Webhooks</div>
+                    </button>
+                    <button class="timeline-btn" onclick="jumpTo(26.5)">
+                        <div class="timeline-time">00:26.5 - 00:33.5</div>
+                        <div class="timeline-name">👥 Scene 5 – Why Zovance?</div>
+                        <div class="timeline-desc">Real Team Photo, Smart Solutions, Seamless Integration</div>
+                    </button>
+                    <button class="timeline-btn" onclick="jumpTo(33.5)">
+                        <div class="timeline-time">00:33.5 - 00:38.5</div>
+                        <div class="timeline-name">🎯 Scene 6 – Closing CTA</div>
+                        <div class="timeline-desc">Official Website Logo, Phone, Email, Salem HQ & Strategy Call</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STORYBOARD PREVIEW FRAMES -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        🖼️ High-Resolution Scene Stills (Non-AI Assets)
+                    </div>
+                    <span style="font-size: 13px; color: var(--accent-cyan);">1080 × 1920 Native</span>
+                </div>
+                <div class="frames-grid">
+                    <div class="frame-card" onclick="jumpTo(2.0)">
+                        <img src="preview-frames/frame-scene1-intro.png" alt="Scene 1 Brand Intro">
+                        <div class="frame-card-info">
+                            <div class="frame-scene-tag">SCENE 1 (0–5s)</div>
+                            <div class="frame-scene-title">Website Video Intro</div>
+                        </div>
+                    </div>
+                    <div class="frame-card" onclick="jumpTo(7.5)">
+                        <img src="preview-frames/frame-scene2-challenges.png" alt="Scene 2 Challenges">
+                        <div class="frame-card-info">
+                            <div class="frame-scene-tag">SCENE 2 (5–10.5s)</div>
+                            <div class="frame-scene-title">Manual Bottlenecks</div>
+                        </div>
+                    </div>
+                    <div class="frame-card" onclick="jumpTo(14.5)">
+                        <img src="preview-frames/frame-scene3-solutions.png" alt="Scene 3 Solutions">
+                        <div class="frame-card-info">
+                            <div class="frame-scene-tag">SCENE 3 (10.5–18.5s)</div>
+                            <div class="frame-scene-title">6 Core Solutions</div>
+                        </div>
+                    </div>
+                    <div class="frame-card" onclick="jumpTo(22.5)">
+                        <img src="preview-frames/frame-scene4-transformation.png" alt="Scene 4 Transformation">
+                        <div class="frame-card-info">
+                            <div class="frame-scene-tag">SCENE 4 (18.5–26.5s)</div>
+                            <div class="frame-scene-title">Connected Stack</div>
+                        </div>
+                    </div>
+                    <div class="frame-card" onclick="jumpTo(30.0)">
+                        <img src="preview-frames/frame-scene5-why-zovance.png" alt="Scene 5 Why Zovance">
+                        <div class="frame-card-info">
+                            <div class="frame-scene-tag">SCENE 5 (26.5–33.5s)</div>
+                            <div class="frame-scene-title">Real Team Growth</div>
+                        </div>
+                    </div>
+                    <div class="frame-card" onclick="jumpTo(36.0)">
+                        <img src="preview-frames/frame-scene6-cta.png" alt="Scene 6 CTA">
+                        <div class="frame-card-info">
+                            <div class="frame-scene-tag">SCENE 6 (33.5–38.5s)</div>
+                            <div class="frame-scene-title">Official CTA & Bio</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTION SPECS -->
+            <div class="card">
+                <div class="card-title" style="margin-bottom: 16px;">
+                    📐 Reel Specifications & Compliance
+                </div>
+                <div class="specs-list">
+                    <div class="spec-item">
+                        <div class="spec-key">Aspect Ratio & Resolution</div>
+                        <div class="spec-val">9:16 Vertical (1080 × 1920)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-key">Total Duration</div>
+                        <div class="spec-val">38.5 Seconds (35–40s Target)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-key">Video Codec</div>
+                        <div class="spec-val">H.264 (MP4) + VP9 (WebM)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-key">Frame Rate</div>
+                        <div class="spec-val">60 FPS Ultra-Fluid</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-key">Audio Track</div>
+                        <div class="spec-val">Energetic Tech Synth Arp (AAC 192k)</div>
+                    </div>
+                    <div class="spec-item">
+                        <div class="spec-key">Asset Compliance</div>
+                        <div class="spec-val">100% Non-AI & Zero Director Bios</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const video = document.getElementById('reelVideo');
+
+        function jumpTo(time) {
+            if (video) {
+                video.currentTime = time;
+                video.play();
+                video.muted = false; // unmute when user interacts
+            }
+        }
+    </script>
+</body>
+</html>

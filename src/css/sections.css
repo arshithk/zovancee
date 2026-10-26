@@ -1,0 +1,681 @@
+/* Section Layouts */
+section {
+    padding-block: var(--spacing-md);
+}
+
+.section-header {
+    text-align: left;
+    max-width: 800px;
+    margin: 0 0 var(--spacing-lg) 0;
+}
+
+.zoho-divider {
+    height: 4px;
+    width: 80px;
+    background: linear-gradient(to right, var(--color-zoho-red), var(--color-zoho-yellow), var(--color-zoho-green), var(--color-accent));
+    border-radius: 4px;
+    margin: 1.5rem 0;
+}
+
+.zoho-gradient-text {
+    background: linear-gradient(to right, var(--color-zoho-red), var(--color-zoho-yellow), var(--color-zoho-green), var(--color-zoho-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Bento Grid System for Services / Features */
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.bento-item {
+    background-color: var(--color-white);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.bento-item:hover {
+    transform: translateY(-8px) scale(1.015);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.1);
+}
+
+.bento-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--color-background-light);
+    border-radius: var(--border-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-accent);
+    font-size: 1.5rem;
+}
+
+/* Alternating Feature Sections */
+.feature-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+@media (min-width: 768px) {
+    .feature-split {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.feature-image img {
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+}
+
+/* Trust Strip / Partners */
+.trust-strip {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding-block: var(--spacing-lg);
+    text-align: center;
+}
+
+.trust-logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-xl);
+    margin-top: var(--spacing-md);
+    opacity: 0.8;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: var(--color-white);
+    text-align: center;
+    border-radius: var(--border-radius-xl);
+    margin-block: var(--spacing-lg);
+    padding: var(--spacing-lg) var(--spacing-md);
+}
+
+.cta-section .btn-secondary {
+    background-color: var(--color-white);
+    color: var(--color-primary);
+}
+
+/* Contact Form */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.875rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.75rem 1rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-md);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: rgba(0, 102, 255, 0.4);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 30px rgba(0, 102, 255, 0.15), 0 0 0 3px rgba(0, 102, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* Custom Zoho Accents */
+.zoho-border-top {
+    border-top: 4px solid;
+    border-image: linear-gradient(to right, var(--color-zoho-red), var(--color-zoho-yellow), var(--color-zoho-green), var(--color-accent)) 1;
+}
+
+.text-zoho-gradient {
+    background: linear-gradient(135deg, var(--color-zoho-red), var(--color-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ========================================================================= */
+/* PREMIUM CREATIVE BENTO GRID */
+/* ========================================================================= */
+.premium-bento-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+@media (max-width: 991px) {
+    .premium-bento-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+.premium-bento-card {
+    position: relative;
+    border-radius: 2rem;
+    padding: 2px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0));
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+}
+
+.premium-bento-card:hover {
+    transform: translateY(-8px);
+    z-index: 10;
+}
+
+/* Animated Glowing Border */
+.premium-bento-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(135deg, transparent, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: -1;
+}
+
+.premium-bento-card:hover::before {
+    opacity: 1;
+}
+
+.bento-inner {
+    background: #ffffff;
+    border-radius: calc(2rem - 2px);
+    padding: 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    transition: box-shadow 0.5s ease;
+}
+
+.dark-bento .bento-inner {
+    background: linear-gradient(145deg, #0b192c, #132742);
+}
+
+/* Specific Brand Color Glowing Hover Effects */
+.zoho-hover-yellow:hover::before {
+    background: linear-gradient(135deg, #eab308, transparent);
+}
+
+.zoho-hover-yellow:hover .bento-inner {
+    box-shadow: 0 20px 40px -10px rgba(234, 179, 8, 0.2);
+}
+
+.zoho-hover-green:hover::before {
+    background: linear-gradient(135deg, #22c55e, transparent);
+}
+
+.zoho-hover-green:hover .bento-inner {
+    box-shadow: 0 20px 40px -10px rgba(34, 197, 94, 0.2);
+}
+
+.zoho-hover-blue:hover::before {
+    background: linear-gradient(135deg, #06b6d4, transparent);
+}
+
+.zoho-hover-blue:hover .bento-inner {
+    box-shadow: 0 20px 40px -10px rgba(6, 182, 212, 0.2);
+}
+
+.zoho-hover-red:hover::before {
+    background: linear-gradient(135deg, #ef4444, transparent);
+}
+
+.zoho-hover-red:hover .bento-inner {
+    box-shadow: 0 20px 40px -10px rgba(239, 68, 68, 0.2);
+}
+
+/* Internal Image Staging Area */
+.bento-stage {
+    margin-top: auto;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 1rem;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.dark-bento .bento-stage {
+    background: rgba(0, 0, 0, 0.2);
+    border-color: rgba(255, 255, 255, 0.02);
+}
+
+.bento-img {
+    height: 85%;
+    object-fit: contain;
+    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.6s ease;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+}
+
+.premium-bento-card:hover .bento-img {
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.2));
+}
+
+/* Zoho One Wide Card Overlay styling */
+.premium-bento-wide {
+    grid-column: 1 / -1;
+}
+
+.premium-bento-wide .stage-wide {
+    width: 60%;
+    height: 250px;
+}
+
+@media (max-width: 991px) {
+    .premium-bento-wide .bento-inner {
+        flex-direction: column !important;
+        text-align: center;
+    }
+
+    .premium-bento-wide .stage-wide {
+        width: 100%;
+        margin-top: 2rem;
+    }
+
+    .bento-inner {
+        padding: 1.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .bento-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Cinematic Brand Video Section */
+@keyframes gradientLoop {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Cinematic Video Brand Lockup - Sequential Symbol & Wordmark Reveal */
+.video-brand-lockup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: clamp(65px, 8vw, 95px);
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 5;
+    animation: videoBrandLockupFloat 10s infinite ease-in-out;
+}
+
+.video-brand-symbol-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-shrink: 0;
+    z-index: 2;
+    animation: videoSymbolSequence 10s infinite cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.video-brand-symbol {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow(0 4px 16px rgba(0, 85, 226, 0.35));
+}
+
+.video-brand-wordmark-wrap {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: 1;
+    animation: videoWordmarkSequence 10s infinite cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.video-brand-wordmark {
+    height: 100%;
+    width: auto;
+    max-width: none;
+    display: block;
+    margin-left: clamp(12px, 1.6vw, 20px);
+    filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.25));
+}
+
+@keyframes videoSymbolSequence {
+    0%,
+    4% {
+        opacity: 0;
+        transform: scale(0.65) translateY(15px);
+        filter: blur(8px) drop-shadow(0 0 0 transparent);
+    }
+
+    11% {
+        opacity: 1;
+        transform: scale(1.12) translateY(0);
+        filter: blur(0px) drop-shadow(0 0 25px rgba(56, 189, 248, 0.8));
+    }
+
+    15% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px) drop-shadow(0 0 14px rgba(43, 156, 248, 0.5));
+    }
+
+    22%,
+    86% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px) drop-shadow(0 4px 16px rgba(0, 85, 226, 0.35));
+    }
+
+    92%,
+    100% {
+        opacity: 0;
+        transform: scale(1.04) translateY(-10px);
+        filter: blur(6px);
+    }
+}
+
+@keyframes videoWordmarkSequence {
+    0%,
+    14% {
+        max-width: 0;
+        opacity: 0;
+        transform: translateX(-20px);
+        filter: blur(10px);
+    }
+
+    18% {
+        opacity: 0.7;
+        filter: blur(4px);
+    }
+
+    25%,
+    86% {
+        max-width: 320px;
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0px);
+    }
+
+    92%,
+    100% {
+        max-width: 320px;
+        opacity: 0;
+        transform: scale(1.02) translateY(-10px);
+        filter: blur(5px);
+    }
+}
+
+@keyframes videoBrandLockupFloat {
+    0%,
+    25% {
+        transform: translateY(0);
+    }
+
+    55% {
+        transform: translateY(-5px);
+    }
+
+    86% {
+        transform: translateY(0);
+    }
+
+    92%,
+    100% {
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes brandLogoSequence {
+    0%,
+    5% {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+        filter: blur(5px);
+    }
+
+    15%,
+    85% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px);
+    }
+
+    95%,
+    100% {
+        opacity: 0;
+        transform: scale(1.05) translateY(-10px);
+        filter: blur(5px);
+    }
+}
+
+@keyframes brandTextSequence {
+    0%,
+    20% {
+        opacity: 0;
+        transform: scale(0.96) translateY(20px);
+        filter: blur(6px);
+    }
+
+    28%,
+    86% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px);
+    }
+
+    92%,
+    100% {
+        opacity: 0;
+        transform: scale(1.02) translateY(-10px);
+        filter: blur(5px);
+    }
+}
+
+@keyframes brandTextFade {
+    0%,
+    28% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    35%,
+    86% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    91%,
+    100% {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes videoProgress {
+    0% {
+        width: 0%;
+        opacity: 1;
+    }
+
+    85%,
+    90% {
+        width: 100%;
+        opacity: 1;
+    }
+
+    100% {
+        width: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes floatOrb1 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(50px, 50px) scale(1.2);
+    }
+}
+
+@keyframes floatOrb2 {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate(-80px, -40px) scale(1.5);
+    }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-200px);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(400px);
+        opacity: 0;
+    }
+}
+
+@keyframes scanline-vert {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(200px);
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Brand Video Showcase Modal */
+.brand-video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: rgba(3, 7, 18, 0.95);
+    backdrop-filter: blur(20px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.brand-video-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.brand-video-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    aspect-ratio: 16 / 9;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 25px 70px rgba(0, 102, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.brand-video-modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.brand-video-modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}

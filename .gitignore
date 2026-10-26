@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.history/
+.cache/
+.DS_Store
+Thumbs.db
+*.log
+
+# Large binary files exceeding GitHub 100MB limit
+public/*.webm
+zovance-showcase-video/*.webm
+

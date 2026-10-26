@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zovance — High-End Corporate Promotional Reel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #030712;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        #canvasWrapper {
+            position: relative;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9), 0 0 50px rgba(0, 102, 255, 0.25);
+            border-radius: 40px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+        }
+
+        canvas {
+            display: block;
+            width: 405px; /* Visual scale for preview, native is 1080x1920 */
+            height: 720px;
+            background: #080c16;
+        }
+
+        #status {
+            margin-top: 16px;
+            font-size: 14px;
+            font-family: 'Space Grotesk', monospace;
+            color: #38bdf8;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="canvasWrapper">
+        <canvas id="reelCanvas" width="1080" height="1920"></canvas>
+    </div>
+    <div id="status">Initializing high-end video engine...</div>
+
+    <script>
+        const canvas = document.getElementById('reelCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+        const statusEl = document.getElementById('status');
+
+        // AUTHENTIC NON-AI ASSETS (REAL PHOTOGRAPHY & OFFICIAL ZOVANCE BRANDING)
+        const ASSETS = {
+            logoWebsite: './assets/zovance-logo-website.png',
+            logoStacked: './assets/zovance-logo-stacked.png',
+            symbol: './assets/zovance-symbol.png',
+            wordmark: './assets/zovance-wordmark.png',
+            whoWeAre: './assets/zovance-who-we-are.png',
+            dashboardMockup: './assets/zovance-dashboard-mockup.png',
+            manualChallenge: './assets/scene2-manual-challenge.jpg',
+            techWorkspace: './assets/scene3-tech-workspace.jpg',
+            transformationTeam: './assets/scene4-transformation-team.jpg',
+            corporateHq: './assets/scene6-corporate-hq.jpg'
+        };
+
+        const images = {};
+        let loadedCount = 0;
+        const totalImages = Object.keys(ASSETS).length;
+
+        // 6-SCENE STORYBOARD (TOTAL: 38.5 SECONDS)
+        const SCENES = [
+            { id: 'scene1_intro', name: 'Brand Introduction', duration: 5.0 },
+            { id: 'scene2_challenges', name: 'Business Challenges', duration: 5.5 },
+            { id: 'scene3_solutions', name: 'Our Core Solutions', duration: 8.0 },
+            { id: 'scene4_transformation', name: 'Business Transformation', duration: 8.0 },
+            { id: 'scene5_why_zovance', name: 'Why Zovance?', duration: 7.0 },
+            { id: 'scene6_cta', name: 'Closing Brand & CTA', duration: 5.0 }
+        ];
+
+        const TOTAL_DURATION = SCENES.reduce((acc, s) => acc + s.duration, 0); // 38.5s
+        const TRANSITION_TIME = 0.50; // Smooth kinetic sliding transition
+
+        async function preloadAssets() {
+            statusEl.textContent = 'Loading web fonts...';
+            try {
+                await document.fonts.ready;
+            } catch (e) {
+                console.warn('Font loading note:', e);
+            }
+
+            return new Promise((resolve) => {
+                for (let key in ASSETS) {
+                    const img = new Image();
+                    img.src = ASSETS[key];
+                    img.onload = () => {
+                        loadedCount++;
+                        images[key] = img;
+                        statusEl.textContent = `Loading authentic assets (${loadedCount}/${totalImages})...`;
+                        if (loadedCount === totalImages) {
+                            statusEl.textContent = 'Master video engine ready!';
+                            resolve();
+                        }
+                    };
+                    img.onerror = (e) => {
+                        console.error('Failed loading asset:', ASSETS[key], e);
+                        loadedCount++;
+                        if (loadedCount === totalImages) resolve();
+                    };
+                }
+            });
+        }
+
+        // =========================================================================
+        // EASING & UTILITIES
+        // =========================================================================
+        function easeInOutCubic(x) {
+            return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+        }
+
+        function easeOutCubic(x) {
+            return 1 - Math.pow(1 - x, 3);
+        }
+
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function createMixedZohoGradient(ctx, x1, y1, x2, y2) {
+            const g = ctx.createLinearGradient(x1, y1, x2, y2);
+            g.addColorStop(0.0, '#ef4444');  // Red
+            g.addColorStop(0.28, '#f59e0b'); // Amber/Yellow
+            g.addColorStop(0.58, '#10b981'); // Green
+            g.addColorStop(1.0, '#0066ff');  // Blue
+            return g;
+        }
+
+        function drawPill(ctx, cx, cy, text, font, textColor, bgColor, borderColor, px = 20, py = 12) {
+            ctx.save();
+            ctx.font = font;
+            const m = ctx.measureText(text);
+            const w = m.width + px * 2;
+            const h = py * 2;
+            const x = cx - w / 2;
+            const y = cy - h / 2;
+
+            drawRoundedRect(ctx, x, y, w, h, h / 2);
+            if (bgColor) {
+                ctx.fillStyle = bgColor;
+                ctx.fill();
+            }
+            if (borderColor) {
+                ctx.strokeStyle = borderColor;
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, cx, cy);
+            ctx.restore();
+            return { x, y, width: w, height: h };
+        }
+
+        function renderFooterWatermark(ctx, y = 1595) {
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.55)';
+            ctx.fillText('ZOVANCE TECH PRIVATE LIMITED   •   PREMIER CLOUD PARTNER', 540, y);
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // HIGH-END CINEMATIC PHOTO HERO RENDERER (KEN BURNS ZOOM + GLASS FRAME)
+        // =========================================================================
+        function drawCinematicPhotoHero(ctx, img, x, y, width, height, progress, radius = 28, overlayDarkness = 0.45, badgeText = null) {
+            if (!img || !img.complete || img.naturalWidth === 0) return;
+            ctx.save();
+
+            // 1. Clip rounded container
+            drawRoundedRect(ctx, x, y, width, height, radius);
+            ctx.clip();
+
+            // 2. Ken Burns Slow Zoom (1.00 -> 1.07)
+            const scale = 1.0 + (progress * 0.07);
+            const cx = x + width / 2;
+            const cy = y + height / 2;
+
+            ctx.translate(cx, cy);
+            ctx.scale(scale, scale);
+            ctx.translate(-cx, -cy);
+
+            // 3. Aspect-cover image drawing
+            const imgAspect = img.naturalWidth / img.naturalHeight;
+            const boxAspect = width / height;
+            let dw = width, dh = height, dx = x, dy = y;
+            if (imgAspect > boxAspect) {
+                dw = height * imgAspect;
+                dx = x - (dw - width) / 2;
+            } else {
+                dh = width / imgAspect;
+                dy = y - (dh - height) / 2;
+            }
+            ctx.drawImage(img, dx, dy, dw, dh);
+
+            // 4. Cinematic Dark Gradient Overlay (keeps contrast rich)
+            const grad = ctx.createLinearGradient(x, y, x, y + height);
+            grad.addColorStop(0, `rgba(8, 12, 22, ${overlayDarkness * 0.3})`);
+            grad.addColorStop(0.6, `rgba(8, 12, 22, ${overlayDarkness * 0.6})`);
+            grad.addColorStop(1.0, `rgba(8, 12, 22, ${Math.min(0.92, overlayDarkness * 1.35)})`);
+            ctx.fillStyle = grad;
+            ctx.fillRect(x - 50, y - 50, width + 100, height + 100);
+
+            ctx.restore();
+
+            // 5. Outer Glassmorphism Border & Soft Glow
+            ctx.save();
+            drawRoundedRect(ctx, x, y, width, height, radius);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Optional Floating Inset Badge
+            if (badgeText) {
+                ctx.font = '700 13px "Space Grotesk", monospace';
+                const bw = ctx.measureText(badgeText).width + 32;
+                drawPill(
+                    ctx,
+                    x + 24 + bw / 2,
+                    y + 36,
+                    badgeText,
+                    '700 13px "Space Grotesk", monospace',
+                    '#38bdf8',
+                    'rgba(15, 23, 42, 0.9)',
+                    'rgba(56, 189, 248, 0.45)',
+                    16,
+                    14
+                );
+            }
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // SCENE 1 – BRAND INTRODUCTION (0 – 5.0s)
+        // Original Website Video Reveal + "ZOVANCE" + "Your Partner in Digital Transformation"
+        // =========================================================================
+        function renderScene1BrandIntro(sceneT, progress) {
+            const centerX = 540;
+            ctx.save();
+
+            // Ambient background lighting
+            const bgGlow = ctx.createRadialGradient(centerX, 500, 50, centerX, 500, 600);
+            bgGlow.addColorStop(0, 'rgba(0, 102, 255, 0.22)');
+            bgGlow.addColorStop(0.5, 'rgba(16, 185, 129, 0.08)');
+            bgGlow.addColorStop(1, 'transparent');
+            ctx.fillStyle = bgGlow;
+            ctx.fillRect(0, 0, 1080, 1920);
+
+            // Hook Pill
+            drawPill(
+                ctx,
+                centerX,
+                160,
+                '⚡ DIGITAL TRANSFORMATION ARCHITECTURE',
+                '800 15px "Space Grotesk", monospace',
+                '#38bdf8',
+                'rgba(15, 23, 42, 0.85)',
+                'rgba(56, 189, 248, 0.4)',
+                24,
+                20
+            );
+
+            // UPPER HERO: ORIGINAL WEBSITE VIDEO VISUAL REVEAL (Y: 200 to Y: 880)
+            const videoCardW = 960;
+            const videoCardH = 680;
+            const videoCardY = 200;
+
+            // Subtle dark container with glowing gradient border
+            drawRoundedRect(ctx, centerX - videoCardW / 2, videoCardY, videoCardW, videoCardH, 32);
+            ctx.fillStyle = '#0a1020';
+            ctx.fill();
+
+            const bG = ctx.createLinearGradient(centerX - videoCardW / 2, videoCardY, centerX + videoCardW / 2, videoCardY + videoCardH);
+            bG.addColorStop(0, '#ef4444');
+            bG.addColorStop(0.3, '#f59e0b');
+            bG.addColorStop(0.6, '#10b981');
+            bG.addColorStop(1, '#0066ff');
+            ctx.strokeStyle = bG;
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Rotating Technical Gears inside card
+            const gearRot = sceneT * 0.45;
+            drawTechGear(ctx, centerX - 330, videoCardY + 200, 140, 12, gearRot, '#38bdf8', 0.22);
+            drawTechGear(ctx, centerX + 320, videoCardY + 410, 180, 16, -gearRot * 0.7, '#818cf8', 0.20);
+
+            // Zovance 3D Glowing Hex Symbol
+            const symbolBob = Math.sin(sceneT * 4) * 6;
+            if (images.symbol) {
+                const symSize = 170;
+                const symX = centerX - symSize / 2;
+                const symY = videoCardY + 55 + symbolBob;
+
+                ctx.save();
+                ctx.shadowColor = '#0066ff';
+                ctx.shadowBlur = 40;
+                ctx.drawImage(images.symbol, symX, symY, symSize, symSize);
+                ctx.restore();
+            }
+
+            // Wordmark Logo
+            if (images.wordmark) {
+                const wmAspect = images.wordmark.width / images.wordmark.height;
+                const wmW = 310;
+                const wmH = wmW / wmAspect;
+                ctx.drawImage(images.wordmark, centerX - wmW / 2, videoCardY + 245 + symbolBob, wmW, wmH);
+            }
+
+            // "Making Work Effortless" (Mathematically centered, zero overlap!)
+            ctx.save();
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'left';
+
+            const part1 = 'Making Work ';
+            const part2 = 'Effortless';
+
+            ctx.font = '600 46px "Plus Jakarta Sans", sans-serif';
+            const m1 = ctx.measureText(part1);
+
+            ctx.font = '800 48px "Plus Jakarta Sans", sans-serif';
+            const m2 = ctx.measureText(part2);
+
+            const totalTitleW = m1.width + m2.width;
+            const startTitleX = centerX - totalTitleW / 2;
+            const titleY = videoCardY + 440;
+
+            ctx.font = '600 46px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(part1, startTitleX, titleY);
+
+            const effGrad = ctx.createLinearGradient(startTitleX + m1.width, titleY, startTitleX + totalTitleW, titleY);
+            effGrad.addColorStop(0, '#38bdf8');
+            effGrad.addColorStop(1, '#818cf8');
+            ctx.fillStyle = effGrad;
+            ctx.font = '800 48px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText(part2, startTitleX + m1.width, titleY);
+
+            // Subtitle
+            ctx.textAlign = 'center';
+            ctx.font = '800 22px "Space Grotesk", monospace';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.fillText('AUTOMATE   •   SIMPLIFY   •   GROW', centerX, videoCardY + 520);
+            ctx.restore();
+
+            // Progress bar at bottom of video card
+            const pProg = (sceneT % 5.0) / 5.0;
+            ctx.save();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+            ctx.fillRect(centerX - videoCardW / 2 + 30, videoCardY + videoCardH - 14, videoCardW - 60, 5);
+            ctx.fillStyle = '#38bdf8';
+            ctx.fillRect(centerX - videoCardW / 2 + 30, videoCardY + videoCardH - 14, (videoCardW - 60) * pProg, 5);
+            ctx.restore();
+
+            // LOWER HERO DISPLAY: "ZOVANCE — Your Partner in Digital Transformation"
+            const bannerY = 910;
+            const bannerW = 960;
+            const bannerH = 480;
+
+            drawRoundedRect(ctx, centerX - bannerW / 2, bannerY, bannerW, bannerH, 28);
+            ctx.fillStyle = '#0f172a';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.45)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
+
+            ctx.font = '900 68px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = createMixedZohoGradient(ctx, centerX - 220, bannerY + 95, centerX + 220, bannerY + 95);
+            ctx.fillText('ZOVANCE', centerX, bannerY + 95);
+
+            ctx.font = '700 34px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('Your Partner in Digital Transformation', centerX, bannerY + 165);
+
+            ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.78)';
+            ctx.fillText('Engineering Scalability, Custom Cloud Logic & Connected Enterprise Workflows', centerX, bannerY + 225);
+
+            // 3 Badges
+            drawPill(ctx, centerX - 300, bannerY + 320, '✓ Zoho Authorized Partner', '700 16px "Space Grotesk"', '#10b981', '#062016', '#10b981', 22, 20);
+            drawPill(ctx, centerX, bannerY + 320, '⚡ Zero-Touch Automation', '700 16px "Space Grotesk"', '#f59e0b', '#201506', '#f59e0b', 22, 20);
+            drawPill(ctx, centerX + 300, bannerY + 320, '🔒 Enterprise Compliant', '700 16px "Space Grotesk"', '#38bdf8', '#071828', '#38bdf8', 22, 20);
+
+            // Inset Motion Prompt
+            const bob = Math.sin(sceneT * 6) * 8;
+            drawPill(
+                ctx,
+                centerX + bob,
+                bannerY + 415,
+                '👉 SWIPE TO SEE HOW WE SOLVE BOTTLENECKS ➔',
+                '800 20px "Space Grotesk", monospace',
+                '#38bdf8',
+                'rgba(15, 23, 42, 0.8)',
+                'rgba(56, 189, 248, 0.4)',
+                28,
+                22
+            );
+            ctx.restore();
+
+            // Unified Bottom Action Pill
+            drawPill(
+                ctx,
+                centerX,
+                1480,
+                'Explore The Zovance Cloud Stack ➔',
+                '900 24px "Space Grotesk", monospace',
+                '#ffffff',
+                '#0066ff',
+                createMixedZohoGradient(ctx, centerX - 250, 1480, centerX + 250, 1480),
+                50,
+                32
+            );
+
+            renderFooterWatermark(ctx, 1595);
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // SCENE 2 – BUSINESS CHALLENGES (5.0s – 10.5s)
+        // PICTURE: Real manual struggle / spreadsheet chaos + CONTENT: "Still Managing Everything Manually?"
+        // =========================================================================
+        function renderScene2Challenges(sceneT, progress) {
+            const centerX = 540;
+            ctx.save();
+
+            // Top Warning Tag
+            drawPill(
+                ctx,
+                centerX,
+                160,
+                '⚠️ THE REAL COST OF MANUAL BOTTLENECKS',
+                '800 15px "Space Grotesk", monospace',
+                '#ef4444',
+                '#220b0b',
+                '#ef4444',
+                24,
+                20
+            );
+
+            // Punchy Kinetic Typography Headline
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
+
+            ctx.font = '900 58px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('Still Managing Everything', centerX, 245);
+
+            ctx.font = '900 66px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = '#ef4444';
+            ctx.fillText('Manually?', centerX, 320);
+
+            ctx.font = '800 30px "Space Grotesk", monospace';
+            ctx.fillStyle = createMixedZohoGradient(ctx, centerX - 260, 380, centerX + 260, 380);
+            ctx.fillText("There's a Smarter Way to Work.", centerX, 380);
+            ctx.restore();
+
+            // LARGE CINEMATIC REAL HERO PICTURE: Real professionals struggling with manual paperwork & laptops
+            const photoW = 960;
+            const photoH = 600;
+            const photoY = 415;
+
+            drawCinematicPhotoHero(
+                ctx,
+                images.manualChallenge,
+                centerX - photoW / 2,
+                photoY,
+                photoW,
+                photoH,
+                progress,
+                28,
+                0.55,
+                '⚠️ LIVE PAIN POINT: SPREADSHEETS & MANUAL OVERLOAD'
+            );
+
+            // Floating Interactive Spreadsheet Error Card inside photo
+            const hudW = 860;
+            const hudH = 160;
+            const hudX = centerX - hudW / 2;
+            const hudY = photoY + photoH - 185;
+
+            drawRoundedRect(ctx, hudX, hudY, hudW, hudH, 20);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(239, 68, 68, 0.6)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Spreadsheet mini rows
+            ctx.save();
+            ctx.font = '700 15px "Space Grotesk", monospace';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText('CLIENT PIPELINE', hudX + 24, hudY + 36);
+            ctx.fillText('REVENUE', hudX + 320, hudY + 36);
+            ctx.fillText('SYNC STATUS', hudX + 540, hudY + 36);
+
+            ctx.font = '800 19px "Space Grotesk", monospace';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('Zenith Logistics', hudX + 24, hudY + 78);
+            ctx.fillText('₹18,50,000', hudX + 320, hudY + 78);
+            ctx.fillStyle = '#ef4444';
+            ctx.fillText('❌ #REF! ERROR', hudX + 540, hudY + 78);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('Apex Global Corp', hudX + 24, hudY + 124);
+            ctx.fillText('₹45,00,000', hudX + 320, hudY + 124);
+            ctx.fillStyle = '#f59e0b';
+            ctx.fillText('⚠️ MANUAL RE-ENTRY', hudX + 540, hudY + 124);
+            ctx.restore();
+
+            // 3 BOTTOM IMPACT STAT CARDS (Y: 1025 - 1365)
+            const pains = [
+                { icon: '⏳', stat: '4.2 Hours Lost Daily', desc: 'Wasted on duplicate data entry and mismatched manual reports', color: '#f59e0b' },
+                { icon: '💸', stat: '23% Revenue Leakage', desc: 'Unassigned incoming leads slipping through messy spreadsheets', color: '#ef4444' },
+                { icon: '⚠️', stat: 'Zero Real-Time Visibility', desc: 'Decisions made on stale last-month data instead of live telemetry', color: '#38bdf8' }
+            ];
+
+            const startY = 1025;
+            const cardH = 104;
+            const gap = 14;
+
+            pains.forEach((p, idx) => {
+                const py = startY + idx * (cardH + gap);
+                drawRoundedRect(ctx, centerX - photoW / 2, py, photoW, cardH, 20);
+                ctx.fillStyle = '#0f172a';
+                ctx.fill();
+                ctx.strokeStyle = p.color;
+                ctx.lineWidth = 1.6;
+                ctx.stroke();
+
+                ctx.save();
+                ctx.textBaseline = 'middle';
+
+                ctx.textAlign = 'left';
+                ctx.font = '32px sans-serif';
+                ctx.fillText(p.icon, centerX - photoW / 2 + 28, py + cardH / 2);
+
+                ctx.font = '800 22px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = p.color;
+                ctx.fillText(p.stat, centerX - photoW / 2 + 88, py + 36);
+
+                ctx.font = '500 16px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                ctx.fillText(p.desc, centerX - photoW / 2 + 88, py + 72);
+                ctx.restore();
+            });
+
+            // Action Pill
+            drawPill(
+                ctx,
+                centerX,
+                1480,
+                'See The Zovance Solution Engine ➔',
+                '900 24px "Space Grotesk", monospace',
+                '#ffffff',
+                '#0066ff',
+                createMixedZohoGradient(ctx, centerX - 250, 1480, centerX + 250, 1480),
+                50,
+                32
+            );
+
+            renderFooterWatermark(ctx, 1595);
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // SCENE 3 – OUR CORE SOLUTIONS (10.5s – 18.5s)
+        // PICTURE: Real analytics workspace on MacBook + CONTENT: 6 Core Services
+        // =========================================================================
+        function renderScene3Solutions(sceneT, progress) {
+            const centerX = 540;
+            ctx.save();
+
+            // Top Header Pill
+            drawPill(
+                ctx,
+                centerX,
+                160,
+                '🛠️ THE ZOVANCE ENTERPRISE ARSENAL',
+                '800 15px "Space Grotesk", monospace',
+                '#10b981',
+                '#062016',
+                '#10b981',
+                24,
+                20
+            );
+
+            // Headline
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
+            ctx.font = '900 58px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('End–to–End Solutions', centerX, 245);
+
+            ctx.font = '600 23px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+            ctx.fillText('Engineered for High–Growth Scalability & Efficiency', centerX, 300);
+            ctx.restore();
+
+            // LARGE CINEMATIC REAL HERO PICTURE: Real MacBook Analytics Workspace
+            const photoW = 960;
+            const photoH = 450;
+            const photoY = 335;
+
+            drawCinematicPhotoHero(
+                ctx,
+                images.techWorkspace,
+                centerX - photoW / 2,
+                photoY,
+                photoW,
+                photoH,
+                progress,
+                28,
+                0.40,
+                '💻 LIVE CLOUD WORKSPACE & BI TELEMETRY'
+            );
+
+            // Inset Floating Dashboard Preview Strip inside Photo
+            const chipW = 460;
+            const chipH = 52;
+            const chipX = centerX + photoW / 2 - chipW - 20;
+            const chipY = photoY + photoH - chipH - 20;
+            drawRoundedRect(ctx, chipX, chipY, chipW, chipH, 16);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+            ctx.fill();
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.save();
+            ctx.textBaseline = 'middle';
+            ctx.font = '700 15px "Space Grotesk", monospace';
+            ctx.fillStyle = '#10b981';
+            ctx.fillText('● 100% LIVE ZOHO SYNC', chipX + 20, chipY + chipH / 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '600 13.5px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText('⚡ Zero Latency Pipeline', chipX + 245, chipY + chipH / 2);
+            ctx.restore();
+
+            // THE 6 CORE SERVICES SLIDING IN (Y: 815 - 1340)
+            const services = [
+                { icon: '🌐', title: 'Zoho Solutions', desc: 'Zoho One, CRM, Books, Creator & Analytics Enterprise Setup' },
+                { icon: '⚡', title: 'Business Process Automation', desc: 'Zero-touch automated workflows, lead triggers & API pipelines' },
+                { icon: '🤖', title: 'AI-Powered Solutions', desc: 'Zia AI predictive models, smart routing & autonomous intelligence' },
+                { icon: '💻', title: 'Website Development', desc: 'High-performance corporate web platforms connected to live CRM' },
+                { icon: '📱', title: 'Mobile App Development', desc: 'Native iOS & Android business applications for seamless operations' },
+                { icon: '⚙️', title: 'Custom Software Solutions', desc: 'Bespoke low-code Deluge logic, ERP integrations & custom portals' }
+            ];
+
+            const gridW = 960;
+            const cardW = 468;
+            const cardH = 165;
+            const gapX = 24;
+            const gapY = 14;
+            const startY = 815;
+
+            services.forEach((s, idx) => {
+                const col = idx % 2;
+                const row = Math.floor(idx / 2);
+                const cx = (centerX - gridW / 2) + col * (cardW + gapX);
+                const cy = startY + row * (cardH + gapY);
+
+                const stagger = Math.min(1, Math.max(0, (sceneT - 0.4 - idx * 0.25) / 0.4));
+                const easeStag = easeOutCubic(stagger);
+                const slideX = (1 - easeStag) * 40;
+
+                ctx.save();
+                ctx.translate(slideX, 0);
+
+                drawRoundedRect(ctx, cx, cy, cardW, cardH, 20);
+                ctx.fillStyle = '#0f172a';
+                ctx.fill();
+                ctx.strokeStyle = idx === 0 ? '#38bdf8' : 'rgba(255, 255, 255, 0.12)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                ctx.font = '34px sans-serif';
+                ctx.fillText(s.icon, cx + 22, cy + 52);
+
+                ctx.font = '800 20px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(s.title, cx + 70, cy + 48);
+
+                ctx.font = '500 15px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
+                wrapText(ctx, s.desc, cx + 22, cy + 90, cardW - 44, 21);
+
+                ctx.restore();
+            });
+
+            // Action Pill
+            drawPill(
+                ctx,
+                centerX,
+                1480,
+                'See The Transformation In Action ➔',
+                '900 24px "Space Grotesk", monospace',
+                '#ffffff',
+                '#0066ff',
+                createMixedZohoGradient(ctx, centerX - 250, 1480, centerX + 250, 1480),
+                50,
+                32
+            );
+
+            renderFooterWatermark(ctx, 1595);
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // SCENE 4 – BUSINESS TRANSFORMATION (18.5s – 26.5s)
+        // PICTURE: Real cloud engineers at dual monitors + CONTENT: 4 Transformation Stages
+        // =========================================================================
+        function renderScene4Transformation(sceneT, progress) {
+            const centerX = 540;
+            ctx.save();
+
+            // Top Header Pill
+            drawPill(
+                ctx,
+                centerX,
+                160,
+                '🔄 END-TO-END BUSINESS TRANSFORMATION',
+                '800 15px "Space Grotesk", monospace',
+                '#38bdf8',
+                '#071927',
+                '#38bdf8',
+                24,
+                20
+            );
+
+            // Headline
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
+            ctx.font = '900 58px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('From Chaos to Autonomy', centerX, 245);
+
+            ctx.font = '600 23px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+            ctx.fillText('How Zovance Unifies Your Entire Enterprise Stack', centerX, 300);
+            ctx.restore();
+
+            // LARGE CINEMATIC REAL HERO PICTURE: Cloud software engineers in action
+            const photoW = 960;
+            const photoH = 450;
+            const photoY = 335;
+
+            drawCinematicPhotoHero(
+                ctx,
+                images.transformationTeam,
+                centerX - photoW / 2,
+                photoY,
+                photoW,
+                photoH,
+                progress,
+                28,
+                0.40,
+                '⚡ REAL-TIME AUTOMATION & DELUGE API LOGIC'
+            );
+
+            // Live Deluge Terminal Banner inside Photo
+            const termW = 860;
+            const termH = 60;
+            drawRoundedRect(ctx, centerX - termW / 2, photoY + photoH - termH - 20, termW, termH, 16);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+            ctx.fill();
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '700 15px "Space Grotesk", monospace';
+            ctx.fillStyle = '#10b981';
+            ctx.fillText('● DELUGE TRIGGER: on_deal_closed() ➔ generate_gst_invoice() ➔ sync_erp() [0.12s]', centerX, photoY + photoH - termH / 2 - 20);
+            ctx.restore();
+
+            // 4 SEQUENTIAL KINETIC TRANSFORMATION MILESTONES (Y: 810 - 1300)
+            const steps = [
+                { num: '01', title: 'Automate Your Processes.', desc: 'Zero-touch triggers for sales lead capture, quotation & onboarding', badge: '+340% Velocity', color: '#f59e0b' },
+                { num: '02', title: 'Connect Your Systems.', desc: 'Real-time two-way sync between CRM, GST Billing, Banking & ERP', badge: '100% Tax Compliant', color: '#10b981' },
+                { num: '03', title: 'Improve Productivity.', desc: 'Eliminate 4+ hours of daily manual data re-entry across all departments', badge: '10x Turnaround', color: '#38bdf8' },
+                { num: '04', title: 'Scale Your Business.', desc: 'Multi-branch corporate agility, multi-currency ledger & Zia AI models', badge: 'Infinite Cloud Scale', color: '#818cf8' }
+            ];
+
+            const stepW = 960;
+            const stepH = 112;
+            const startY = 810;
+            const gap = 14;
+
+            steps.forEach((st, idx) => {
+                const sy = startY + idx * (stepH + gap);
+
+                drawRoundedRect(ctx, centerX - stepW / 2, sy, stepW, stepH, 20);
+                ctx.fillStyle = '#0f172a';
+                ctx.fill();
+                ctx.strokeStyle = st.color;
+                ctx.lineWidth = 1.6;
+                ctx.stroke();
+
+                ctx.save();
+                ctx.textBaseline = 'middle';
+
+                // Number
+                ctx.textAlign = 'left';
+                ctx.font = '900 28px "Space Grotesk", monospace';
+                ctx.fillStyle = st.color;
+                ctx.fillText(st.num, centerX - stepW / 2 + 28, sy + 36);
+
+                // Title
+                ctx.font = '800 22px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(st.title, centerX - stepW / 2 + 88, sy + 36);
+
+                // Description
+                ctx.font = '500 15.5px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.78)';
+                ctx.fillText(st.desc, centerX - stepW / 2 + 88, sy + 74);
+
+                // Right badge
+                drawPill(
+                    ctx,
+                    centerX + stepW / 2 - 130,
+                    sy + stepH / 2,
+                    st.badge,
+                    '700 13.5px "Space Grotesk", monospace',
+                    st.color,
+                    'rgba(15, 23, 42, 0.85)',
+                    st.color,
+                    16,
+                    12
+                );
+                ctx.restore();
+            });
+
+            // Action Pill
+            drawPill(
+                ctx,
+                centerX,
+                1480,
+                'Why Top MSMEs Choose Zovance ➔',
+                '900 24px "Space Grotesk", monospace',
+                '#ffffff',
+                '#0066ff',
+                createMixedZohoGradient(ctx, centerX - 250, 1480, centerX + 250, 1480),
+                50,
+                32
+            );
+
+            renderFooterWatermark(ctx, 1595);
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // SCENE 5 – WHY ZOVANCE? (26.5s – 33.5s)
+        // PICTURE: Real Zovance Conference Room Team Photo + CONTENT: 4 Core Values
+        // =========================================================================
+        function renderScene5WhyZovance(sceneT, progress) {
+            const centerX = 540;
+            ctx.save();
+
+            // Top Header Pill
+            drawPill(
+                ctx,
+                centerX,
+                160,
+                '🏆 THE ZOVANCE ADVANTAGE',
+                '800 15px "Space Grotesk", monospace',
+                '#f59e0b',
+                '#211405',
+                '#f59e0b',
+                24,
+                20
+            );
+
+            // Headline
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
+            ctx.font = '900 58px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('Why Leading Enterprises', centerX, 245);
+
+            ctx.font = '900 66px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = createMixedZohoGradient(ctx, centerX - 260, 320, centerX + 260, 320);
+            ctx.fillText('Choose Zovance', centerX, 320);
+            ctx.restore();
+
+            // LARGE CINEMATIC REAL HERO PICTURE: Authentic Zovance Team in Conference Room
+            const photoW = 960;
+            const photoH = 480;
+            const photoY = 355;
+
+            drawCinematicPhotoHero(
+                ctx,
+                images.whoWeAre,
+                centerX - photoW / 2,
+                photoY,
+                photoW,
+                photoH,
+                progress,
+                28,
+                0.35,
+                '👥 CERTIFIED ARCHITECTS • REAL HUMAN ENGINEERS'
+            );
+
+            // Overlay Badge on Photo
+            const badgeW = 580;
+            const badgeH = 50;
+            drawRoundedRect(ctx, centerX - badgeW / 2, photoY + photoH - badgeH - 20, badgeW, badgeH, 16);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.92)';
+            ctx.fill();
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '700 15px "Space Grotesk", monospace';
+            ctx.fillStyle = '#10b981';
+            ctx.fillText('✓ VERIFIED TAMIL NADU & ALL-INDIA ENTERPRISE DEPLOYMENTS', centerX, photoY + photoH - badgeH / 2 - 20);
+            ctx.restore();
+
+            // 4 CORE PILLARS OF WHY ZOVANCE (Y: 850 - 1308)
+            const pillars = [
+                { icon: '🧠', title: 'Smart Solutions.', desc: 'Engineered for scalability, precision and measurable enterprise ROI.', color: '#ef4444' },
+                { icon: '⚡', title: 'Seamless Integration.', desc: 'Connecting your CRM, ERP, Banking & Cloud into a unified ecosystem.', color: '#f59e0b' },
+                { icon: '💪', title: 'Stronger Business.', desc: 'Eliminate tool redundancies and maximize bottom-line team profitability.', color: '#10b981' },
+                { icon: '🎯', title: 'Built Around Your Business Needs.', desc: 'Never forced out-of-the-box templates. Bespoke to your real workflow.', color: '#0066ff' }
+            ];
+
+            const pW = 960;
+            const pH = 104;
+            const startY = 850;
+            const gap = 14;
+
+            pillars.forEach((p, idx) => {
+                const py = startY + idx * (pH + gap);
+
+                drawRoundedRect(ctx, centerX - pW / 2, py, pW, pH, 20);
+                ctx.fillStyle = '#0f172a';
+                ctx.fill();
+                ctx.strokeStyle = p.color;
+                ctx.lineWidth = 1.6;
+                ctx.stroke();
+
+                ctx.save();
+                ctx.textBaseline = 'middle';
+
+                // Icon
+                ctx.textAlign = 'left';
+                ctx.font = '34px sans-serif';
+                ctx.fillText(p.icon, centerX - pW / 2 + 28, py + pH / 2);
+
+                // Title
+                ctx.font = '800 22px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = '#ffffff';
+                ctx.fillText(p.title, centerX - pW / 2 + 90, py + 36);
+
+                // Description
+                ctx.font = '500 15.5px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.78)';
+                ctx.fillText(p.desc, centerX - pW / 2 + 90, py + 72);
+                ctx.restore();
+            });
+
+            // Action Pill
+            drawPill(
+                ctx,
+                centerX,
+                1480,
+                'Connect With Zovance Today ➔',
+                '900 24px "Space Grotesk", monospace',
+                '#ffffff',
+                '#0066ff',
+                createMixedZohoGradient(ctx, centerX - 250, 1480, centerX + 250, 1480),
+                50,
+                32
+            );
+
+            renderFooterWatermark(ctx, 1595);
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // SCENE 6 – CLOSING BRAND & CTA (33.5s – 38.5s)
+        // PICTURE: Modern Corporate HQ Corridor + CONTENT: Official Logo, Contacts, Strategy Call
+        // =========================================================================
+        function renderScene6ClosingCTA(sceneT, progress) {
+            const centerX = 540;
+            ctx.save();
+
+            // CINEMATIC BACKGROUND PHOTO: Modern Corporate Headquarters
+            if (images.corporateHq) {
+                ctx.save();
+                ctx.globalAlpha = 0.28;
+                const scale = 1.0 + progress * 0.05;
+                ctx.translate(centerX, 960);
+                ctx.scale(scale, scale);
+                ctx.translate(-centerX, -960);
+                ctx.drawImage(images.corporateHq, 0, 0, 1080, 1920);
+                ctx.restore();
+            }
+
+            // Top Official Badge
+            drawPill(
+                ctx,
+                centerX,
+                150,
+                'OFFICIAL ZOHO AUTHORIZED PARTNER',
+                '800 15px "Space Grotesk", monospace',
+                '#38bdf8',
+                'rgba(15, 23, 42, 0.9)',
+                '#38bdf8',
+                28,
+                22
+            );
+
+            // CENTER LOGO CARD (Y: 200 to Y: 370)
+            const logoW = 860;
+            const logoH = 170;
+            const logoY = 200;
+
+            drawRoundedRect(ctx, centerX - logoW / 2, logoY, logoW, logoH, 26);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            ctx.strokeStyle = createMixedZohoGradient(ctx, centerX - logoW / 2, logoY, centerX + logoW / 2, logoY);
+            ctx.lineWidth = 3.5;
+            ctx.stroke();
+
+            if (images.logoWebsite) {
+                const aspect = images.logoWebsite.width / images.logoWebsite.height;
+                const drawW = 540;
+                const drawH = drawW / aspect;
+                ctx.drawImage(images.logoWebsite, centerX - drawW / 2, logoY + (logoH - drawH) / 2, drawW, drawH);
+            }
+
+            // HEADLINE & BRAND CLOSING
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
+
+            ctx.font = '900 52px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('Transform the Way You Work.', centerX, 425);
+
+            ctx.font = '900 58px "Plus Jakarta Sans", sans-serif';
+            ctx.fillStyle = createMixedZohoGradient(ctx, centerX - 300, 490, centerX + 300, 490);
+            ctx.fillText("Let's Build Something Better.", centerX, 490);
+
+            ctx.font = '700 28px "Space Grotesk", monospace';
+            ctx.fillStyle = '#38bdf8';
+            ctx.fillText('Connect With Zovance Today.', centerX, 545);
+            ctx.restore();
+
+            // OFFICIAL CONTACTS & LOCATION CARD (Y: 585 to Y: 1235)
+            const contactW = 960;
+            const contactH = 650;
+            const contactY = 585;
+
+            drawRoundedRect(ctx, centerX - contactW / 2, contactY, contactW, contactH, 28);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.94)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            const rows = [
+                { icon: '🏢', label: 'Registered HQ', val: '4/292-2, Auto Nagar, Salem, Tamil Nadu - 636010' },
+                { icon: '📞', label: 'Direct Hotline', val: '+91 94423 10491 / +91 95972 43968' },
+                { icon: '✉️', label: 'Official Email', val: 'info@zovancetech.com' },
+                { icon: '🌐', label: 'Corporate Portal', val: 'www.zovancetech.com' },
+                { icon: '💼', label: 'Enterprise Scope', val: 'Zoho One • Custom Cloud Apps • Deluge Workflows' }
+            ];
+
+            rows.forEach((r, idx) => {
+                const ry = contactY + 28 + idx * 106;
+
+                ctx.save();
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'alphabetic';
+
+                ctx.font = '32px sans-serif';
+                ctx.fillText(r.icon, centerX - contactW / 2 + 40, ry + 44);
+
+                ctx.font = '700 17px "Space Grotesk", monospace';
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillText(r.label, centerX - contactW / 2 + 95, ry + 26);
+
+                ctx.font = '800 23px "Plus Jakarta Sans", sans-serif';
+                ctx.fillStyle = idx === 3 ? '#38bdf8' : '#ffffff';
+                ctx.fillText(r.val, centerX - contactW / 2 + 95, ry + 64);
+
+                if (idx < rows.length - 1) {
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(centerX - contactW / 2 + 40, ry + 88);
+                    ctx.lineTo(centerX + contactW / 2 - 40, ry + 88);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            });
+
+            // Footnote inside card
+            ctx.save();
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.font = '700 15px "Space Grotesk", monospace';
+            ctx.fillStyle = '#10b981';
+            ctx.fillText('GST & MSME CERTIFIED ENTERPRISE CLOUD SPECIALISTS', centerX, contactY + contactH - 32);
+            ctx.restore();
+
+            // GIANT CALL TO ACTION BUTTON (Y: 1360)
+            const ctaBob = Math.sin(sceneT * 5) * 6;
+            drawPill(
+                ctx,
+                centerX,
+                1360 + ctaBob,
+                '👉 BOOK A FREE STRATEGY CALL',
+                '900 28px "Space Grotesk", monospace',
+                '#ffffff',
+                '#0066ff',
+                createMixedZohoGradient(ctx, centerX - 300, 1360, centerX + 300, 1360),
+                65,
+                38
+            );
+
+            // Secondary Link in Bio Pill (Y: 1470)
+            drawPill(
+                ctx,
+                centerX,
+                1470,
+                '🔗 LINK IN BIO • WWW.ZOVANCETECH.COM',
+                '800 22px "Space Grotesk", monospace',
+                '#38bdf8',
+                '#0f172a',
+                'rgba(56, 189, 248, 0.4)',
+                45,
+                28
+            );
+
+            renderFooterWatermark(ctx, 1585);
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // HELPER FUNCTIONS FOR VECTOR MOTIF & TEXT WRAPPING
+        // =========================================================================
+        function drawTechGear(ctx, cx, cy, radius, teeth, rotation, color, opacity) {
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(rotation);
+            ctx.strokeStyle = color;
+            ctx.globalAlpha = opacity;
+            ctx.lineWidth = 2;
+
+            ctx.beginPath();
+            const toothH = radius * 0.22;
+            for (let i = 0; i < teeth; i++) {
+                const angle = (i / teeth) * Math.PI * 2;
+                ctx.arc(0, 0, radius, angle, angle + Math.PI / teeth);
+                ctx.arc(0, 0, radius + toothH, angle + Math.PI / teeth, angle + Math.PI / teeth + 0.1);
+            }
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(0, 0, radius * 0.45, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(-radius * 0.8, 0); ctx.lineTo(radius * 0.8, 0);
+            ctx.moveTo(0, -radius * 0.8); ctx.lineTo(0, radius * 0.8);
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+            const words = text.split(' ');
+            let line = '';
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                const metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && n > 0) {
+                    ctx.fillText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
+            }
+            ctx.fillText(line, x, y);
+        }
+
+        function renderMixedColorProgressBar(t) {
+            const p = Math.min(1, t / TOTAL_DURATION);
+            ctx.save();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.12)';
+            ctx.fillRect(60, 45, 960, 6);
+
+            const g = createMixedZohoGradient(ctx, 60, 45, 1020, 45);
+            ctx.fillStyle = g;
+            ctx.fillRect(60, 45, 960 * p, 6);
+            ctx.restore();
+        }
+
+        function renderTopLogoDock(t, sceneIdx) {
+            // In Scene 1 and Scene 6, the logo is already full screen & center stage
+            if (sceneIdx === 0 || sceneIdx === 5) return;
+
+            ctx.save();
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+            ctx.lineWidth = 1.5;
+
+            const pillW = 280;
+            const pillH = 54;
+            const pillX = 540 - pillW / 2;
+            const pillY = 70;
+
+            drawRoundedRect(ctx, pillX, pillY, pillW, pillH, 27);
+            ctx.fill();
+            ctx.stroke();
+
+            if (images.symbol) {
+                ctx.drawImage(images.symbol, pillX + 16, pillY + 11, 32, 32);
+            }
+
+            ctx.font = '800 20px "Space Grotesk", sans-serif';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('ZOVANCE', pillX + 60, pillY + 28);
+
+            const pulse = 0.5 + 0.5 * Math.sin(t * 6);
+            ctx.beginPath();
+            ctx.arc(pillX + pillW - 25, pillY + 27, 5 + pulse * 2, 0, Math.PI * 2);
+            ctx.fillStyle = '#10b981';
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        // DISPATCHER FOR SCENE RENDERING
+        function renderSceneContent(scene, t, sceneProgress) {
+            const sceneT = sceneProgress * scene.duration;
+            ctx.save();
+            if (scene.id === 'scene1_intro') {
+                renderScene1BrandIntro(sceneT, sceneProgress);
+            } else if (scene.id === 'scene2_challenges') {
+                renderScene2Challenges(sceneT, sceneProgress);
+            } else if (scene.id === 'scene3_solutions') {
+                renderScene3Solutions(sceneT, sceneProgress);
+            } else if (scene.id === 'scene4_transformation') {
+                renderScene4Transformation(sceneT, sceneProgress);
+            } else if (scene.id === 'scene5_why_zovance') {
+                renderScene5WhyZovance(sceneT, sceneProgress);
+            } else if (scene.id === 'scene6_cta') {
+                renderScene6ClosingCTA(sceneT, sceneProgress);
+            }
+            ctx.restore();
+        }
+
+        function renderFrameAtTime(t) {
+            // Dark base background
+            ctx.fillStyle = '#080c16';
+            ctx.fillRect(0, 0, 1080, 1920);
+
+            // Subtle grid
+            ctx.save();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.025)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < 1080; x += 80) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, 1920); ctx.stroke();
+            }
+            for (let y = 0; y < 1920; y += 80) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(1080, y); ctx.stroke();
+            }
+            ctx.restore();
+
+            // Find current scene
+            let accumulatedTime = 0;
+            let currentSceneIndex = 0;
+            let currentSceneStart = 0;
+
+            for (let i = 0; i < SCENES.length; i++) {
+                const s = SCENES[i];
+                if (t >= accumulatedTime && t < accumulatedTime + s.duration) {
+                    currentSceneIndex = i;
+                    currentSceneStart = accumulatedTime;
+                    break;
+                }
+                accumulatedTime += s.duration;
+            }
+
+            if (t >= TOTAL_DURATION) {
+                currentSceneIndex = SCENES.length - 1;
+                currentSceneStart = TOTAL_DURATION - SCENES[currentSceneIndex].duration;
+            }
+
+            const currentScene = SCENES[currentSceneIndex];
+            const sceneElapsed = t - currentSceneStart;
+            const sceneProgress = Math.min(1, Math.max(0, sceneElapsed / currentScene.duration));
+
+            // Check if we are in horizontal slide transition to next scene
+            const timeUntilEnd = currentScene.duration - sceneElapsed;
+            const isTransitioning = timeUntilEnd < TRANSITION_TIME && currentSceneIndex < SCENES.length - 1;
+
+            if (isTransitioning) {
+                const nextScene = SCENES[currentSceneIndex + 1];
+                const transProgress = (TRANSITION_TIME - timeUntilEnd) / TRANSITION_TIME;
+                const easeTrans = easeInOutCubic(transProgress);
+                const shiftX = easeTrans * 1080;
+
+                // Render current scene sliding out to the left
+                ctx.save();
+                ctx.translate(-shiftX, 0);
+                renderSceneContent(currentScene, sceneElapsed, sceneProgress);
+                ctx.restore();
+
+                // Render next scene sliding in from the right
+                ctx.save();
+                ctx.translate(1080 - shiftX, 0);
+                renderSceneContent(nextScene, 0, 0);
+                ctx.restore();
+            } else {
+                ctx.save();
+                renderSceneContent(currentScene, sceneElapsed, sceneProgress);
+                ctx.restore();
+            }
+
+            // Top Persistent Logo Dock & Mixed Progress Bar
+            renderMixedColorProgressBar(t);
+            renderTopLogoDock(t, currentSceneIndex);
+        }
+
+        window.isPaused = false;
+        let previewStartTime = performance.now();
+
+        function loop() {
+            if (!window.isPaused) {
+                const now = performance.now();
+                const elapsed = ((now - previewStartTime) / 1000) % TOTAL_DURATION;
+                renderFrameAtTime(elapsed);
+            }
+            requestAnimationFrame(loop);
+        }
+
+        preloadAssets().then(() => {
+            console.log('All authentic non-AI assets loaded. Reel running...');
+            window.isReady = true;
+            loop();
+        });
+
+        window.renderFrame = (timeInSecs) => {
+            renderFrameAtTime(timeInSecs);
+        };
+        window.getTotalDuration = () => TOTAL_DURATION;
+    </script>
+</body>
+</html>
