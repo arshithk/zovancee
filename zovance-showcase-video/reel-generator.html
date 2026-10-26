@@ -320,26 +320,34 @@
             drawTechGear(ctx, centerX - 330, videoCardY + 200, 140, 12, gearRot, '#38bdf8', 0.22);
             drawTechGear(ctx, centerX + 320, videoCardY + 410, 180, 16, -gearRot * 0.7, '#818cf8', 0.20);
 
-            // Zovance 3D Glowing Hex Symbol
-            const symbolBob = Math.sin(sceneT * 4) * 6;
-            if (images.symbol) {
-                const symSize = 170;
-                const symX = centerX - symSize / 2;
-                const symY = videoCardY + 55 + symbolBob;
+            // White Brand Logo Card (Pure white background for maximum contrast & beauty)
+            const logoBob = Math.sin(sceneT * 4) * 4;
+            const logoCardW = 860;
+            const logoCardH = 200;
+            const logoCardY = videoCardY + 45 + logoBob;
 
-                ctx.save();
-                ctx.shadowColor = '#0066ff';
-                ctx.shadowBlur = 40;
-                ctx.drawImage(images.symbol, symX, symY, symSize, symSize);
-                ctx.restore();
-            }
+            ctx.save();
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.45)';
+            ctx.shadowBlur = 30;
+            ctx.shadowOffsetY = 10;
+            drawRoundedRect(ctx, centerX - logoCardW / 2, logoCardY, logoCardW, logoCardH, 26);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+            ctx.restore();
 
-            // Wordmark Logo
-            if (images.wordmark) {
-                const wmAspect = images.wordmark.width / images.wordmark.height;
-                const wmW = 310;
-                const wmH = wmW / wmAspect;
-                ctx.drawImage(images.wordmark, centerX - wmW / 2, videoCardY + 245 + symbolBob, wmW, wmH);
+            ctx.save();
+            ctx.strokeStyle = createMixedZohoGradient(ctx, centerX - logoCardW / 2, logoCardY, centerX + logoCardW / 2, logoCardY);
+            ctx.lineWidth = 3.5;
+            drawRoundedRect(ctx, centerX - logoCardW / 2, logoCardY, logoCardW, logoCardH, 26);
+            ctx.stroke();
+            ctx.restore();
+
+            // Official Zovance Website Logo centered inside the white card
+            if (images.logoWebsite) {
+                const aspect = images.logoWebsite.width / images.logoWebsite.height;
+                const drawW = 560;
+                const drawH = drawW / aspect;
+                ctx.drawImage(images.logoWebsite, centerX - drawW / 2, logoCardY + (logoCardH - drawH) / 2, drawW, drawH);
             }
 
             // "Making Work Effortless" (Mathematically centered, zero overlap!)
@@ -358,7 +366,7 @@
 
             const totalTitleW = m1.width + m2.width;
             const startTitleX = centerX - totalTitleW / 2;
-            const titleY = videoCardY + 440;
+            const titleY = videoCardY + 505;
 
             ctx.font = '600 46px "Plus Jakarta Sans", sans-serif';
             ctx.fillStyle = '#ffffff';
@@ -375,7 +383,7 @@
             ctx.textAlign = 'center';
             ctx.font = '800 22px "Space Grotesk", monospace';
             ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
-            ctx.fillText('AUTOMATE   •   SIMPLIFY   •   GROW', centerX, videoCardY + 520);
+            ctx.fillText('AUTOMATE   •   SIMPLIFY   •   GROW', centerX, videoCardY + 580);
             ctx.restore();
 
             // Progress bar at bottom of video card
@@ -1115,7 +1123,7 @@
 
             const rows = [
                 { icon: '🏢', label: 'Registered HQ', val: '4/292-2, Auto Nagar, Salem, Tamil Nadu - 636010' },
-                { icon: '📞', label: 'Direct Hotline', val: '+91 94423 10491 / +91 95972 43968' },
+                { icon: '📞', label: 'Direct Hotline', val: '+91 98943 84220 / +91 94423 10491' },
                 { icon: '✉️', label: 'Official Email', val: 'info@zovancetech.com' },
                 { icon: '🌐', label: 'Corporate Portal', val: 'www.zovancetech.com' },
                 { icon: '💼', label: 'Enterprise Scope', val: 'Zoho One • Custom Cloud Apps • Deluge Workflows' }
