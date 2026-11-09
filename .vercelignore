@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+.cache
+*.webm
+*preview-frames*
+*preview-frames-4k*
+test-*.mp4
+

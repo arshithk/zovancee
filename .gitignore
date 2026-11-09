@@ -13,3 +13,6 @@ Thumbs.db
 **/*preview-frames*/
 **/*preview-frames-4k*/
 test-*.mp4
+
+.vercel
+.env*
