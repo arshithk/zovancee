@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zovance Tech — Official Promotional Reel Studio (4K Ultra-HD Master)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #030712;
+            --card-bg: rgba(15, 23, 42, 0.75);
+            --card-border: rgba(56, 189, 248, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #0066ff;
+            --accent-cyan: #38bdf8;
+            --accent-amber: #f59e0b;
+            --accent-green: #10b981;
+            --accent-red: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 102, 255, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 60%);
+            color: var(--text-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            max-width: 960px;
+            margin-bottom: 28px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 9999px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--accent-green);
+            margin-bottom: 16px;
+        }
+
+        .badge span.dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.85); }
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #0066ff 0%, #38bdf8 25%, #10b981 50%, #f59e0b 75%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            font-size: 17px;
+            line-height: 1.6;
+        }
+
+        /* REEL SWITCHER TABS */
+        .reel-selector {
+            display: flex;
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 6px;
+            gap: 8px;
+            margin-bottom: 32px;
+            max-width: 780px;
+            width: 100%;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: 14px;
+            font-size: 14.5px;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #0066ff, #0284c7);
+            color: #ffffff;
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.4);
+        }
+
+        .tab-btn .tab-badge {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        /* MAIN CONTAINER */
+        .workspace {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 48px;
+            max-width: 1400px;
+            width: 100%;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* IPHONE SIMULATOR */
+        .phone-container {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .iphone-frame {
+            position: relative;
+            width: 380px;
+            height: 760px;
+            background: #090d16;
+            border-radius: 54px;
+            padding: 12px;
+            box-shadow: 
+                0 0 0 4px #1e293b,
+                0 0 0 6px #0f172a,
+                0 30px 90px rgba(0, 0, 0, 0.9),
+                0 0 80px rgba(0, 102, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            overflow: hidden;
+        }
+
+        .dynamic-island {
+            position: absolute;
+            top: 22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 110px;
+            height: 28px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+
+        .lens {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: #0d1527;
+            border: 1.5px solid #1e293b;
+        }
+
+        .sensor {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #111b2e;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 44px;
+            overflow: hidden;
+            background: #020617;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* INTERACTIVE CONTROLS DOCK */
+        .phone-actions {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 380px;
+        }
+
+        .action-row {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 13px 16px;
+            border-radius: 14px;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0066ff 0%, #38bdf8 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 24px rgba(0, 102, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 102, 255, 0.6);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #ffffff;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(30, 41, 59, 0.8);
+            color: #f1f5f9;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(51, 65, 85, 0.9);
+            transform: translateY(-2px);
+        }
+
+        /* SIDE PANEL DETAILS */
+        .details-panel {
+            flex: 1;
+            min-width: 340px;
+            max-width: 780px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 24px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 14px;
+        }
+
+        .card-title {
+            font-size: 19px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .timeline-btn {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 12px 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #fff;
+            display: block;
+            width: 100%;
+        }
+
+        .timeline-btn:hover {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: var(--accent-cyan);
+            transform: translateX(4px);
+        }
+
+        .timeline-time {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .timeline-name {
+            font-size: 14.5px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .timeline-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* PREVIEW FRAMES GALLERY */
+        .frames-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        @media (max-width: 680px) {
+            .frames-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .frame-card {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #020617;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .frame-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.35);
+        }
+
+        .frame-card img {
+            width: 100%;
+            aspect-ratio: 9/16;
+            object-fit: cover;
+            display: block;
+        }
+
+        .frame-card-info {
+            padding: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .frame-scene-tag {
+            font-family: 'Space Grotesk', monospace;
+            font-size: 11px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        .frame-scene-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            margin-top: 2px;
+            color: #ffffff;
+        }
+
+        /* SPECS TABLE */
+        .specs-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .spec-item {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .spec-key {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .spec-val {
+            font-size: 14.5px;
+            font-weight: 800;
+            color: #ffffff;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="badge">
+            <span class="dot"></span> Official Zovance Video Production Studio
+        </div>
+        <h1>
+            Professional Promotional <span class="gradient-text">Reel Suite</span>
+        </h1>
+        <p class="subtitle">
+            Crafted with 100% authentic human photography, real Zovance directors, certified Zoho architecture,
+            transparent Deluge scripts, and an energetic corporate soundtrack. Zero AI hallucinations.
+        </p>
+    </header>
+
+    <!-- REEL SELECTION TABS -->
+    <div class="reel-selector">
+        <button id="tabReel2" class="tab-btn active" onclick="switchReel(2)">
+            <span>🌟 Reel 2: 4K Master Human Showcase</span>
+            <span class="tab-badge" style="background:#10b981; color:#fff;">NEW 4K UHD</span>
+        </button>
+        <button id="tabReel1" class="tab-btn" onclick="switchReel(1)">
+            <span>🏢 Reel 1: Corporate Overview</span>
+            <span class="tab-badge">1080p Full HD</span>
+        </button>
+    </div>
+
+    <div class="workspace">
+        
+        <!-- IPHONE SIMULATOR -->
+        <div class="phone-container">
+            <div class="iphone-frame">
+                <div class="dynamic-island">
+                    <div class="lens"></div>
+                    <div class="sensor"></div>
+                </div>
+                <div class="video-wrapper">
+                    <video id="reelVideo" autoplay loop muted playsinline controls poster="preview-frames-4k/frame-scene1-precision.png">
+                        <source id="videoSourceMp4" src="zovance-4k-master-reel.mp4" type="video/mp4">
+                        <source id="videoSourceWebm" src="zovance-4k-master-reel.webm" type="video/webm">
+                        Your browser does not support HTML5 video.
+                    </video>
+                </div>
+            </div>
+
+            <div class="phone-actions" id="actionsDock">
+                <!-- Action buttons rendered dynamically based on active reel -->
+            </div>
+        </div>
+
+        <!-- DETAILS & INTERACTION PANEL -->
+        <div class="details-panel">
+            
+            <!-- SLIDE JUMP CONTROLS -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title" id="timelineTitle">
+                        🎬 6-Scene Interactive Storyboard
+                    </div>
+                    <span style="font-size: 13px; color: var(--accent-cyan); font-weight: 600;">Click to jump video</span>
+                </div>
+                <div class="timeline-grid" id="timelineContainer">
+                    <!-- Populated via JavaScript -->
+                </div>
+            </div>
+
+            <!-- STORYBOARD PREVIEW FRAMES -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title" id="galleryTitle">
+                        🖼️ High-Resolution Scene Stills (Authentic Non-AI Photography)
+                    </div>
+                    <span id="galleryResolutionBadge" style="font-size: 13px; color: var(--accent-green); font-weight:700;">2160 × 3840 Native 4K</span>
+                </div>
+                <div class="frames-grid" id="framesContainer">
+                    <!-- Populated via JavaScript -->
+                </div>
+            </div>
+
+            <!-- TECHNICAL SPECIFICATIONS -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        ⚙️ Technical Video Specifications
+                    </div>
+                    <span style="font-size: 12px; color: var(--accent-cyan); font-weight:700;">Broadcast & Social Ready</span>
+                </div>
+                <div class="specs-list" id="specsContainer">
+                    <!-- Populated via JavaScript -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const video = document.getElementById('reelVideo');
+        const actionsDock = document.getElementById('actionsDock');
+        const timelineContainer = document.getElementById('timelineContainer');
+        const framesContainer = document.getElementById('framesContainer');
+        const specsContainer = document.getElementById('specsContainer');
+        const galleryResBadge = document.getElementById('galleryResolutionBadge');
+
+        const REELS = {
+            2: {
+                id: 2,
+                title: 'Reel 2: Fast-Paced Human Social Reel (4K UHD)',
+                mp4: 'zovance-4k-master-reel.mp4',
+                webm: 'zovance-4k-master-reel.webm',
+                mobileMp4: 'zovance-human-reel-1080p.mp4',
+                poster: 'preview-frames-4k/frame-cut01-brand.png',
+                resLabel: '2160 × 3840 Native 4K UHD (9:16 Vertical)',
+                liveCanvas: 'reel-4k-generator.html',
+                scenes: [
+                    { time: 0.0, label: '01 • Brand Hook', desc: 'Making Work Effortless • AUTOMATE • SIMPLIFY • GROW' },
+                    { time: 1.9, label: '02 • The Disruption', desc: 'Tired of Broken Workflows & Disconnected SaaS Tools?' },
+                    { time: 3.8, label: '03 • Precision Human Architecture', desc: 'Real Human Engineering • Certified Senior Cloud Architects' },
+                    { time: 5.7, label: '04 • Arunmozhi — Operations Strategy', desc: 'Director • 10+ Years Enterprise ERP Workflows & Cross-Department Systems' },
+                    { time: 7.6, label: '05 • Prasannan — Cloud Solutions', desc: 'Director • Master Deluge Architect & Complex Enterprise Integrations' },
+                    { time: 9.5, label: '06 • Vasudevan — Client Success', desc: 'Director • Enterprise Transformation & Rapid 90-Day ROI Delivery' },
+                    { time: 11.4, label: '07 • Live Deluge IDE & Code', desc: 'Custom Deluge Script Execution: CRM ➔ Books ➔ Creator' },
+                    { time: 13.3, label: '08 • Real-Time Webhook Pipeline', desc: '14ms Cross-Cloud Sync • Zero Black Boxes' },
+                    { time: 15.2, label: '09 • 40+ Zoho Cloud Suite', desc: 'Zoho One Unified Operating System Replacing Fragmented SaaS' },
+                    { time: 17.1, label: '10 • Zoho CRM Predictive Pipeline', desc: 'Automated Lead Qualification, Scoring & Real-Time Closing' },
+                    { time: 19.0, label: '11 • Zoho Books & Creator Apps', desc: 'GST Automated Invoicing & Bespoke Low-Code Enterprise Tools' },
+                    { time: 21.0, label: '12 • Real Enterprise Team', desc: 'Dedicated Senior Engineers & Architects Collaborating On-Site' },
+                    { time: 22.9, label: '13 • 55% Turnaround Reduction', desc: 'Verified Client Results Across Multi-Branch Operations' },
+                    { time: 24.8, label: '14 • 3.4x 90-Day Enterprise ROI', desc: 'Measured Cost Reduction & Automated Efficiency Gains' },
+                    { time: 26.7, label: '15 • 5-Star Enterprise Client Trust', desc: 'Zero Jargon. Fast Turnaround. Complete Visibility.' },
+                    { time: 28.6, label: '16 • Ready to Scale?', desc: 'Turn Chaos Into Automated Predictability' },
+                    { time: 30.5, label: '17 • Direct Executive Hotline & Salem HQ', desc: 'Call/WhatsApp: +91 98943 84220 • Salem, Tamil Nadu 636010, India' }
+                ],
+                frames: [
+                    { img: 'preview-frames-4k/frame-cut01-brand.png', tag: 'CUT 01 (0.0s)', title: 'Brand Hook', time: 1.0 },
+                    { img: 'preview-frames-4k/frame-cut02-problem.png', tag: 'CUT 02 (1.9s)', title: 'The Disruption', time: 2.8 },
+                    { img: 'preview-frames-4k/frame-cut03-human-truth.png', tag: 'CUT 03 (3.8s)', title: 'Human Engineering', time: 4.8 },
+                    { img: 'preview-frames-4k/frame-cut04-director-arunmozhi.png', tag: 'CUT 04 (5.7s)', title: 'Dir. Arunmozhi', time: 6.8 },
+                    { img: 'preview-frames-4k/frame-cut05-director-prasannan.png', tag: 'CUT 05 (7.6s)', title: 'Dir. Prasannan', time: 8.8 },
+                    { img: 'preview-frames-4k/frame-cut06-director-vasudevan.png', tag: 'CUT 06 (9.5s)', title: 'Dir. Vasudevan', time: 10.8 },
+                    { img: 'preview-frames-4k/frame-cut07-deluge-code.png', tag: 'CUT 07 (11.4s)', title: 'Live Deluge IDE', time: 12.8 },
+                    { img: 'preview-frames-4k/frame-cut09-zoho-one.png', tag: 'CUT 09 (15.2s)', title: '40+ Zoho Suite', time: 16.8 },
+                    { img: 'preview-frames-4k/frame-cut13-stat-55.png', tag: 'CUT 13 (22.9s)', title: '55% Impact Stat', time: 24.5 },
+                    { img: 'preview-frames-4k/frame-cut17-outro-hotline.png', tag: 'CUT 17 (30.5s)', title: 'Hotline + Salem HQ', time: 34.0 }
+                ],
+                specs: [
+                    { k: 'Resolution', v: '2160 × 3840 (4K Ultra-HD)' },
+                    { k: 'Aspect Ratio', v: '9:16 (Vertical Instagram Reel)' },
+                    { k: 'Duration', v: '36.0 Seconds (Frame-Accurate)' },
+                    { k: 'Pacing Style', v: '17 Fast-Paced Rhythmic Cuts (1.9s per beat)' },
+                    { k: 'Frame Rate', v: '30 FPS Master Stream' },
+                    { k: 'Video Codec', v: 'H.264 / AVC (CRF 18 Master)' },
+                    { k: 'Audio Codec', v: 'AAC 256 kbps Stereo 44.1 kHz (126 BPM)' },
+                    { k: 'Direct Hotline', v: '+91 98943 84220' },
+                    { k: 'Corporate HQ', v: 'Salem, Tamil Nadu 636010, India' }
+                ]
+            },
+            1: {
+                id: 1,
+                title: 'Reel 1: Corporate Overview',
+                mp4: 'zovance-corporate-reel.mp4',
+                webm: 'zovance-corporate-reel.webm',
+                mobileMp4: 'zovance-corporate-reel.mp4',
+                poster: 'preview-frames/frame-scene1-intro.png',
+                resLabel: '1080 × 1920 Full HD (9:16 Vertical)',
+                liveCanvas: 'reel-generator.html',
+                scenes: [
+                    { time: 0.0, label: 'Scene 1 – Website Video Intro', desc: 'Official Zovance Website Video Reveal & Digital Transformation' },
+                    { time: 5.0, label: 'Scene 2 – Business Challenges', desc: 'Spreadsheet Errors (#REF!), Manual Entry & Disconnected Apps' },
+                    { time: 10.5, label: 'Scene 3 – Our Core Solutions', desc: '6 Core Services (Zoho, Automation, AI, Web, Mobile, Custom)' },
+                    { time: 18.5, label: 'Scene 4 – Business Transformation', desc: 'Automate, Connect, Productivity, Scale & Deluge Webhooks' },
+                    { time: 26.5, label: 'Scene 5 – Why Zovance?', desc: 'Real Team Photo, Smart Solutions, Seamless Integration' },
+                    { time: 33.5, label: 'Scene 6 – Closing Brand & CTA', desc: 'Official Website Logo, Phone, Email, Salem HQ & Strategy Call' }
+                ],
+                frames: [
+                    { img: 'preview-frames/frame-scene1-intro.png', tag: 'SCENE 1 (0–5s)', title: 'Website Reveal', time: 2.0 },
+                    { img: 'preview-frames/frame-scene2-challenges.png', tag: 'SCENE 2 (5–10.5s)', title: 'Manual Challenges', time: 7.5 },
+                    { img: 'preview-frames/frame-scene3-solutions.png', tag: 'SCENE 3 (10.5–18.5s)', title: '6 Core Solutions', time: 14.5 },
+                    { img: 'preview-frames/frame-scene4-transformation.png', tag: 'SCENE 4 (18.5–26.5s)', title: 'Transformation Pipeline', time: 22.0 },
+                    { img: 'preview-frames/frame-scene5-why-zovance.png', tag: 'SCENE 5 (26.5–33.5s)', title: 'Why Zovance?', time: 30.0 },
+                    { img: 'preview-frames/frame-scene6-cta.png', tag: 'SCENE 6 (33.5–38.5s)', title: 'Salem HQ & Call CTA', time: 35.5 }
+                ],
+                specs: [
+                    { k: 'Resolution', v: '1080 × 1920 (Full HD)' },
+                    { k: 'Aspect Ratio', v: '9:16 (Instagram Reel Format)' },
+                    { k: 'Duration', v: '38.5 Seconds' },
+                    { k: 'Frame Rate', v: '60 FPS Smooth Flow' },
+                    { k: 'Video Codec', v: 'H.264 / AVC (CRF 19)' },
+                    { k: 'Audio Codec', v: 'AAC 192 kbps Stereo' },
+                    { k: 'File Size', v: '8.8 MB (Optimized)' },
+                    { k: 'Asset Type', v: 'Corporate Photography & Vector UI' }
+                ]
+            }
+        };
+
+        function switchReel(id) {
+            const reel = REELS[id];
+            if (!reel) return;
+
+            // Update Tab States
+            document.getElementById('tabReel1').classList.toggle('active', id === 1);
+            document.getElementById('tabReel2').classList.toggle('active', id === 2);
+
+            // Update Video Player
+            const wasPlaying = !video.paused;
+            video.pause();
+            video.poster = reel.poster;
+            video.src = reel.mp4;
+            video.load();
+            if (wasPlaying) video.play();
+
+            // Render Actions
+            if (id === 2) {
+                actionsDock.innerHTML = `
+                    <div class="action-row">
+                        <a href="${reel.mp4}" download="${reel.mp4}" class="btn btn-success">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Download 4K Ultra-HD MP4 (2160×3840 • 40.5 MB)
+                        </a>
+                    </div>
+                    <div class="action-row">
+                        <a href="${reel.mobileMp4}" download="${reel.mobileMp4}" class="btn btn-primary">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Download Mobile 1080p MP4 (9.3 MB)
+                        </a>
+                    </div>
+                    <div class="action-row">
+                        <a href="${reel.webm}" download="${reel.webm}" class="btn btn-secondary">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Download 4K WebM
+                        </a>
+                        <a href="${reel.liveCanvas}" target="_blank" class="btn btn-secondary">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            Live 4K Canvas
+                        </a>
+                    </div>
+                `;
+            } else {
+                actionsDock.innerHTML = `
+                    <div class="action-row">
+                        <a href="${reel.mp4}" download="${reel.mp4}" class="btn btn-primary">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Download Corporate MP4 (1080p • 8.8 MB)
+                        </a>
+                    </div>
+                    <div class="action-row">
+                        <a href="${reel.webm}" download="${reel.webm}" class="btn btn-secondary">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Download WebM
+                        </a>
+                        <a href="${reel.liveCanvas}" target="_blank" class="btn btn-secondary">
+                            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                            </svg>
+                            Live 1080p Canvas
+                        </a>
+                    </div>
+                `;
+            }
+
+            // Render Timeline
+            timelineContainer.innerHTML = reel.scenes.map(s => `
+                <button class="timeline-btn" onclick="jumpTo(${s.time})">
+                    <div class="timeline-time">${formatTime(s.time)}</div>
+                    <div class="timeline-name">${s.label}</div>
+                    <div class="timeline-desc">${s.desc}</div>
+                </button>
+            `).join('');
+
+            // Render Frames Gallery
+            galleryResBadge.textContent = reel.resLabel;
+            galleryResBadge.style.color = id === 2 ? 'var(--accent-green)' : 'var(--accent-cyan)';
+            framesContainer.innerHTML = reel.frames.map(f => `
+                <div class="frame-card" onclick="jumpTo(${f.time})">
+                    <img src="${f.img}" alt="${f.title}">
+                    <div class="frame-card-info">
+                        <div class="frame-scene-tag">${f.tag}</div>
+                        <div class="frame-scene-title">${f.title}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Specs
+            specsContainer.innerHTML = reel.specs.map(sp => `
+                <div class="spec-item">
+                    <div class="spec-key">${sp.k}</div>
+                    <div class="spec-val">${sp.v}</div>
+                </div>
+            `).join('');
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = Math.floor(seconds % 60);
+            return `0${m}:${s < 10 ? '0' : ''}${s}`;
+        }
+
+        function jumpTo(time) {
+            video.currentTime = time;
+            video.play();
+        }
+
+        // Initialize with 4K Reel (Reel 2)
+        switchReel(2);
+    </script>
+</body>
+</html>

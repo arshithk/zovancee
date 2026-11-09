@@ -21,7 +21,17 @@ revealElements.forEach(el => {
     revealObserver.observe(el);
 });
 
-// Interactive Split-Pane Showcase Logic
+// FAQ Accordion functionality
+const faqQuestions = document.querySelectorAll('.faq-question');
+faqQuestions.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        if (item) {
+            item.classList.toggle('active');
+        }
+    });
+});
+
 const showcaseItems = document.querySelectorAll('.showcase-item');
 const showcaseGraphics = document.querySelectorAll('.showcase-graphic');
 

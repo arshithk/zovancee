@@ -1,14 +1,15 @@
 // Navigation interactive behavior
 
-const navbar = document.querySelector('.navbar');
-const navToggle = document.querySelector('.nav-toggle');
-const navMenu = document.querySelector('.navbar-nav');
-const navLinks = document.querySelectorAll('.nav-link');
+const navbar = document.querySelector('.navbar') || document.querySelector('.page-header');
+const navToggle = document.querySelector('.nav-toggle') || document.querySelector('.mobile-toggle');
+const navMenu = document.querySelector('.navbar-nav') || document.querySelector('.nav-links');
+const navLinks = document.querySelectorAll('.nav-link, .nav-item');
 
 // Scroll direction behavior
 let lastScroll = 0;
 
 const handleScroll = () => {
+    if (!navbar) return;
     const currentScroll = window.scrollY;
 
     // Background logic
@@ -32,19 +33,27 @@ const handleScroll = () => {
 
 // Mobile menu toggle
 const toggleMenu = () => {
-    navMenu.classList.toggle('active');
+    if (navMenu) {
+        navMenu.classList.toggle('active');
+    }
 };
 
 // Initial check
-handleScroll();
+if (navbar) {
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+}
 
 // Event listeners
-window.addEventListener('scroll', handleScroll);
-navToggle.addEventListener('click', toggleMenu);
+if (navToggle) {
+    navToggle.addEventListener('click', toggleMenu);
+}
 
 // Close menu when a link is clicked
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        navMenu.classList.remove('active');
+        if (navMenu) {
+            navMenu.classList.remove('active');
+        }
     });
 });

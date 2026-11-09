@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zovance Tech – Fast-Paced Human Social Reel (4K Ultra-HD 2160x3840)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: #030712;
+            color: #f8fafc;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            max-width: 100%;
+        }
+        .canvas-container {
+            position: relative;
+            box-shadow: 0 25px 80px -15px rgba(0, 102, 255, 0.4), 0 0 120px rgba(16, 185, 129, 0.15);
+            border-radius: 36px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            background: #020617;
+            max-height: 86vh;
+            aspect-ratio: 9 / 16;
+        }
+        canvas {
+            display: block;
+            width: auto;
+            height: 100%;
+            max-height: 86vh;
+        }
+        .status-bar {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            font-size: 14px;
+            color: #94a3b8;
+            font-family: 'Space Grotesk', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="canvas-container">
+            <canvas id="reelCanvas" width="2160" height="3840"></canvas>
+        </div>
+        <div class="status-bar">
+            <span id="status">Loading assets...</span>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('reelCanvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+        const statusEl = document.getElementById('status');
+
+        // AUTHENTIC NON-AI HUMAN ASSETS
+        const ASSETS = {
+            logoHorizontal: './assets/primary-logo-horizontal-white-text.png',
+            symbol: './assets/zovance-symbol.png',
+            directorArunmozhi: './assets/director-arunmozhi.jpeg',
+            directorPrasannan: './assets/director-prasannan.jpeg',
+            directorVasudevan: './assets/director-vasudevan.jpeg',
+            humanDeveloper: './assets/human-developer-architect.jpg',
+            teamCollaboration: './assets/scene4-transformation-team.jpg',
+            corporateHq: './assets/scene6-corporate-hq.jpg',
+            zohoOneUi: './assets/zoho-one-ui.png',
+            zohoCrm: './assets/zoho-crm.png',
+            zohoBooks: './assets/zoho-books.png',
+            zohoCreator: './assets/zoho-creator.png',
+            zohoAnalytics: './assets/zoho-analytics.png'
+        };
+
+        const images = {};
+        let loadedCount = 0;
+        const totalImages = Object.keys(ASSETS).length;
+
+        // 17 FAST-PACED RHYTHMIC CUTS (TOTAL: 36.0 SECONDS, ~1.9s PER BEAT @ 126 BPM)
+        const SCENES = [
+            { id: 'cut01_brand_hook', name: 'Brand Hook: Making Work Effortless', duration: 2.0 },
+            { id: 'cut02_problem_fluff', name: 'Problem: Tired of AI Fluff', duration: 1.8 },
+            { id: 'cut03_human_truth', name: 'Human Architecture: Zero Fluff', duration: 1.9 },
+            { id: 'cut04_director_arunmozhi', name: 'Director Arunmozhi: Operations', duration: 1.9 },
+            { id: 'cut05_director_prasannan', name: 'Director Prasannan: Cloud Architect', duration: 1.9 },
+            { id: 'cut06_director_vasudevan', name: 'Director Vasudevan: Client Success', duration: 1.9 },
+            { id: 'cut07_craft_deluge', name: 'Craft: 100% In-House Deluge Code', duration: 1.9 },
+            { id: 'cut08_live_pipeline', name: 'Speed: 14ms Cross-Cloud Sync', duration: 1.9 },
+            { id: 'cut09_suite_zoho_one', name: 'Zoho One: 40+ Unified Applications', duration: 1.9 },
+            { id: 'cut10_app_crm', name: 'Zoho CRM: Predictive Sales Pipeline', duration: 1.9 },
+            { id: 'cut11_app_books_creator', name: 'Zoho Books & Creator: E-Invoicing & Apps', duration: 1.9 },
+            { id: 'cut12_team_action', name: 'Enterprise Partnership: Dedicated Team', duration: 1.9 },
+            { id: 'cut13_stat_speed', name: 'Enterprise Impact: 55% Turnaround', duration: 1.9 },
+            { id: 'cut14_stat_roi', name: 'Enterprise Impact: 3.4x 90-Day ROI', duration: 1.9 },
+            { id: 'cut15_client_proof', name: 'Verified Enterprise Case Study', duration: 1.9 },
+            { id: 'cut16_cta_kickoff', name: 'Ready To Scale Your Enterprise?', duration: 2.0 },
+            { id: 'cut17_outro_contact', name: 'Outro: Direct Hotline & Salem HQ', duration: 5.5 }
+        ];
+
+        const TOTAL_DURATION = SCENES.reduce((acc, s) => acc + s.duration, 0); // Exactly 36.0s
+        const TRANSITION_TIME = 0.15; // Fast energetic snap transition
+
+        async function preloadAssets() {
+            statusEl.textContent = 'Loading web fonts...';
+            try {
+                await document.fonts.ready;
+            } catch (e) {
+                console.warn('Font loading note:', e);
+            }
+
+            return new Promise((resolve) => {
+                for (let key in ASSETS) {
+                    const img = new Image();
+                    img.src = ASSETS[key];
+                    img.onload = () => {
+                        loadedCount++;
+                        images[key] = img;
+                        statusEl.textContent = `Loading authentic 4K assets (${loadedCount}/${totalImages})...`;
+                        if (loadedCount === totalImages) {
+                            statusEl.textContent = '4K Master Engine Ready!';
+                            resolve();
+                        }
+                    };
+                    img.onerror = (e) => {
+                        console.error('Failed loading asset:', ASSETS[key], e);
+                        loadedCount++;
+                        if (loadedCount === totalImages) resolve();
+                    };
+                }
+            });
+        }
+
+        // =========================================================================
+        // EASING & DRAWING HELPERS (4K RESOLUTION COORDINATES: 2160 x 3840)
+        // =========================================================================
+        function easeInOutCubic(x) {
+            return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+        }
+
+        function easeOutCubic(x) {
+            return 1 - Math.pow(1 - x, 3);
+        }
+
+        function drawRoundedRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function createZohoGradient(ctx, x1, y1, x2, y2) {
+            const g = ctx.createLinearGradient(x1, y1, x2, y2);
+            g.addColorStop(0.0, '#ef4444');  // Zoho Red
+            g.addColorStop(0.3, '#f59e0b');  // Zoho Yellow
+            g.addColorStop(0.65, '#10b981'); // Zoho Green
+            g.addColorStop(1.0, '#0066ff');  // Zoho Blue
+            return g;
+        }
+
+        function draw4KPill(ctx, cx, cy, text, font, textColor, bgColor, borderColor, px = 40, py = 24) {
+            ctx.save();
+            ctx.font = font;
+            const m = ctx.measureText(text);
+            const w = m.width + px * 2;
+            const h = py * 2;
+            const x = cx - w / 2;
+            const y = cy - h / 2;
+
+            drawRoundedRect(ctx, x, y, w, h, h / 2);
+            if (bgColor) {
+                ctx.fillStyle = bgColor;
+                ctx.fill();
+            }
+            if (borderColor) {
+                ctx.strokeStyle = borderColor;
+                ctx.lineWidth = 3;
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, cx, cy);
+            ctx.restore();
+            return { x, y, w, h };
+        }
+
+        function drawLeftPill(ctx, x, y, text, font, textColor, bgColor, borderColor, px = 36, py = 20) {
+            ctx.save();
+            ctx.font = font;
+            const m = ctx.measureText(text);
+            const w = m.width + px * 2;
+            const h = py * 2;
+
+            drawRoundedRect(ctx, x, y, w, h, h / 2);
+            if (bgColor) {
+                ctx.fillStyle = bgColor;
+                ctx.fill();
+            }
+            if (borderColor) {
+                ctx.strokeStyle = borderColor;
+                ctx.lineWidth = 2.5;
+                ctx.stroke();
+            }
+
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x + px, y + h / 2);
+            ctx.restore();
+            return { x, y, w, h };
+        }
+
+        function drawCoverImage(ctx, img, x, y, w, h, radius = 0, scale = 1.0, panX = 0, panY = 0) {
+            if (!img) return;
+            ctx.save();
+            if (radius > 0) {
+                drawRoundedRect(ctx, x, y, w, h, radius);
+                ctx.clip();
+            }
+
+            const imgRatio = img.width / img.height;
+            const targetRatio = w / h;
+            let renderW, renderH;
+
+            if (imgRatio > targetRatio) {
+                renderH = h * scale;
+                renderW = h * scale * imgRatio;
+            } else {
+                renderW = w * scale;
+                renderH = (w * scale) / imgRatio;
+            }
+
+            const offsetX = x + (w - renderW) / 2 + panX;
+            const offsetY = y + (h - renderH) / 2 + panY;
+
+            ctx.drawImage(img, offsetX, offsetY, renderW, renderH);
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // BRAND SHOWCASE LOCKUP (MATCHES USER REFERENCE IMAGE • NO WHITE BOX)
+        // =========================================================================
+        function drawZovanceBrandShowcase(ctx, cy, anim) {
+            ctx.save();
+            ctx.globalAlpha = anim;
+
+            // Decorative Tech Line Art on Sides (Sun on left, Network nodes on right)
+            const leftX = 340;
+            const leftY = cy - 40;
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.22)';
+            ctx.lineWidth = 5;
+
+            ctx.beginPath();
+            ctx.arc(leftX, leftY, 130, 0, Math.PI * 2);
+            ctx.stroke();
+
+            for (let a = 0; a < 8; a++) {
+                const angle = (a / 8) * Math.PI * 2;
+                ctx.beginPath();
+                ctx.moveTo(leftX + Math.cos(angle) * 165, leftY + Math.sin(angle) * 165);
+                ctx.lineTo(leftX + Math.cos(angle) * 255, leftY + Math.sin(angle) * 255);
+                ctx.stroke();
+            }
+
+            const rightX = 1820;
+            const rightY = cy - 40;
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.22)';
+            ctx.lineWidth = 5;
+
+            ctx.beginPath();
+            ctx.arc(rightX, rightY, 55, 0, Math.PI * 2);
+            ctx.stroke();
+
+            const nodeOffsets = [
+                { dx: 0, dy: -130 },
+                { dx: 0, dy: 130 },
+                { dx: -130, dy: 0 },
+                { dx: 130, dy: 0 }
+            ];
+            nodeOffsets.forEach(n => {
+                ctx.beginPath();
+                ctx.moveTo(rightX, rightY);
+                ctx.lineTo(rightX + n.dx, rightY + n.dy);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(rightX + n.dx, rightY + n.dy, 45, 0, Math.PI * 2);
+                ctx.stroke();
+            });
+
+            for (let a = 0; a < 6; a++) {
+                const angle = (a / 6) * Math.PI * 2 + Math.PI / 6;
+                ctx.beginPath();
+                ctx.moveTo(rightX + Math.cos(angle) * 200, rightY + Math.sin(angle) * 200);
+                ctx.lineTo(rightX + Math.cos(angle) * 280, rightY + Math.sin(angle) * 280);
+                ctx.stroke();
+            }
+
+            // Center Logo: Transparent Zovance Horizontal Logo directly on dark canvas (NO white box!)
+            const logoImg = images.logoHorizontal;
+            if (logoImg) {
+                const logoW = 1280;
+                const imgRatio = logoImg.width / logoImg.height;
+                const logoH = logoW / imgRatio;
+                const logoX = (2160 - logoW) / 2;
+                const logoY = cy - logoH - 30;
+                ctx.drawImage(logoImg, logoX, logoY, logoW, logoH);
+            }
+
+            // Headline: "Making Work Effortless"
+            ctx.font = '900 96px "Plus Jakarta Sans"';
+            const t1 = 'Making Work ';
+            const t2 = 'Effortless';
+            const w1 = ctx.measureText(t1).width;
+            const w2 = ctx.measureText(t2).width;
+            const totalW = w1 + w2;
+            const startX = 1080 - totalW / 2;
+
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(t1, startX, cy + 90);
+
+            const headGrad = ctx.createLinearGradient(startX + w1, cy + 90, startX + totalW, cy + 90);
+            headGrad.addColorStop(0, '#38bdf8');
+            headGrad.addColorStop(1, '#818cf8');
+            ctx.fillStyle = headGrad;
+            ctx.fillText(t2, startX + w1, cy + 90);
+
+            // Subtitle Tagline: "AUTOMATE • SIMPLIFY • GROW"
+            ctx.font = '800 36px "Space Grotesk"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.textAlign = 'center';
+            ctx.fillText('AUTOMATE   •   SIMPLIFY   •   GROW', 1080, cy + 185);
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // BROADCAST LOWER-THIRD (CINEMATIC HUMAN PROFILE)
+        // =========================================================================
+        function drawBroadcastLowerThird(ctx, name, title, roleSubtitle, color = '#38bdf8') {
+            const barY = 2850;
+            const barH = 500;
+
+            // Deep gradient scrim under lower third for contrast
+            const scrim = ctx.createLinearGradient(0, barY - 200, 0, 3840);
+            scrim.addColorStop(0, 'transparent');
+            scrim.addColorStop(0.4, 'rgba(2, 6, 23, 0.92)');
+            scrim.addColorStop(1, '#020617');
+            ctx.fillStyle = scrim;
+            ctx.fillRect(0, barY - 200, 2160, 3840 - (barY - 200));
+
+            // Accent indicator bar
+            ctx.fillStyle = color;
+            ctx.fillRect(160, barY + 30, 16, 280);
+
+            // Director Name
+            ctx.font = '900 92px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'left';
+            ctx.fillText(name, 220, barY + 110);
+
+            // Title
+            ctx.font = '800 38px "Space Grotesk"';
+            ctx.fillStyle = color;
+            ctx.fillText(title, 220, barY + 190);
+
+            // Role / Trust subtitle
+            ctx.font = '500 32px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText(roleSubtitle, 220, barY + 265);
+
+            // Official Executive Consultation Pill
+            drawLeftPill(ctx, 220, barY + 330, 'DIRECT 1-ON-1 EXECUTIVE CONSULTATION • SALEM HQ', '700 24px "Space Grotesk"', '#38bdf8', 'rgba(56, 189, 248, 0.1)', 'rgba(56, 189, 248, 0.35)', 24, 14);
+        }
+
+        // =========================================================================
+        // GLOBAL 4K AMBIENT BACKGROUND & HEADER DOCK
+        // =========================================================================
+        function drawGlobalBackground(ctx, t, progress) {
+            // Deep Luxury Obsidian / Navy Gradient
+            const bgGrad = ctx.createRadialGradient(1080, 1600, 200, 1080, 1920, 2400);
+            bgGrad.addColorStop(0, '#0a1226');
+            bgGrad.addColorStop(0.5, '#050914');
+            bgGrad.addColorStop(1, '#02040a');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, 2160, 3840);
+
+            // Floating dynamic tech grid
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
+            const gridStep = 120;
+            for (let gx = 60; gx < 2160; gx += gridStep) {
+                for (let gy = 60; gy < 3840; gy += gridStep) {
+                    ctx.beginPath();
+                    ctx.arc(gx, gy, 2.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Top Progress Bar
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.fillRect(80, 100, 2000, 10);
+            const progGrad = createZohoGradient(ctx, 80, 100, 80 + 2000 * progress, 110);
+            ctx.fillStyle = progGrad;
+            drawRoundedRect(ctx, 80, 100, 2000 * progress, 10, 5);
+            ctx.fill();
+
+            // Top Status Dock
+            ctx.save();
+            drawRoundedRect(ctx, 80, 140, 2000, 140, 36);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.75)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            if (images.symbol) {
+                ctx.drawImage(images.symbol, 130, 170, 80, 80);
+            }
+
+            ctx.font = '800 36px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('ZOVANCE TECH', 240, 195);
+
+            ctx.font = '600 24px "Space Grotesk"';
+            ctx.fillStyle = '#38bdf8';
+            ctx.fillText('OFFICIAL ZOHO AUTHORIZED PARTNER', 240, 235);
+
+            // Subtle live status indicator
+            ctx.fillStyle = '#10b981';
+            ctx.beginPath();
+            ctx.arc(1980, 210, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // 17 INDIVIDUAL SCENE RENDERERS (SNAPPY, CINEMATIC, FULL-BLEED)
+        // =========================================================================
+
+        // 01: BRAND HOOK
+        function renderCut01(ctx, t, dur) {
+            const p = t / dur;
+            const anim = easeOutCubic(Math.min(1, t / 0.7));
+            drawZovanceBrandShowcase(ctx, 1600, anim);
+
+            ctx.save();
+            ctx.globalAlpha = anim;
+            draw4KPill(ctx, 1080, 2050, 'OFFICIAL ZOHO SOLUTION PARTNER', '800 32px "Space Grotesk"', '#38bdf8', 'rgba(56, 189, 248, 0.15)', 'rgba(56, 189, 248, 0.4)', 40, 24);
+
+            ctx.font = '500 42px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.textAlign = 'center';
+            ctx.fillText('Transforming Enterprises Across India & Global Markets', 1080, 2200);
+            ctx.restore();
+        }
+
+        // 02: PROBLEM / DISRUPTION
+        function renderCut02(ctx, t, dur) {
+            const anim = easeOutCubic(Math.min(1, t / 0.5));
+            ctx.save();
+            ctx.globalAlpha = anim;
+
+            draw4KPill(ctx, 1080, 1100, 'THE ENTERPRISE REALITY', '800 32px "Space Grotesk"', '#ef4444', 'rgba(239, 68, 68, 0.15)', 'rgba(239, 68, 68, 0.4)', 36, 22);
+
+            ctx.font = '900 120px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('TIRED OF', 1080, 1380);
+            ctx.fillText('BROKEN WORKFLOWS?', 1080, 1540);
+
+            const g = createZohoGradient(ctx, 300, 1780, 1860, 1780);
+            ctx.fillStyle = g;
+            ctx.font = '900 108px "Plus Jakarta Sans"';
+            ctx.fillText('& GENERIC AI BOTS?', 1080, 1800);
+
+            ctx.font = '500 44px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText('Generic templates cannot handle complex enterprise logic.', 1080, 2000);
+            ctx.restore();
+        }
+
+        // 03: HUMAN TRUTH
+        function renderCut03(ctx, t, dur) {
+            const p = t / dur;
+            const camScale = 1.0 + p * 0.05;
+
+            // Full-bleed developer image with cinematic push
+            if (images.humanDeveloper) {
+                drawCoverImage(ctx, images.humanDeveloper, 0, 300, 2160, 3540, 0, camScale);
+            }
+
+            // Dark gradient scrim over bottom
+            const scrim = ctx.createLinearGradient(0, 1800, 0, 3840);
+            scrim.addColorStop(0, 'transparent');
+            scrim.addColorStop(0.5, 'rgba(2, 6, 23, 0.94)');
+            scrim.addColorStop(1, '#020617');
+            ctx.fillStyle = scrim;
+            ctx.fillRect(0, 1800, 2160, 2040);
+
+            ctx.save();
+            draw4KPill(ctx, 1080, 2700, 'REAL HUMAN ENGINEERING', '800 32px "Space Grotesk"', '#10b981', 'rgba(16, 185, 129, 0.2)', 'rgba(16, 185, 129, 0.5)', 36, 22);
+
+            ctx.font = '900 96px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('AUTOMATION IS NOT MAGIC.', 1080, 2880);
+
+            const g = createZohoGradient(ctx, 300, 3020, 1860, 3020);
+            ctx.fillStyle = g;
+            ctx.fillText('IT IS PRECISION ARCHITECTURE.', 1080, 3020);
+
+            ctx.font = '500 40px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillText('Certified senior engineers who design custom data pipelines.', 1080, 3180);
+            ctx.restore();
+        }
+
+        // 04: DIRECTOR ARUNMOZHI
+        function renderCut04(ctx, t, dur) {
+            const p = t / dur;
+            const camScale = 1.0 + p * 0.04;
+
+            if (images.directorArunmozhi) {
+                drawCoverImage(ctx, images.directorArunmozhi, 0, 300, 2160, 3540, 0, camScale, 0, -100);
+            }
+
+            drawBroadcastLowerThird(ctx, 'ARUNMOZHI', 'DIRECTOR & OPERATIONS STRATEGY', '10+ Years Enterprise ERP Workflows & Cross-Department Systems', '#38bdf8');
+        }
+
+        // 05: DIRECTOR PRASANNAN
+        function renderCut05(ctx, t, dur) {
+            const p = t / dur;
+            const camScale = 1.0 + p * 0.04;
+
+            if (images.directorPrasannan) {
+                drawCoverImage(ctx, images.directorPrasannan, 0, 300, 2160, 3540, 0, camScale, 0, -100);
+            }
+
+            drawBroadcastLowerThird(ctx, 'PRASANNAN', 'DIRECTOR & CLOUD ARCHITECT', 'Master Deluge Programming, REST APIs, Webhooks & Enterprise Security', '#10b981');
+        }
+
+        // 06: DIRECTOR VASUDEVAN
+        function renderCut06(ctx, t, dur) {
+            const p = t / dur;
+            const camScale = 1.0 + p * 0.04;
+
+            if (images.directorVasudevan) {
+                drawCoverImage(ctx, images.directorVasudevan, 0, 300, 2160, 3540, 0, camScale, 0, -100);
+            }
+
+            drawBroadcastLowerThird(ctx, 'VASUDEVAN', 'DIRECTOR & CLIENT SUCCESS', 'Rapid Adoption, Verified 90-Day ROI Turnaround & Continuous Support', '#f59e0b');
+        }
+
+        // 07: CRAFT - REAL DELUGE CODE
+        function renderCut07(ctx, t, dur) {
+            const p = t / dur;
+
+            draw4KPill(ctx, 1080, 500, 'CUSTOM DELUGE CODE • ZERO BLACK BOXES', '800 30px "Space Grotesk"', '#38bdf8', 'rgba(56, 189, 248, 0.15)', 'rgba(56, 189, 248, 0.4)', 36, 22);
+
+            // Mac-style Code Window
+            const winY = 660;
+            drawRoundedRect(ctx, 140, winY, 1880, 2300, 48);
+            ctx.fillStyle = '#050a17';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.3)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Window Header
+            ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(220, winY + 80, 18, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#f59e0b'; ctx.beginPath(); ctx.arc(280, winY + 80, 18, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#10b981'; ctx.beginPath(); ctx.arc(340, winY + 80, 18, 0, Math.PI * 2); ctx.fill();
+
+            ctx.font = '700 32px "Space Grotesk"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.textAlign = 'left';
+            ctx.fillText('zovance_enterprise_deluge_hook.dg', 420, winY + 90);
+
+            draw4KPill(ctx, 1820, winY + 80, 'PRODUCTION', '800 22px "Space Grotesk"', '#10b981', 'rgba(16, 185, 129, 0.15)', 'rgba(16, 185, 129, 0.4)', 24, 16);
+
+            // Divider
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(140, winY + 150); ctx.lineTo(2020, winY + 150); ctx.stroke();
+
+            const lines = [
+                { num: '01', text: '// Real-Time Bi-Directional Enterprise Sync', color: '#64748b' },
+                { num: '02', text: 'deal = zoho.crm.getRecordById("Deals", dealId);', color: '#f8fafc' },
+                { num: '03', text: 'if(deal.get("Stage") == "Closed Won")', color: '#38bdf8' },
+                { num: '04', text: '{', color: '#f8fafc' },
+                { num: '05', text: '    payload = Map();', color: '#cbd5e1' },
+                { num: '06', text: '    payload.put("customer_id", deal.get("Account_ID"));', color: '#f59e0b' },
+                { num: '07', text: '    payload.put("items", deal.get("Products"));', color: '#f59e0b' },
+                { num: '08', text: '    inv = zoho.books.createRecord("Invoices", payload);', color: '#10b981' },
+                { num: '09', text: '    // Trigger automated warehouse packing in Creator', color: '#64748b' },
+                { num: '10', text: '    zoho.creator.post("Warehouse_Queue", inv.get("id"));', color: '#0066ff' },
+                { num: '11', text: '    info "Enterprise synced in 14ms: " + inv.get("id");', color: '#a855f7' },
+                { num: '12', text: '}', color: '#f8fafc' }
+            ];
+
+            ctx.font = '500 42px "Fira Code", monospace';
+            const codeStartY = winY + 280;
+            const lineGap = 90;
+
+            lines.forEach((l, idx) => {
+                const show = p > (idx / lines.length) * 0.7;
+                if (show) {
+                    ctx.fillStyle = '#475569';
+                    ctx.textAlign = 'right';
+                    ctx.fillText(l.num, 240, codeStartY + idx * lineGap);
+
+                    ctx.fillStyle = l.color;
+                    ctx.textAlign = 'left';
+                    ctx.fillText(l.text, 300, codeStartY + idx * lineGap);
+                }
+            });
+
+            // Live execution tag
+            drawRoundedRect(ctx, 200, winY + 1600, 1760, 240, 32);
+            ctx.fillStyle = 'rgba(16, 185, 129, 0.12)';
+            ctx.fill();
+            ctx.strokeStyle = '#10b981';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            ctx.font = '800 44px "Space Grotesk"';
+            ctx.fillStyle = '#10b981';
+            ctx.textAlign = 'left';
+            ctx.fillText('● 100% IN-HOUSE CODE • ZERO SUB-CONTRACTING', 280, winY + 1720);
+
+            ctx.font = '500 32px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillText('Written and maintained by senior architects directly at Zovance.', 280, winY + 1790);
+        }
+
+        // 08: LIVE DATA PIPELINE (14ms SPEED)
+        function renderCut08(ctx, t, dur) {
+            const p = t / dur;
+
+            draw4KPill(ctx, 1080, 500, 'CROSS-CLOUD PERFORMANCE', '800 30px "Space Grotesk"', '#10b981', 'rgba(16, 185, 129, 0.15)', 'rgba(16, 185, 129, 0.4)', 36, 22);
+
+            ctx.font = '900 100px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('CRM ➔ BOOKS ➔ CREATOR', 1080, 720);
+
+            // Giant Speed Stat
+            ctx.font = '900 260px "Space Grotesk"';
+            const speedGrad = ctx.createLinearGradient(500, 1200, 1600, 1200);
+            speedGrad.addColorStop(0, '#10b981');
+            speedGrad.addColorStop(0.5, '#38bdf8');
+            speedGrad.addColorStop(1, '#0066ff');
+            ctx.fillStyle = speedGrad;
+            ctx.fillText('14ms', 1080, 1300);
+
+            ctx.font = '800 48px "Space Grotesk"';
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillText('BI-DIRECTIONAL WEBHOOK LATENCY', 1080, 1460);
+
+            // Live status visual dock
+            drawRoundedRect(ctx, 180, 1700, 1800, 800, 48);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            const nodes = [
+                { name: 'Zoho CRM', status: 'EVENT: Closed Won', color: '#ef4444', x: 420 },
+                { name: 'Zoho Books', status: 'ACTION: Invoice Created', color: '#10b981', x: 1080 },
+                { name: 'Zoho Creator', status: 'DISPATCH: Warehouse Order', color: '#0066ff', x: 1740 }
+            ];
+
+            nodes.forEach(n => {
+                ctx.fillStyle = n.color;
+                ctx.beginPath();
+                ctx.arc(n.x, 2000, 60, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.font = '900 44px "Plus Jakarta Sans"';
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.fillText(n.name, n.x, 2140);
+
+                ctx.font = '600 28px "Space Grotesk"';
+                ctx.fillStyle = n.color;
+                ctx.fillText(n.status, n.x, 2210);
+            });
+
+            // Arrow connectors
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 6;
+            ctx.beginPath(); ctx.moveTo(560, 2000); ctx.lineTo(940, 2000); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(1220, 2000); ctx.lineTo(1600, 2000); ctx.stroke();
+        }
+
+        // 09: ZOHO ONE UNIFIED SUITE
+        function renderCut09(ctx, t, dur) {
+            const p = t / dur;
+            const camScale = 1.0 + p * 0.05;
+
+            draw4KPill(ctx, 1080, 500, 'ONE UNIFIED CLOUD', '800 30px "Space Grotesk"', '#0066ff', 'rgba(0, 102, 255, 0.15)', 'rgba(0, 102, 255, 0.4)', 36, 22);
+
+            ctx.font = '900 90px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('40+ ZOHO APPLICATIONS', 1080, 680);
+
+            if (images.zohoOneUi) {
+                drawCoverImage(ctx, images.zohoOneUi, 100, 850, 1960, 1800, 48, camScale);
+            }
+
+            drawRoundedRect(ctx, 160, 2800, 1840, 220, 36);
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.9)';
+            ctx.fill();
+            ctx.font = '800 38px "Space Grotesk"';
+            ctx.fillStyle = '#38bdf8';
+            ctx.textAlign = 'center';
+            ctx.fillText('REPLACING FRAGMENTED SAAS WITH ONE COHESIVE ENGINE', 1080, 2925);
+        }
+
+        // 10: ZOHO CRM
+        function renderCut10(ctx, t, dur) {
+            const p = t / dur;
+            const camScale = 1.0 + p * 0.04;
+
+            draw4KPill(ctx, 1080, 500, 'SALES ACCELERATION', '800 30px "Space Grotesk"', '#ef4444', 'rgba(239, 68, 68, 0.15)', 'rgba(239, 68, 68, 0.4)', 36, 22);
+
+            ctx.font = '900 100px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('ZOHO CRM PIPELINE', 1080, 680);
+
+            if (images.zohoCrm) {
+                drawCoverImage(ctx, images.zohoCrm, 100, 850, 1960, 1800, 48, camScale);
+            }
+
+            drawRoundedRect(ctx, 160, 2800, 1840, 240, 36);
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.9)';
+            ctx.fill();
+            ctx.font = '800 42px "Space Grotesk"';
+            ctx.fillStyle = '#ef4444';
+            ctx.textAlign = 'center';
+            ctx.fillText('OMNICHANNEL • LEAD SCORING • REVENUE FORECASTING', 1080, 2930);
+        }
+
+        // 11: ZOHO BOOKS & CREATOR
+        function renderCut11(ctx, t, dur) {
+            const p = t / dur;
+
+            draw4KPill(ctx, 1080, 500, 'FINANCE & BESPOKE APPS', '800 30px "Space Grotesk"', '#10b981', 'rgba(16, 185, 129, 0.15)', 'rgba(16, 185, 129, 0.4)', 36, 22);
+
+            ctx.font = '900 90px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('ZOHO BOOKS & CREATOR', 1080, 680);
+
+            // Upper card: Zoho Books
+            if (images.zohoBooks) {
+                drawCoverImage(ctx, images.zohoBooks, 140, 850, 1880, 950, 40, 1.0 + p * 0.03);
+            }
+
+            // Lower card: Zoho Creator
+            if (images.zohoCreator) {
+                drawCoverImage(ctx, images.zohoCreator, 140, 1900, 1880, 950, 40, 1.0 + p * 0.03);
+            }
+
+            drawRoundedRect(ctx, 160, 2950, 1840, 200, 32);
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.9)';
+            ctx.fill();
+            ctx.font = '800 36px "Space Grotesk"';
+            ctx.fillStyle = '#10b981';
+            ctx.textAlign = 'center';
+            ctx.fillText('GST/TAX COMPLIANT E-INVOICING • BESPOKE DATABASE PORTALS', 1080, 3065);
+        }
+
+        // 12: REAL ENTERPRISE TEAM
+        function renderCut12(ctx, t, dur) {
+            const p = t / dur;
+            const camScale = 1.0 + p * 0.05;
+
+            if (images.teamCollaboration) {
+                drawCoverImage(ctx, images.teamCollaboration, 0, 300, 2160, 3540, 0, camScale);
+            }
+
+            // Scrim
+            const scrim = ctx.createLinearGradient(0, 2000, 0, 3840);
+            scrim.addColorStop(0, 'transparent');
+            scrim.addColorStop(0.6, 'rgba(2, 6, 23, 0.95)');
+            scrim.addColorStop(1, '#020617');
+            ctx.fillStyle = scrim;
+            ctx.fillRect(0, 2000, 2160, 1840);
+
+            draw4KPill(ctx, 1080, 2750, 'TRUE SENIOR PARTNERSHIP', '800 32px "Space Grotesk"', '#38bdf8', 'rgba(56, 189, 248, 0.2)', 'rgba(56, 189, 248, 0.5)', 36, 22);
+
+            ctx.font = '900 96px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('YOUR DEDICATED IN-HOUSE TEAM', 1080, 2920);
+
+            ctx.font = '500 42px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillText('We work directly alongside your executive leaders in Salem & beyond.', 1080, 3040);
+        }
+
+        // 13: STAT 1 - 55% SPEED
+        function renderCut13(ctx, t, dur) {
+            draw4KPill(ctx, 1080, 800, 'VERIFIED CLIENT IMPACT', '800 32px "Space Grotesk"', '#10b981', 'rgba(16, 185, 129, 0.2)', 'rgba(16, 185, 129, 0.5)', 36, 22);
+
+            ctx.font = '900 380px "Space Grotesk"';
+            ctx.fillStyle = '#10b981';
+            ctx.textAlign = 'center';
+            ctx.shadowColor = 'rgba(16, 185, 129, 0.5)';
+            ctx.shadowBlur = 80;
+            ctx.fillText('55%', 1080, 1550);
+            ctx.shadowBlur = 0;
+
+            ctx.font = '900 96px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('TURNAROUND REDUCTION', 1080, 1800);
+
+            ctx.font = '500 44px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText('Across enterprise multi-branch manufacturing operations.', 1080, 1940);
+        }
+
+        // 14: STAT 2 - 3.4x ROI
+        function renderCut14(ctx, t, dur) {
+            draw4KPill(ctx, 1080, 800, 'ENTERPRISE VALUATION', '800 32px "Space Grotesk"', '#0066ff', 'rgba(0, 102, 255, 0.2)', 'rgba(0, 102, 255, 0.5)', 36, 22);
+
+            ctx.font = '900 380px "Space Grotesk"';
+            ctx.fillStyle = '#38bdf8';
+            ctx.textAlign = 'center';
+            ctx.shadowColor = 'rgba(56, 189, 248, 0.5)';
+            ctx.shadowBlur = 80;
+            ctx.fillText('3.4x', 1080, 1550);
+            ctx.shadowBlur = 0;
+
+            ctx.font = '900 96px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('AVERAGE 90-DAY ROI', 1080, 1800);
+
+            ctx.font = '500 44px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText('Measurable bottom-line efficiency within the first quarter.', 1080, 1940);
+        }
+
+        // 15: CLIENT PROOF
+        function renderCut15(ctx, t, dur) {
+            ctx.font = '900 64px "Space Grotesk"';
+            ctx.fillStyle = '#f59e0b';
+            ctx.textAlign = 'center';
+            ctx.fillText('★★★★★', 1080, 900);
+
+            draw4KPill(ctx, 1080, 1060, 'ENTERPRISE CASE STUDY', '800 32px "Space Grotesk"', '#f59e0b', 'rgba(245, 158, 11, 0.15)', 'rgba(245, 158, 11, 0.4)', 36, 22);
+
+            ctx.font = '700 60px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('"Zovance transformed our operations.', 1080, 1300);
+            ctx.fillText('Replaced 6 disconnected software tools with', 1080, 1420);
+            ctx.fillText('a single automated Zoho ecosystem in 3 weeks.', 1080, 1540);
+            ctx.fillText('Our turnaround time dropped by 55%."', 1080, 1660);
+
+            ctx.font = '800 40px "Space Grotesk"';
+            ctx.fillStyle = '#38bdf8';
+            ctx.fillText('— CHIEF OPERATING OFFICER, MANUFACTURING GROUP', 1080, 1900);
+        }
+
+        // 16: CTA KICKOFF
+        function renderCut16(ctx, t, dur) {
+            draw4KPill(ctx, 1080, 950, 'READY FOR DIGITAL TRANSFORMATION?', '800 32px "Space Grotesk"', '#38bdf8', 'rgba(56, 189, 248, 0.2)', 'rgba(56, 189, 248, 0.5)', 36, 22);
+
+            ctx.font = '900 120px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('READY TO SCALE', 1080, 1260);
+
+            const g = createZohoGradient(ctx, 300, 1440, 1860, 1440);
+            ctx.fillStyle = g;
+            ctx.fillText('YOUR ENTERPRISE?', 1080, 1440);
+
+            ctx.font = '500 48px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillText('Speak directly with our senior architects in Salem today.', 1080, 1680);
+        }
+
+        // 17: MASTER OUTRO & CONTACT DOCK (AUTHENTIC DARK BACKGROUND • NO WHITE BOX)
+        function renderCut17(ctx, t, dur) {
+            const p = t / dur;
+            const anim = easeOutCubic(Math.min(1, t / 0.7));
+
+            // Authentic Brand Lockup (Matches User Reference Image)
+            drawZovanceBrandShowcase(ctx, 740, anim);
+
+            ctx.save();
+            ctx.globalAlpha = anim;
+
+            // Direct Contact Cards
+            const dockY = 1180;
+
+            // 1. Direct Hotline Card
+            drawRoundedRect(ctx, 160, dockY, 1840, 320, 36);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(16, 185, 129, 0.4)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            ctx.font = '700 28px "Space Grotesk"';
+            ctx.fillStyle = '#10b981';
+            ctx.textAlign = 'left';
+            ctx.fillText('DIRECT ENTERPRISE HOTLINE (CALL / WHATSAPP)', 260, dockY + 110);
+
+            ctx.font = '900 76px "Space Grotesk"';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('+91 98943 84220', 260, dockY + 220);
+
+            draw4KPill(ctx, 1720, dockY + 160, '24/7 SUPPORT', '800 24px "Space Grotesk"', '#10b981', 'rgba(16, 185, 129, 0.15)', 'rgba(16, 185, 129, 0.4)', 28, 18);
+
+            // 2. Direct Consultation Email
+            const emailY = dockY + 380;
+            drawRoundedRect(ctx, 160, emailY, 1840, 320, 36);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0, 102, 255, 0.4)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            ctx.font = '700 28px "Space Grotesk"';
+            ctx.fillStyle = '#38bdf8';
+            ctx.fillText('DIRECT CONSULTATION EMAIL', 260, emailY + 110);
+
+            ctx.font = '900 70px "Space Grotesk"';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('info@zovancetech.com', 260, emailY + 220);
+
+            draw4KPill(ctx, 1720, emailY + 160, 'SAME-DAY REPLY', '800 24px "Space Grotesk"', '#38bdf8', 'rgba(56, 189, 248, 0.15)', 'rgba(56, 189, 248, 0.4)', 28, 18);
+
+            // 3. Official Website
+            const webY = emailY + 380;
+            drawRoundedRect(ctx, 160, webY, 1840, 320, 36);
+            ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(245, 158, 11, 0.4)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            ctx.font = '700 28px "Space Grotesk"';
+            ctx.fillStyle = '#f59e0b';
+            ctx.fillText('OFFICIAL ENTERPRISE PORTAL', 260, webY + 110);
+
+            ctx.font = '900 72px "Space Grotesk"';
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText('zovancetech.com', 260, webY + 220);
+
+            draw4KPill(ctx, 1720, webY + 160, 'VISIT PORTAL', '800 24px "Space Grotesk"', '#f59e0b', 'rgba(245, 158, 11, 0.15)', 'rgba(245, 158, 11, 0.4)', 28, 18);
+
+            // 4. Registered Office Address Card (Salem HQ)
+            const addrY = webY + 380;
+            drawRoundedRect(ctx, 160, addrY, 1840, 260, 32);
+            ctx.fillStyle = 'rgba(2, 6, 23, 0.85)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            ctx.font = '800 28px "Space Grotesk"';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText('REGISTERED CORPORATE HEADQUARTERS:', 240, addrY + 90);
+
+            ctx.font = '600 36px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#cbd5e1';
+            ctx.fillText('Zovance Tech Private Limited • Salem, Tamil Nadu 636010, India', 240, addrY + 170);
+
+            // 5. Vibrant Call-To-Action Button
+            const ctaY = addrY + 330;
+            const ctaGrad = ctx.createLinearGradient(160, ctaY, 2000, ctaY);
+            ctaGrad.addColorStop(0, '#0066ff');
+            ctaGrad.addColorStop(0.5, '#38bdf8');
+            ctaGrad.addColorStop(1, '#10b981');
+
+            drawRoundedRect(ctx, 160, ctaY, 1840, 200, 48);
+            ctx.fillStyle = ctaGrad;
+            ctx.shadowColor = 'rgba(0, 102, 255, 0.6)';
+            ctx.shadowBlur = 60;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            ctx.font = '900 52px "Plus Jakarta Sans"';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.fillText('BOOK YOUR FREE 1-ON-1 ARCHITECTURE SESSION →', 1080, ctaY + 115);
+
+            ctx.restore();
+        }
+
+        // =========================================================================
+        // MASTER RENDER LOOP (17 FAST-PACED RHYTHMIC CUTS)
+        // =========================================================================
+        let sceneCanvases = [];
+        let sceneContexts = [];
+
+        function initSceneCanvases() {
+            sceneCanvases = [
+                document.createElement('canvas'),
+                document.createElement('canvas')
+            ];
+            sceneCanvases[0].width = 2160;
+            sceneCanvases[0].height = 3840;
+            sceneCanvases[1].width = 2160;
+            sceneCanvases[1].height = 3840;
+            sceneContexts = [
+                sceneCanvases[0].getContext('2d'),
+                sceneCanvases[1].getContext('2d')
+            ];
+        }
+
+        function renderCutById(targetCtx, cutId, localTime, duration) {
+            if (targetCtx !== ctx) {
+                targetCtx.clearRect(0, 0, 2160, 3840);
+            }
+            switch (cutId) {
+                case 'cut01_brand_hook': renderCut01(targetCtx, localTime, duration); break;
+                case 'cut02_problem_fluff': renderCut02(targetCtx, localTime, duration); break;
+                case 'cut03_human_truth': renderCut03(targetCtx, localTime, duration); break;
+                case 'cut04_director_arunmozhi': renderCut04(targetCtx, localTime, duration); break;
+                case 'cut05_director_prasannan': renderCut05(targetCtx, localTime, duration); break;
+                case 'cut06_director_vasudevan': renderCut06(targetCtx, localTime, duration); break;
+                case 'cut07_craft_deluge': renderCut07(targetCtx, localTime, duration); break;
+                case 'cut08_live_pipeline': renderCut08(targetCtx, localTime, duration); break;
+                case 'cut09_suite_zoho_one': renderCut09(targetCtx, localTime, duration); break;
+                case 'cut10_app_crm': renderCut10(targetCtx, localTime, duration); break;
+                case 'cut11_app_books_creator': renderCut11(targetCtx, localTime, duration); break;
+                case 'cut12_team_action': renderCut12(targetCtx, localTime, duration); break;
+                case 'cut13_stat_speed': renderCut13(targetCtx, localTime, duration); break;
+                case 'cut14_stat_roi': renderCut14(targetCtx, localTime, duration); break;
+                case 'cut15_client_proof': renderCut15(targetCtx, localTime, duration); break;
+                case 'cut16_cta_kickoff': renderCut16(targetCtx, localTime, duration); break;
+                case 'cut17_outro_contact': renderCut17(targetCtx, localTime, duration); break;
+            }
+        }
+
+        function renderMasterFrame(time) {
+            const clampedTime = Math.max(0, Math.min(TOTAL_DURATION, time));
+            const progress = clampedTime / TOTAL_DURATION;
+
+            let accumulatedTime = 0;
+            let currentSceneIndex = 0;
+            let currentLocalTime = 0;
+
+            for (let i = 0; i < SCENES.length; i++) {
+                const s = SCENES[i];
+                if (clampedTime >= accumulatedTime && clampedTime < accumulatedTime + s.duration) {
+                    currentSceneIndex = i;
+                    currentLocalTime = clampedTime - accumulatedTime;
+                    break;
+                }
+                accumulatedTime += s.duration;
+            }
+
+            if (clampedTime >= TOTAL_DURATION) {
+                currentSceneIndex = SCENES.length - 1;
+                currentLocalTime = SCENES[currentSceneIndex].duration;
+            }
+
+            const currentScene = SCENES[currentSceneIndex];
+            const isTransitioning = (currentLocalTime > currentScene.duration - TRANSITION_TIME) && (currentSceneIndex < SCENES.length - 1);
+
+            // Global Ambient Background
+            drawGlobalBackground(ctx, clampedTime, progress);
+
+            if (!isTransitioning) {
+                renderCutById(ctx, currentScene.id, currentLocalTime, currentScene.duration);
+            } else {
+                // High-Energy Snap Transition (Flash dissolve + slight zoom punch)
+                const nextSceneIndex = currentSceneIndex + 1;
+                const nextScene = SCENES[nextSceneIndex];
+                const transitionProgress = (currentLocalTime - (currentScene.duration - TRANSITION_TIME)) / TRANSITION_TIME;
+                const easedT = easeInOutCubic(transitionProgress);
+
+                renderCutById(sceneContexts[0], currentScene.id, currentLocalTime, currentScene.duration);
+                renderCutById(sceneContexts[1], nextScene.id, transitionProgress * 0.3, nextScene.duration);
+
+                ctx.save();
+                ctx.globalAlpha = 1 - easedT;
+                ctx.drawImage(sceneCanvases[0], 0, -20 * easedT);
+
+                ctx.globalAlpha = easedT;
+                ctx.drawImage(sceneCanvases[1], 0, 20 * (1 - easedT));
+
+                // Subtle flash hit on the cut
+                const flashAlpha = Math.sin(transitionProgress * Math.PI) * 0.15;
+                ctx.fillStyle = `rgba(255, 255, 255, ${flashAlpha})`;
+                ctx.fillRect(0, 0, 2160, 3840);
+                ctx.restore();
+            }
+        }
+
+        // =========================================================================
+        // PREVIEW & RECORDING HOOKS
+        // =========================================================================
+        window.isReady = false;
+        window.isPaused = false;
+        window.previewStartTime = 0;
+
+        window.getTotalDuration = function() {
+            return TOTAL_DURATION;
+        };
+
+        window.renderFrameAtTime = function(t) {
+            renderMasterFrame(t);
+        };
+
+        function animate(timestamp) {
+            if (!window.previewStartTime) window.previewStartTime = timestamp;
+            if (!window.isPaused) {
+                const elapsed = (timestamp - window.previewStartTime) / 1000;
+                const loopTime = elapsed % (TOTAL_DURATION + 0.5);
+                renderMasterFrame(loopTime);
+            }
+            requestAnimationFrame(animate);
+        }
+
+        async function init() {
+            initSceneCanvases();
+            await preloadAssets();
+            window.isReady = true;
+            statusEl.textContent = `Fast-Paced Human Social Reel Active (2160x3840 • 17 Cuts • 36.0s)`;
+            requestAnimationFrame(animate);
+        }
+
+        init();
+    </script>
+</body>
+</html>

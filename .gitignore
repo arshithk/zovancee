@@ -7,6 +7,9 @@ Thumbs.db
 *.log
 
 # Large binary files exceeding GitHub 100MB limit
-public/*.webm
-zovance-showcase-video/*.webm
+**/*.webm
 
+# Temporary video frame renders & tests
+**/*preview-frames*/
+**/*preview-frames-4k*/
+test-*.mp4

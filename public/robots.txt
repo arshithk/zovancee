@@ -1,7 +1,9 @@
-# Robots.txt for https://zovancetech.com
+# Robots.txt for ZovanceTech (Zovance Tech Private Limited)
+# Official Website: https://www.zovancetech.com/
+
 User-agent: *
 Allow: /
+Disallow: /404.html
 
-# Disallow nothing on public marketing site
-# Sitemaps
-Sitemap: https://zovancetech.com/sitemap.xml
+# Sitemap Reference
+Sitemap: https://www.zovancetech.com/sitemap.xml
